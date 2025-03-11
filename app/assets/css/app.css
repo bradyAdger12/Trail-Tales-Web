@@ -1,0 +1,16 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: dark --default
+}
+
+@plugin "daisyui/theme" {
+  name: "dark";
+  default: true;
+  --color-primary: #DDD6BD;
+  --color-background: #1E1E2F;
+  --color-secondary: #325977;
+}
+
+button.btn {
+  @apply bg-primary text-black shadow-none;
+}
