@@ -30,6 +30,12 @@ export interface ForgotPasswordRequest {
     email: string;
 }
 
+export interface ContactRequest {
+    name: string;
+    email: string;
+    message: string;
+}
+
 export async function signUp(request: SignUpRequest): Promise<void> {
     try {
         await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/register`, request);
@@ -66,3 +72,10 @@ export async function authLogin(request: LoginRequest): Promise<LoginResponse> {
     }
 }
 
+export async function sendContact(request: ContactRequest): Promise<void> {
+    try {
+        await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/contact`, request);
+    } catch (error) {
+        throw error;
+    }
+}

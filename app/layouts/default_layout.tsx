@@ -45,7 +45,7 @@ export default function DefaultLayout({ children, className }: { children: React
                             <p className="text-lg font-semibold">{APP_NAME}</p>
                         </div>
                         <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-sm text-gray-400">
-                            <Link to="#" className="hover:text-white transition-colors">About</Link>
+                            <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
                             <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
                             <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
                             <div>© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</div>
