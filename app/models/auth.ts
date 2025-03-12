@@ -20,6 +20,16 @@ export interface LoginResponse {
     refreshToken: string;
     user: User;
 }
+
+export interface ResetPasswordRequest {
+    token: string;
+    password: string;
+}
+
+export interface ForgotPasswordRequest {
+    email: string;
+}
+
 export async function signUp(request: SignUpRequest): Promise<void> {
     try {
         await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/register`, request);
@@ -32,6 +42,21 @@ export async function signUp(request: SignUpRequest): Promise<void> {
     }
 }
 
+export async function forgotPassword(request: ForgotPasswordRequest): Promise<void> {
+    try {
+        await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/send_password_reset`, request);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function resetPassword(request: ResetPasswordRequest): Promise<void> {
+    try {
+        await axios.put(`${import.meta.env.VITE_SERVER_BASE_URL}/reset_password`, request);
+    } catch (error) {
+        throw error;
+    }
+}       
 export async function authLogin(request: LoginRequest): Promise<LoginResponse> {
     try {
         const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/login`, request);

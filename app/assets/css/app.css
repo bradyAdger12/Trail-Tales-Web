@@ -12,5 +12,9 @@
 }
 
 button.btn {
-  @apply bg-primary text-black shadow-none;
+  @apply btn-primary text-black shadow-none;
+}
+
+button.btn:disabled {
+  @apply bg-black/10 text-gray-400 shadow-none;
 }

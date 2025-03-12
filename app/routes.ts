@@ -5,5 +5,6 @@ export default [
     route("about", "routes/about.tsx"),
     route("login", "routes/login.tsx"),
     route("signup", "routes/signup.tsx"),
-    route("me", "routes/me.tsx")
+    route("me", "routes/me.tsx"),
+    route("reset-password", "routes/reset-password.tsx")
 ] satisfies RouteConfig;

@@ -12,10 +12,6 @@ export function meta({ }: Route.MetaArgs) {
 export default function About() {
     const { user } = useAuth();
     return <DefaultLayout>
-        <div>About</div>
-        <div>
-            <h1>{user?.display_name}</h1>
-            <p>{user?.email}</p>
-        </div>
+        <div>//TODO: Create App</div>
     </DefaultLayout>;
 }

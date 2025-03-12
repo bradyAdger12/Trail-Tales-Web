@@ -4,7 +4,8 @@ import { Link, useNavigate } from "react-router";
 import { useState } from "react";
 import { useAuth } from "~/contexts/AuthContext";
 import { APP_NAME } from "~/lib/constants";
-
+import { useDialog } from "~/contexts/DialogContext";
+import { ForgotPasswordDialog } from "~/components/dialogs/ForgotPasswordDialog";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: `Login - ${APP_NAME}` },
@@ -22,6 +23,7 @@ export default function Login() {
   const [signinLoading, setSigninLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const { openDialog } = useDialog();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -80,9 +82,9 @@ export default function Login() {
                     <label htmlFor="password" className="block text-sm font-medium text-gray-300">
                       Password
                     </label>
-                    <Link to="/forgot-password" className="text-sm text-primary hover:text-primary/80 transition-colors">
+                    <span className="text-sm text-primary hover:text-primary/80 transition-colors cursor-pointer" onClick={() => openDialog(<ForgotPasswordDialog />)}>
                       Forgot password?
-                    </Link>
+                    </span>
                   </div>
                   <div className="w-full flex items-center bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400">
                     <input
@@ -119,7 +121,7 @@ export default function Login() {
 
                 <button
                   type="submit"
-                  className="w-full btn btn-primary text-black px-8 py-3 text-lg font-semibold transition-all duration-300 hover:-translate-y-[3px] hover:shadow-lg hover:shadow-primary/20"
+                  className="w-full btn btn-primary text-black px-8 py-3 text-lg font-semibold"
                 >
                   Sign in {signinLoading && <span className="loading loading-spinner loading-xs"></span>}
                 </button>

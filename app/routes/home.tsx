@@ -39,7 +39,7 @@ export default function Home() {
                 <Link to="/signup" className="btn btn-primary shadow-none text-black px-8 py-3 text-sm md:text-lg font-medium transition-all duration-300 hover:-translate-y-[3px]">
                   Start your adventure
                 </Link>
-                <Link to="/about" className="btn bg-secondary/10 border-none shadow-none px-8 py-3 text-lg text-sm md:text-lg font-light transition-all duration-300 hover:-translate-y-[3px]">
+                <Link to="#" className="btn bg-secondary/10 border-none shadow-none px-8 py-3 text-lg text-sm md:text-lg font-light transition-all duration-300 hover:-translate-y-[3px]">
                   How does it work?
                 </Link>
               </div>

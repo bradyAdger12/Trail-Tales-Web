@@ -239,7 +239,7 @@ export default function SignUp() {
 
                 <button
                   type="submit"
-                  className="w-full btn btn-primary text-black px-8 py-3 text-lg font-semibold transition-all duration-300 hover:-translate-y-[3px] hover:shadow-lg hover:shadow-primary/20"
+                  className="w-full btn btn-primary text-black px-8 py-3 text-lg font-semibold"
                 >
                   Create Account {signupLoading && <span className="loading loading-spinner loading-xs"></span>}
                 </button>
