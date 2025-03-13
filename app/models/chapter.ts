@@ -9,7 +9,8 @@ export interface Chapter {
 
 export interface Action {
     id: string;
-    description: string;
+    description: string,
+    selected: boolean,
     difficulty: string,
     food: number,
     health: number,
@@ -22,6 +23,15 @@ export async function fetchChapter(chapterId: string): Promise<Chapter> {
     try {
         const response = await authApi.get(`${import.meta.env.VITE_SERVER_BASE_URL}/chapters/${chapterId}`)
         return response.data as Chapter
+    } catch (e) {
+        throw e
+    }
+}
+
+export async function selectAction(chapterId: string, actionId: string): Promise<Action> {
+    try {
+        const response = await authApi.put(`${import.meta.env.VITE_SERVER_BASE_URL}/chapters/${chapterId}/select_action/${actionId}`)
+        return response.data as Action
     } catch (e) {
         throw e
     }
