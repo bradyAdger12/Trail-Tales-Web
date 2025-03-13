@@ -2,6 +2,7 @@ import DefaultLayout from "~/layouts/default_layout";
 import type { Route } from "./+types/home";
 import { Link } from "react-router";
 import { APP_NAME } from "~/lib/constants";
+import UnprotectedRoute from "~/components/UnprotectedRoute";
 
 export function meta({ }: Route.MetaArgs) {
   return [
@@ -12,7 +13,7 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <DefaultLayout>
+    <UnprotectedRoute>
       <div className="h-screen">
         <div className="relative pt-24 pb-20 sm:pt-32 sm:pb-28">
           <section className="container mx-auto px-4">
@@ -24,17 +25,17 @@ export default function Home() {
                 </div>
                 <span className="text-sm font-medium text-gray-200">Now in Public Beta</span>
               </div>
-              
+
               <h1 className="text-4xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 leading-tight mb-6">
                 Turn Your Exercise Into
                 <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text">Epic Adventures</span>
               </h1>
-              
+
               <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mb-8">
-                Every step you take shapes your story. Complete runs or walks to explore new worlds, 
+                Every step you take shapes your story. Complete runs or walks to explore new worlds,
                 make daring choices, and uncover hidden secrets in your personalized adventure.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                 <Link to="/signup" className="btn btn-primary shadow-none text-black px-8 py-3 text-sm md:text-lg font-medium transition-all duration-300 hover:-translate-y-[3px]">
                   Start your adventure
@@ -43,7 +44,7 @@ export default function Home() {
                   How does it work?
                 </Link>
               </div>
-              
+
               {/* <div className="mt-12 flex items-center gap-8 text-gray-400">
                 <div className="flex items-center gap-2">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -60,6 +61,6 @@ export default function Home() {
           </section>
         </div>
       </div>
-    </DefaultLayout>
+    </UnprotectedRoute>
   );
 }

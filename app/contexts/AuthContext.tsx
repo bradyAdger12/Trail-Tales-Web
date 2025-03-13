@@ -1,3 +1,4 @@
+import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { authLogin, type LoginRequest, type User } from "~/models/auth";
@@ -22,7 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setToken(null);
         setRefreshToken(null);
         setUser(null);
-        if (typeof window === "undefined") return
+        // if (typeof window === "undefined") return
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("user");
@@ -30,10 +31,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     async function login(request: LoginRequest) {
         try {
             const response = await authLogin(request);
-            setToken(response.token);
-            setRefreshToken(response.refreshToken);
             setUser(response.user);
-            if (typeof window === "undefined") return
             localStorage.setItem("token", response.token);
             localStorage.setItem("refreshToken", response.refreshToken);
             localStorage.setItem("user", JSON.stringify(response.user));
@@ -44,22 +42,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     useEffect(() => {
-        if (typeof window === "undefined") return;
-        const token = localStorage.getItem("token");
-        const refreshToken = localStorage.getItem("refreshToken");
         const user = localStorage.getItem("user");
-        if (token) {
-            setToken(token);
-        }
-        if (refreshToken) {
-            setRefreshToken(refreshToken);
-        }
         if (user) {
             setUser(JSON.parse(user));
         }
     }, []);
 
-    const isAuthenticated = typeof window !== "undefined" && !!token;
+    const isAuthenticated = typeof window !== "undefined" && !!localStorage.getItem("token");
 
     return <AuthContext.Provider value={{ login, isAuthenticated, token, refreshToken, user, logout }}>{children}</AuthContext.Provider>;
 }

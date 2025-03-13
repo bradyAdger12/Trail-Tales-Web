@@ -1,12 +1,11 @@
-import DefaultLayout from "~/layouts/default_layout";
 import type { Route } from "./+types/signup";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import { useState, useEffect } from "react";
-import { resetPassword, signUp } from "~/models/auth";
+import { resetPassword } from "~/models/auth";
 import { useToast } from "~/contexts/ToastContext";
 import { APP_NAME } from "~/lib/constants";
 import { ErrorAlert } from "~/components/alerts/Alerts";
-import { formatError } from "~/lib/helper";
+import UnprotectedRoute from "~/components/UnprotectedRoute";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: `Reset Password - ${APP_NAME}` },
@@ -57,9 +56,8 @@ export default function ResetPassword() {
             })
             navigate("/login")
             showToast("Password reset successfully", "success");
-        } catch (error) {
-            console.log(error)
-            setError(formatError(error));
+        } catch (error: any) {
+            setError(error.message);
         } finally {
             setResetLoading(false);
         }
@@ -102,7 +100,7 @@ export default function ResetPassword() {
     };
 
     return (
-        <DefaultLayout>
+        <UnprotectedRoute>
             <div>
                 <div className="relative pt-12">
                     <section className="container mx-auto px-4">
@@ -210,6 +208,6 @@ export default function ResetPassword() {
                     </section>
                 </div>
             </div>
-        </DefaultLayout>
+        </UnprotectedRoute>
     );
 }

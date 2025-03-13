@@ -1,7 +1,8 @@
-import DefaultLayout from "~/layouts/default_layout";
+import { redirect } from "react-router";
 import type { Route } from "./+types/me";
-import { useAuth } from "~/contexts/AuthContext";
-
+import ProtectedRoute from "~/components/ProtectedRoute";
+import Stories from "~/components/story/Stories";
+import { fetchCurrentStory, fetchStoryTemplates } from "~/models/story";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: "My Account - Epic Adventures" },
@@ -9,9 +10,26 @@ export function meta({ }: Route.MetaArgs) {
     ];
 }
 
+export function HydrateFallback() {
+    return <div>Loading...</div>;
+}
+
+export async function clientLoader({ params }: Route.ClientLoaderArgs) {
+    const [storyTemplates, currentStory] = await Promise.all([
+        fetchStoryTemplates().catch(() => {}),
+        fetchCurrentStory().catch(() => {})
+    ])
+    if (currentStory) {
+        console.log("currentStory", currentStory)
+        return redirect(`/story/${currentStory.id}`);
+    }
+    return { storyTemplates };
+}
+
 export default function Me() {
-    const { user } = useAuth();
-    return <DefaultLayout>
-        <div>//TODO: Create App</div>
-    </DefaultLayout>;
+    return (
+        <ProtectedRoute>
+            <Stories />
+        </ProtectedRoute>
+    );
 }

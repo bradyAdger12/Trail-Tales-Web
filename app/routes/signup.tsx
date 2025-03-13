@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { signUp } from "~/models/auth";
 import { useToast } from "~/contexts/ToastContext";
 import { APP_NAME } from "~/lib/constants";
-
+import UnprotectedRoute from "~/components/UnprotectedRoute";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: `Sign Up - ${APP_NAME}` },
@@ -107,7 +107,7 @@ export default function SignUp() {
   };
 
   return (
-    <DefaultLayout>
+    <UnprotectedRoute>
       <div>
         <div className="relative pt-12">
           <section className="container mx-auto px-4">
@@ -255,6 +255,6 @@ export default function SignUp() {
           </section>
         </div>
       </div>
-    </DefaultLayout>
+    </UnprotectedRoute>
   );
 }

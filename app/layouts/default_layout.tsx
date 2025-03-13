@@ -1,8 +1,8 @@
-import { Link, useNavigate } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
 import { useAuth } from "~/contexts/AuthContext";
 import { APP_NAME } from "~/lib/constants";
 
-export default function DefaultLayout({ children, className }: { children: React.ReactNode, className?: string }) {
+export default function DefaultLayout({ className }: { className?: string }) {
     const { isAuthenticated, logout } = useAuth();
     const navigate = useNavigate();
     return (
@@ -35,7 +35,7 @@ export default function DefaultLayout({ children, className }: { children: React
             <div className="container mx-auto mt-12 h-screen">
                 <div className="absolute inset-0 bg-[url('/app/assets/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 opacity-20 blur-3xl pointer-events-none"></div>
-                {children}
+                <Outlet />
             </div>
             <footer className="border-t border-gray-700 py-4">
                 <div className="container mx-auto">

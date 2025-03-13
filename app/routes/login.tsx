@@ -6,6 +6,7 @@ import { useAuth } from "~/contexts/AuthContext";
 import { APP_NAME } from "~/lib/constants";
 import { useDialog } from "~/contexts/DialogContext";
 import { ForgotPasswordDialog } from "~/components/dialogs/ForgotPasswordDialog";
+import UnprotectedRoute from "~/components/UnprotectedRoute";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: `Login - ${APP_NAME}` },
@@ -33,14 +34,15 @@ export default function Login() {
         password: formData.password
       })
       navigate("/me");
-    } catch (error) {
-      setError(error as string);
+    } catch (error: any) {
+      setError(error.message);
     } finally {
       setSigninLoading(false);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError("");
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
@@ -48,9 +50,9 @@ export default function Login() {
   };
 
   return (
-    <DefaultLayout>
-      <div>
-        <div className="relative pt-12">
+    <UnprotectedRoute>
+        <div>
+          <div className="relative pt-12">
           <section className="container mx-auto px-4">
             <div className="max-w-md mx-auto">
               <div className="text-center mb-8">
@@ -137,6 +139,6 @@ export default function Login() {
           </section>
         </div>
       </div>
-    </DefaultLayout>
+    </UnprotectedRoute>
   );
 }
