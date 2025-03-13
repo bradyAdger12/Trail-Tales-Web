@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Compass outer circle -->
+    <circle cx="256" cy="256" r="200" stroke="#F3F4F6" stroke-width="8"/>
+    
+    <!-- Compass inner circle -->
+    <circle cx="256" cy="256" r="180" stroke="#F3F4F6" stroke-width="4"/>
+    
+    <!-- Cardinal points -->
+    <path d="M256 56 L256 76" stroke="#F3F4F6" stroke-width="8" stroke-linecap="round"/> <!-- N -->
+    <path d="M256 436 L256 456" stroke="#F3F4F6" stroke-width="8" stroke-linecap="round"/> <!-- S -->
+    <path d="M56 256 L76 256" stroke="#F3F4F6" stroke-width="8" stroke-linecap="round"/> <!-- W -->
+    <path d="M436 256 L456 256" stroke="#F3F4F6" stroke-width="8" stroke-linecap="round"/> <!-- E -->
+    
+    <!-- Broken needle -->
+    <path d="M256 256 L256 76" stroke="#EF4444" stroke-width="12" stroke-linecap="round" stroke-dasharray="20 20"/>
+    
+    <!-- Crack lines -->
+    <path d="M156 156 L356 356" stroke="#F3F4F6" stroke-width="4" stroke-linecap="round"/>
+    <path d="M356 156 L156 356" stroke="#F3F4F6" stroke-width="4" stroke-linecap="round"/>
+</svg> 

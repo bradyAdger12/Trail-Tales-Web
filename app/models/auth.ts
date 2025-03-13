@@ -37,6 +37,11 @@ export interface ContactRequest {
     message: string;
 }
 
+export interface RefreshTokenResponse {
+    token: string;
+    refreshToken: string;
+}
+
 export async function signUp(request: SignUpRequest): Promise<void> {
     try {
         await api.post(`${import.meta.env.VITE_SERVER_BASE_URL}/register`, request);
@@ -49,19 +54,16 @@ export async function signUp(request: SignUpRequest): Promise<void> {
     }
 }
 
-export async function getRefreshToken(): Promise<void> {
+export async function getRefreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
     try {
-    const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/refresh`, {}, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("refreshToken")}`
-        },
-        
-    });
-    localStorage.setItem("token", response.data.token);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
-    return response.data
+        const response = await axios.post(`${import.meta.env.VITE_SERVER_BASE_URL}/refresh`, {}, {
+            headers: {
+                Authorization: `Bearer ${refreshToken}`
+            },
+        });
+        return response.data as RefreshTokenResponse
     } catch (error) {
-        console.log(error)
+        throw error
     }
 }
 
@@ -79,7 +81,7 @@ export async function resetPassword(request: ResetPasswordRequest): Promise<void
     } catch (error) {
         throw error;
     }
-}       
+}
 export async function authLogin(request: LoginRequest): Promise<LoginResponse> {
     try {
         const response = await api.post(`/login`, request);

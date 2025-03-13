@@ -16,7 +16,7 @@ export default function UnprotectedRoute({ children }: UnprotectedRouteProps) {
         } else {
             setShow(true);
         }
-    }, []);
+    }, [isAuthenticated]);
 
     return <>{show && children}</>;
 } 

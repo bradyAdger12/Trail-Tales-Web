@@ -13,7 +13,7 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
         if (!isAuthenticated) {
             navigate("/login");
         }
-    }, []);
+    }, [isAuthenticated]);
 
-    return <>{children}</>;
+    return <>{isAuthenticated && children}</>;
 } 

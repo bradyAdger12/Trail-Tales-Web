@@ -11,7 +11,7 @@
   --color-secondary: #325977;
 }
 
-button.btn {
+.btn {
   @apply btn-primary text-black shadow-none;
 }
 

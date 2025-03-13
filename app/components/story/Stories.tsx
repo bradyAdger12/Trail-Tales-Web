@@ -15,8 +15,8 @@ export default function Stories() {
         try {
             if (starting) return;
             setStarting(true);
-            const story = await startStory(storyTemplateId)
-            navigate(`/story/${story.id}`)
+            await startStory(storyTemplateId)
+            navigate(0)
         } catch (error: any) {
             showToast(error.message, "error")
         } finally {
@@ -29,7 +29,7 @@ export default function Stories() {
                 <h1 className="text-2xl font-bold mb-4">Story Templates</h1>
                 <p className="mb-4">Choose a story to start your adventure.</p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {storyTemplates.map((storyTemplate: Story) => (
+                    {storyTemplates?.map((storyTemplate: Story) => (
                         <div key={storyTemplate.id} className="card bg-base-100 shadow-xl mb-4 hover:shadow-2xl transition-shadow hover:shadow-primary/20 duration-300">
                             <figure>
                                 <img

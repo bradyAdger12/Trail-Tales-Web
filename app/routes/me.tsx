@@ -1,8 +1,9 @@
-import { redirect } from "react-router";
+import { redirect, useLoaderData } from "react-router";
 import type { Route } from "./+types/me";
 import ProtectedRoute from "~/components/ProtectedRoute";
 import Stories from "~/components/story/Stories";
 import { fetchCurrentStory, fetchStoryTemplates } from "~/models/story";
+import Story from "~/components/story/Story";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: "My Account - Epic Adventures" },
@@ -19,17 +20,14 @@ export async function clientLoader({ params }: Route.ClientLoaderArgs) {
         fetchStoryTemplates().catch(() => {}),
         fetchCurrentStory().catch(() => {})
     ])
-    if (currentStory) {
-        console.log("currentStory", currentStory)
-        return redirect(`/story/${currentStory.id}`);
-    }
-    return { storyTemplates };
+    return { storyTemplates, currentStory };
 }
 
 export default function Me() {
+    const { storyTemplates, currentStory } = useLoaderData<typeof clientLoader>();
     return (
         <ProtectedRoute>
-            <Stories />
+            {currentStory ? <Story story={currentStory} /> : <Stories />}
         </ProtectedRoute>
     );
 }

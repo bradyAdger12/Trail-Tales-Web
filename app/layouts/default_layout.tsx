@@ -1,9 +1,11 @@
+import { useCookies } from "react-cookie";
 import { Link, Outlet, useNavigate } from "react-router";
 import { useAuth } from "~/contexts/AuthContext";
 import { APP_NAME } from "~/lib/constants";
 
 export default function DefaultLayout({ className }: { className?: string }) {
     const { isAuthenticated, logout } = useAuth();
+    const [cookies, setCookie] = useCookies(['token', 'refreshToken', 'user']);
     const navigate = useNavigate();
     return (
         <div className={className}>
@@ -21,8 +23,8 @@ export default function DefaultLayout({ className }: { className?: string }) {
                             </div>
                             <div>
                                 <ul className="menu menu-horizontal">
-                                    {!isAuthenticated && <li><Link to="/login">Login</Link></li>}
-                                    {isAuthenticated && <li><span onClick={() => {
+                                    {!cookies.token && <li><Link to="/login">Login</Link></li>}
+                                    {cookies.token && <li><span onClick={() => {
                                         logout();
                                         navigate("/");
                                     }}>Logout</span></li>}
@@ -32,7 +34,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                     </div>
                 </nav>
             </header>
-            <div className="container mx-auto mt-12 h-screen">
+            <div className="container mx-auto my-12 min-h-screen">
                 <div className="absolute inset-0 bg-[url('/app/assets/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 opacity-20 blur-3xl pointer-events-none"></div>
                 <Outlet />
