@@ -1,5 +1,5 @@
 import { useCookies } from "react-cookie";
-import { Link, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import Footer from "~/components/Footer";
 import { useAuth } from "~/contexts/AuthContext";
 import { APP_NAME } from "~/lib/constants";
@@ -25,10 +25,17 @@ export default function DefaultLayout({ className }: { className?: string }) {
                             <div>
                                 <ul className="menu menu-horizontal">
                                     {!cookies.token && <li><Link to="/login">Login</Link></li>}
-                                    {cookies.token && <li><span onClick={() => {
-                                        logout();
-                                        navigate("/");
-                                    }}>Logout</span></li>}
+                                    {cookies.token &&
+                                        <ul className="flex gap-x-4">
+                                            <li><NavLink to="/me" className={({ isActive }) => isActive ? 'text-primary' : ''}>My Adventures</NavLink></li>
+                                            <li><NavLink to="/profile" className={({ isActive }) => isActive ? 'text-primary' : ''}>Profile</NavLink></li>
+                                            <li><span onClick={() => {
+                                                logout();
+                                                navigate("/");
+                                            }}>Logout</span></li>
+
+                                        </ul>
+                                    }
                                 </ul>
                             </div>
                         </div>

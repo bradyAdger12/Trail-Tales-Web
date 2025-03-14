@@ -1,13 +1,14 @@
 import axios from "axios";
 import { createContext, use, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router";
 import { api, authApi, type ErrorMessage } from "~/lib/axios";
-import { authLogin, getRefreshToken, type LoginRequest, type User } from "~/models/auth";
+import { authLogin, fetchMe, getRefreshToken, updateMe, type LoginRequest, type User } from "~/api/auth";
 
 interface AuthContextType {
     login: (request: LoginRequest) => Promise<void>;
     logout: () => void;
+    getMeRequest: () => Promise<void>;
+    updateMeRequest: (request: Partial<User>) => Promise<void>;
     token: string | null;
     refreshToken: string | null;
     user: User | null;
@@ -27,6 +28,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCookie('user', null);
         setUser(null);
     }
+
+    async function updateMeRequest(request: Partial<User>) {
+        try {
+            const response = await updateMe(request);
+            setUser(response);
+            setCookie('user', response);
+        } catch (error) {
+        }
+    }
+
+    async function getMeRequest() {
+        try {
+            const response = await fetchMe();
+            setUser(response);
+            setCookie('user', response);
+        } catch (error) {
+        }
+    }
+
     async function login(request: LoginRequest) {
         try {
             const response = await authLogin(request);
@@ -61,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 }
                 originalRequest._retry = true;
                 const refreshToken = cookies.refreshToken;
-                
+
                 if (!refreshToken) {
                     return Promise.reject(formattedError);
                 }
@@ -76,12 +96,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             } catch (refreshError) {
                 setCookie('token', null);
                 setCookie('refreshToken', null);
-                
+
                 // If we're in a browser environment, redirect to login
                 if (typeof window !== 'undefined') {
                     window.location.href = '/login';
                 }
-                
+                console.error(formattedError)
                 return Promise.reject(formattedError);
             }
         }
@@ -93,7 +113,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             (response) => response,
             handleError
         );
-        
+
         api.interceptors.response.use(
             (response) => response, //skip response
             handleError
@@ -109,7 +129,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         );
     })
-    return <AuthContext.Provider value={{ login, isAuthenticated, token: cookies.token, refreshToken: cookies.refreshToken, user, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ login, isAuthenticated, token: cookies.token, refreshToken: cookies.refreshToken, user, logout, getMeRequest, updateMeRequest }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

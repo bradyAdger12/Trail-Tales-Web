@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useToast } from '~/contexts/ToastContext'
 import { metersToMiles } from '~/lib/conversions'
-import { selectAction, type Action, type Chapter } from '~/models/chapter'
+import { selectAction, type Action, type Chapter } from '~/api/chapter'
+import Character from '../character/Character'
 export default function Chapter({ chapter }: { chapter: Chapter }) {
     const { showToast } = useToast()
     const [actions, setActions] = useState(chapter.actions)
@@ -22,48 +23,51 @@ export default function Chapter({ chapter }: { chapter: Chapter }) {
     }
     return (
         <div>
-            <div className="max-w-4xl mx-auto p-4">
-                <h1 className="text-2xl md:text-3xl font-bold mb-4">{chapter.title}</h1>
-                <div className="bg-base-200 p-6 rounded-lg mb-8">
-                    <p className="text-sm md:text-lg whitespace-pre-line">{chapter.description}</p>
-                </div>
+            <div className="p-4 flex flex-wrap md:flex-nowrap gap-10">
+                <Character />
+                <div>
+                    <h1 className="text-2xl md:text-3xl font-bold mb-4">{chapter.title}</h1>
+                    <div className="bg-base-200 p-6 rounded-lg mb-8">
+                        <p className="text-sm md:text-lg whitespace-pre-line">{chapter.description}</p>
+                    </div>
 
-                <h2 className="text-2xl font-semibold mb-4">Choose Your Next Action</h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {actions.map((action) => (
-                        <div key={action.id} onClick={() => select(action)} className={`card bg-base-100 border-2 ${action.selected && 'border-green-400'} shadow-xl transition-all duration-300 hover:scale-102 cursor-pointer`}>
-                            <div className="card-body">
-                                <h3 className="card-title text-lg">{action.description}</h3>
-                                <p className="text-sm mb-2">Difficulty: <span className="font-medium">{action.difficulty}</span></p>
-                                <div>
-                                    <div className="flex justify-between">
-                                        <div>
-                                            <div className="stat-title flex items-center gap-1">
-                                                <i className="fas fa-heart"></i> Health
+                    <h2 className="text-2xl font-semibold mb-4">Choose Your Next Action</h2>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {actions.map((action) => (
+                            <div key={action.id} onClick={() => select(action)} className={`card bg-base-100 border-2 ${action.selected && 'border-green-400'} shadow-xl transition-all duration-300 hover:scale-102 cursor-pointer`}>
+                                <div className="card-body">
+                                    <h3 className="card-title text-lg">{action.description}</h3>
+                                    <p className="text-sm mb-2">Difficulty: <span className="font-medium">{action.difficulty}</span></p>
+                                    <div>
+                                        <div className="flex gap-5">
+                                            <div>
+                                                <div className="stat-title flex items-center gap-1">
+                                                    <i className="fas fa-heart"></i> Health
+                                                </div>
+                                                <div className="stat-value text-red-400 text-lg">+{action.health}</div>
                                             </div>
-                                            <div className="stat-value text-red-400 text-lg">+{action.health}</div>
-                                        </div>
-                                        <div>
-                                            <div className="stat-title flex items-center gap-1">
-                                                <i className="fas fa-tint"></i> Water
+                                            <div>
+                                                <div className="stat-title flex items-center gap-1">
+                                                    <i className="fas fa-tint"></i> Water
+                                                </div>
+                                                <div className="stat-value text-blue-400 text-lg">+{action.water}</div>
                                             </div>
-                                            <div className="stat-value text-blue-400 text-lg">+{action.water}</div>
-                                        </div>
-                                        <div>
-                                            <div className="stat-title flex items-center gap-1">
-                                                <i className="fas fa-drumstick-bite"></i> Food
+                                            <div>
+                                                <div className="stat-title flex items-center gap-1">
+                                                    <i className="fas fa-drumstick-bite"></i> Food
+                                                </div>
+                                                <div className="stat-value text-yellow-400 text-lg">+{action.food}</div>
                                             </div>
-                                            <div className="stat-value text-success text-lg">+{action.food}</div>
                                         </div>
-                                    </div>
-                                    <div className="mt-4">
-                                        <div className="stat-title">Distance</div>
-                                        <div className="stat-value text-primary">{metersToMiles(action.distance_in_meters).toFixed(2)} miles</div>
+                                        <div className="mt-4">
+                                            <div className="stat-title">Distance</div>
+                                            <div className="stat-value text-primary">{metersToMiles(action.distance_in_meters).toFixed(2)} miles</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

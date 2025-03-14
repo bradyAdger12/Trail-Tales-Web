@@ -1,6 +1,6 @@
 import type { AxiosError } from "axios"
 import { useEffect, useState } from "react"
-import { forgotPassword } from "~/models/auth"
+import { forgotPassword } from "~/api/auth"
 import { SuccessAlert } from "../alerts/Alerts"
 import { ErrorAlert } from "../alerts/Alerts"
 export const ForgotPasswordDialog = () => {

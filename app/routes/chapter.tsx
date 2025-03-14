@@ -1,4 +1,4 @@
-import { fetchChapter } from "~/models/chapter";
+import { fetchChapter } from "~/api/chapter";
 import type { Route } from "./+types/chapter";
 import { useLoaderData } from "react-router";
 import { ErrorAlert } from "~/components/alerts/Alerts";

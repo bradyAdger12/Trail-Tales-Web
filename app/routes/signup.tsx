@@ -2,7 +2,7 @@ import DefaultLayout from "~/layouts/default_layout";
 import type { Route } from "./+types/signup";
 import { Link, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
-import { signUp } from "~/models/auth";
+import { signUp } from "~/api/auth";
 import { useToast } from "~/contexts/ToastContext";
 import { APP_NAME } from "~/lib/constants";
 import UnprotectedRoute from "~/components/UnprotectedRoute";

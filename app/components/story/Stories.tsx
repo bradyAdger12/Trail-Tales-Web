@@ -1,4 +1,4 @@
-import { startStory, type Story } from "~/models/story";
+import { startStory, type Story } from "~/api/story";
 import ProtectedRoute from "../ProtectedRoute";
 import { useLoaderData, useNavigate } from "react-router";
 import { useToast } from "~/contexts/ToastContext";

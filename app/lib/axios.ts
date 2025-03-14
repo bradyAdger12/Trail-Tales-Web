@@ -1,6 +1,6 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { getRefreshToken } from "~/models/auth";
+import { getRefreshToken } from "~/api/auth";
 
 export interface ErrorMessage {
     status: number;

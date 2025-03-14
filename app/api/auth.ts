@@ -2,7 +2,15 @@ import axios from "axios";
 import { api, authApi } from "~/lib/axios";
 export interface User {
     id: string;
+    health: number;
+    hunger: number;
+    thirst: number;
     display_name: string;
+    avatar_file_key: string
+    strava_access_token: string;
+    strava_refresh_token: string;
+    weekly_distance_in_kilometers: number;
+    threshold_pace_seconds: number;
     email: string;
 }
 export interface SignUpRequest {
@@ -94,6 +102,24 @@ export async function authLogin(request: LoginRequest): Promise<LoginResponse> {
 export async function sendContact(request: ContactRequest): Promise<void> {
     try {
         await api.post(`${import.meta.env.VITE_SERVER_BASE_URL}/contact`, request);
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function fetchMe(): Promise<User> {
+    try {
+        const response = await authApi.get(`${import.meta.env.VITE_SERVER_BASE_URL}/user/me`);
+        return response.data as User;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function updateMe(request: Partial<User>): Promise<User> {
+    try {
+        const response = await authApi.put(`${import.meta.env.VITE_SERVER_BASE_URL}/user/me`, request);
+        return response.data as User;
     } catch (error) {
         throw error;
     }

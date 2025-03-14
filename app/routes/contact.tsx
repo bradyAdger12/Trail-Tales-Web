@@ -1,6 +1,6 @@
 import { useState } from "react";
 import type { Route } from "./+types/contact";
-import { sendContact } from "~/models/auth";
+import { sendContact } from "~/api/auth";
 import { ErrorAlert, SuccessAlert } from "~/components/alerts/Alerts";
 import { APP_NAME } from "~/lib/constants";
 export function meta({ }: Route.MetaArgs) {

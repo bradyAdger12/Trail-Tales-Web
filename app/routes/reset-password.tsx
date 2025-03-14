@@ -1,7 +1,7 @@
 import type { Route } from "./+types/signup";
 import { useNavigate, useSearchParams } from "react-router";
 import { useState, useEffect } from "react";
-import { resetPassword } from "~/models/auth";
+import { resetPassword } from "~/api/auth";
 import { useToast } from "~/contexts/ToastContext";
 import { APP_NAME } from "~/lib/constants";
 import { ErrorAlert } from "~/components/alerts/Alerts";
