@@ -42,7 +42,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                     </div>
                 </nav>
             </header>
-            <div className="container mx-auto my-12 min-h-screen">
+            <div className="container mx-auto my-12 px-6 md:px-0 min-h-screen">
                 <div className="absolute inset-0 bg-[url('/app/assets/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 opacity-20 blur-3xl pointer-events-none"></div>
                 <Outlet />

@@ -32,7 +32,7 @@ h5 {
 }
 
 .btn {
-  @apply btn-primary text-black shadow-none;
+  @apply text-base-100 shadow-none;
 }
 
 button.btn:disabled {

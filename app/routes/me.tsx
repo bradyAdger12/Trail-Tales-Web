@@ -4,8 +4,8 @@ import ProtectedRoute from "~/components/ProtectedRoute";
 import Stories from "~/components/story/Stories";
 import { fetchCurrentStory, fetchStoryTemplates } from "~/api/story";
 import Story from "~/components/story/Story";
-import { useAuth } from "~/contexts/AuthContext";
 import Character from "~/components/character/Character";
+import { useQuery } from "@tanstack/react-query";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: "My Account - Epic Adventures" },
@@ -13,25 +13,15 @@ export function meta({ }: Route.MetaArgs) {
     ];
 }
 
-export function HydrateFallback() {
-    return <span className="loading loading-spinner loading-lg"></span>;
-}
-
-export async function clientLoader({ params }: Route.ClientLoaderArgs) {
-    const [storyTemplates, currentStory] = await Promise.all([
-        fetchStoryTemplates().catch(() => { }),
-        fetchCurrentStory().catch(() => { })
-    ])
-    return { storyTemplates, currentStory };
-}
-
 export default function Me() {
-    const { storyTemplates, currentStory } = useLoaderData<typeof clientLoader>();
+    // const { storyTemplates, currentStory } = useLoaderData<typeof clientLoader>();
+    const { data: storyTemplates } = useQuery({ queryKey: ['story_templates'], queryFn: fetchStoryTemplates })
+    const { data: currentStory } = useQuery({ queryKey: ['current_story'], queryFn: fetchCurrentStory })
     return (
         <ProtectedRoute>
             <div className="flex flex-wrap md:flex-nowrap gap-10">
                 <Character />
-                {currentStory ? <Story story={currentStory} /> : <Stories />}
+                {currentStory ? <Story story={currentStory} /> : <Stories storyTemplates={storyTemplates || []} />}
             </div>
         </ProtectedRoute>
     );

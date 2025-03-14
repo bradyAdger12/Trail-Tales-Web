@@ -1,13 +1,12 @@
 import { startStory, type Story } from "~/api/story";
 import ProtectedRoute from "../ProtectedRoute";
-import { useLoaderData, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { useToast } from "~/contexts/ToastContext";
 import { useState } from "react";
 
 
 
-export default function Stories() {
-    const { storyTemplates } = useLoaderData();
+export default function Stories({ storyTemplates }: { storyTemplates: Story[] }) {
     const { showToast } = useToast();
     const [starting, setStarting] = useState(false);
     const navigate = useNavigate();

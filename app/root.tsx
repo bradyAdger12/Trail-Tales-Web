@@ -14,7 +14,7 @@ import { ToastProvider } from "./contexts/ToastContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import { DialogProvider } from "./contexts/DialogContext";
 import { CookiesProvider } from 'react-cookie';
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -31,6 +31,7 @@ export const links: Route.LinksFunction = () => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const queryClient = new QueryClient()
   return (
     <html lang="en" data-theme="dark">
       <head>
@@ -41,13 +42,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <CookiesProvider defaultSetOptions={{ path: '/' }}>
-          <AuthProvider>
-            <DialogProvider>
-              <ToastProvider>
-                {children}
-              </ToastProvider>
-            </DialogProvider>
-          </AuthProvider>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <DialogProvider>
+                <ToastProvider>
+                  {children}
+                </ToastProvider>
+              </DialogProvider>
+            </AuthProvider>
+          </QueryClientProvider>
         </CookiesProvider>
         <ScrollRestoration />
         <Scripts />

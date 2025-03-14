@@ -52,7 +52,7 @@ export interface RefreshTokenResponse {
 
 export async function signUp(request: SignUpRequest): Promise<void> {
     try {
-        await api.post(`${import.meta.env.VITE_SERVER_BASE_URL}/register`, request);
+        await api.post('/register', request);
         await authLogin({
             email: request.email,
             password: request.password
@@ -77,7 +77,7 @@ export async function getRefreshToken(refreshToken: string): Promise<RefreshToke
 
 export async function forgotPassword(request: ForgotPasswordRequest): Promise<void> {
     try {
-        await api.post(`${import.meta.env.VITE_SERVER_BASE_URL}/send_password_reset`, request);
+        await api.post('/send_password_reset', request);
     } catch (error) {
         throw error;
     }
@@ -85,7 +85,7 @@ export async function forgotPassword(request: ForgotPasswordRequest): Promise<vo
 
 export async function resetPassword(request: ResetPasswordRequest): Promise<void> {
     try {
-        await api.put(`${import.meta.env.VITE_SERVER_BASE_URL}/reset_password`, request);
+        await api.put('/reset_password', request);
     } catch (error) {
         throw error;
     }
@@ -101,7 +101,7 @@ export async function authLogin(request: LoginRequest): Promise<LoginResponse> {
 
 export async function sendContact(request: ContactRequest): Promise<void> {
     try {
-        await api.post(`${import.meta.env.VITE_SERVER_BASE_URL}/contact`, request);
+        await api.post('/contact', request);
     } catch (error) {
         throw error;
     }
@@ -109,7 +109,7 @@ export async function sendContact(request: ContactRequest): Promise<void> {
 
 export async function fetchMe(): Promise<User> {
     try {
-        const response = await authApi.get(`${import.meta.env.VITE_SERVER_BASE_URL}/user/me`);
+        const response = await authApi.get('/user/me');
         return response.data as User;
     } catch (error) {
         throw error;
@@ -118,7 +118,7 @@ export async function fetchMe(): Promise<User> {
 
 export async function updateMe(request: Partial<User>): Promise<User> {
     try {
-        const response = await authApi.put(`${import.meta.env.VITE_SERVER_BASE_URL}/user/me`, request);
+        const response = await authApi.put('/user/me', request);
         return response.data as User;
     } catch (error) {
         throw error;
