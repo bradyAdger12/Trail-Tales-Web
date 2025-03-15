@@ -32,6 +32,11 @@ export default function Story({ story }: { story: Story }) {
                                 <div className="stat-value text-secondary text-lg">Today</div>
                                 <div className="stat-desc">Continue where you left off</div>
                             </div>
+
+                            <div className="stat">
+                                <button className="btn btn-error" onClick={() => {}}>Abandon Story</button>
+                                <div className="stat-desc">Abandon your story and start over</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -49,8 +54,8 @@ export default function Story({ story }: { story: Story }) {
                                 <h3 className="card-title">{chapter.title}</h3>
                                 <p className="text-gray-700 dark:text-gray-300">{chapter.description}</p>
                                 <div className="card-actions justify-end mt-2">
-                                    <Link to={`/chapter/${chapter.id}`} className="btn btn-primary btn-sm">
-                                        Continue
+                                    <Link to={`/chapter/${chapter.id}`} className={`btn btn-primary btn-sm ${chapter.activity_id ? 'btn-outline' : ''}`}>
+                                        {chapter.activity_id ? 'Review' : 'Continue'}
                                     </Link>
                                 </div>
                             </div>

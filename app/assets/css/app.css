@@ -35,6 +35,14 @@ h5 {
   @apply text-base-100 shadow-none;
 }
 
+.btn-outline {
+  @apply text-primary
+}
+
+.btn-outline:hover {
+  @apply bg-primary/10;
+}
+
 button.btn:disabled {
   @apply bg-black/10 text-gray-400 shadow-none;
 }
