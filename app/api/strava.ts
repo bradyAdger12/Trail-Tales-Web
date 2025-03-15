@@ -22,12 +22,3 @@ export async function fetchStravaActivities(): Promise<any> {
         throw e
     }
 }
-
-export async function importStravaActivity({ activityId }: { activityId: string }): Promise<any> {
-    try {
-        const response = await authApi.post(`/strava/activities/${activityId}/import`)
-        return response.data
-    } catch (e) {
-        throw e
-    }
-}

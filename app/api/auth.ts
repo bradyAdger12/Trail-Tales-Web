@@ -3,15 +3,21 @@ import { api, authApi } from "~/lib/axios";
 export interface User {
     id: string;
     health: number;
-    hunger: number;
-    thirst: number;
     display_name: string;
+    items: Item[];
     avatar_file_key: string
     strava_access_token: string;
     strava_refresh_token: string;
     weekly_distance_in_kilometers: number;
     threshold_pace_seconds: number;
     email: string;
+}
+export interface Item {
+    id: string;
+    name: string;
+    description: string;
+    value: number
+    benefit: 'health' | 'distance'
 }
 export interface SignUpRequest {
     display_name: string;

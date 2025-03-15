@@ -2,6 +2,7 @@ import { createContext, useContext, useState } from "react";
 
 export interface DialogContextType {
     openDialog: (dialog: React.ReactNode) => void;
+    closeDialog: () => void;
 }
 
 const DialogContext = createContext<DialogContextType | undefined>(undefined)
@@ -19,7 +20,15 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
         }
     }
 
-    return <DialogContext.Provider value={{ openDialog }}>
+    function closeDialog() {
+        const modal = document.getElementById(id)
+        if (modal) {
+            (modal as HTMLDialogElement).close()
+        }
+        setDialog(null)
+    }
+
+    return <DialogContext.Provider value={{ openDialog, closeDialog }}>
         {children}
         {<dialog id={id} className="modal">
             {dialog}

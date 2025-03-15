@@ -3,6 +3,14 @@ export function metersToMiles(meters: number): number {
   return meters / 1609.344;
 }
 
+export function milesToKilometers(miles: number): number {
+  return miles * 1.609344;
+}
+
+export function kilometersToMiles(kilometers: number): number {
+  return kilometers / 1.609344;
+}
+
 
 // function to convert seconds into mm:ss format
 export function secondsToMMSS(seconds: number): string {

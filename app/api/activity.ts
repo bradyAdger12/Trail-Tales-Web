@@ -23,3 +23,12 @@ export async function fetchActivitiesBySourceIds({ sourceIds }: { sourceIds: str
         throw error;
     }
 }
+
+export async function importActivity({ source_id, source }: { source_id: string, source: string }): Promise<any> {
+    try {
+        const response = await authApi.post(`/activities/import`, { source_id, source })
+        return response.data
+    } catch (e) {
+        throw e
+    }
+}

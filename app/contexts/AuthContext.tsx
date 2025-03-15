@@ -1,17 +1,17 @@
 import axios from "axios";
-import { createContext, use, useContext, useEffect, useLayoutEffect, useState } from "react";
+import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { api, authApi, type ErrorMessage } from "~/lib/axios";
-import { authLogin, fetchMe, getRefreshToken, updateMe, type LoginRequest, type User } from "~/api/auth";
+import { authLogin, fetchMe, getRefreshToken, type LoginRequest, type User } from "~/api/auth";
+import { useQuery } from "@tanstack/react-query";
 
 interface AuthContextType {
     login: (request: LoginRequest) => Promise<void>;
     logout: () => void;
-    getMeRequest: () => Promise<void>;
-    updateMeRequest: (request: Partial<User>) => Promise<void>;
     token: string | null;
     refreshToken: string | null;
-    user: User | null;
+    user: Partial<User> | null;
+    setUser: React.Dispatch<React.SetStateAction<Partial<User> | null>>
     isAuthenticated: boolean;
 }
 
@@ -19,32 +19,21 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [cookies, setCookie] = useCookies(['token', 'refreshToken', 'user']);
-    const [user, setUser] = useState<User | null>(cookies.user);
+    const [user, setUser] = useState<Partial<User> | null>(cookies.user);
     const isAuthenticated = !!cookies.token;
+
+    const { data: userData } = useQuery({
+        queryKey: ['user'], queryFn: () => fetchMe().then((response) => {
+            setUser(response)
+            return response
+        })
+    })
 
     function logout() {
         setCookie('token', null);
         setCookie('refreshToken', null);
         setCookie('user', null);
         setUser(null);
-    }
-
-    async function updateMeRequest(request: Partial<User>) {
-        try {
-            const response = await updateMe(request);
-            setUser(response);
-            setCookie('user', response);
-        } catch (error) {
-        }
-    }
-
-    async function getMeRequest() {
-        try {
-            const response = await fetchMe();
-            setUser(response);
-            setCookie('user', response);
-        } catch (error) {
-        }
     }
 
     async function login(request: LoginRequest) {
@@ -108,6 +97,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return Promise.reject(formattedError);
     }
 
+    useEffect(() => {
+        setCookie('user', user)
+    }, [user])
+
     useLayoutEffect(() => {
         authApi.interceptors.response.use(
             (response) => response,
@@ -129,7 +122,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         );
     })
-    return <AuthContext.Provider value={{ login, isAuthenticated, token: cookies.token, refreshToken: cookies.refreshToken, user, logout, getMeRequest, updateMeRequest }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ login, isAuthenticated, token: cookies.token, refreshToken: cookies.refreshToken, user, setUser, logout }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

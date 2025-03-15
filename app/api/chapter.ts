@@ -1,8 +1,10 @@
 import { authApi } from "~/lib/axios";
-
+import type { Activity } from "./activity";
 export interface Chapter {
     id: string;
     title: string;
+    activity: Activity;
+    activity_id: string
     actions: Action[];
     description: string;
 }
@@ -12,10 +14,8 @@ export interface Action {
     description: string,
     selected: boolean,
     difficulty: string,
-    food: number,
     health: number,
     distance_in_meters: number
-    water: number
 }
 
 

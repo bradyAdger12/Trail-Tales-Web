@@ -3,10 +3,20 @@ import { useToast } from '~/contexts/ToastContext'
 import { metersToMiles } from '~/lib/conversions'
 import { selectAction, type Action, type Chapter } from '~/api/chapter'
 import Character from '../character/Character'
+import { useDialog } from '~/contexts/DialogContext'
+import StravaImportActivies from '../strava/StravaImportActivies'
+import { ImportActivityDialog } from '../dialogs/ImportActivityDialog'
+import type { Activity } from '~/api/activity'
+import { useQueryClient } from '@tanstack/react-query'
 export default function Chapter({ chapter }: { chapter: Chapter }) {
     const { showToast } = useToast()
+    const { openDialog, closeDialog } = useDialog()
+    const queryClient = useQueryClient()
     const [actions, setActions] = useState(chapter.actions)
     async function select(action: Action) {
+        if (chapter.activity_id) {
+            return
+        }
         action.selected = true
         actions.forEach((item) => {
             if (item.id !== action.id) {
@@ -16,10 +26,16 @@ export default function Chapter({ chapter }: { chapter: Chapter }) {
         setActions([...actions])
         try {
             await selectAction(chapter.id, action.id)
+            openDialog(<ImportActivityDialog onImport={handleImport} />)
         } catch (e: any) {
             console.log(e)
             showToast(e.message, 'error')
         }
+    }
+    function handleImport(activity: Activity) {
+        chapter.activity_id = activity.id
+        queryClient.invalidateQueries({ queryKey: ['chapter', chapter.id] })
+        closeDialog()
     }
     return (
         <div>
@@ -44,19 +60,7 @@ export default function Chapter({ chapter }: { chapter: Chapter }) {
                                                 <div className="stat-title flex items-center gap-1">
                                                     <i className="fas fa-heart"></i> Health
                                                 </div>
-                                                <div className="stat-value text-red-400 text-lg">+{action.health}</div>
-                                            </div>
-                                            <div>
-                                                <div className="stat-title flex items-center gap-1">
-                                                    <i className="fas fa-tint"></i> Water
-                                                </div>
-                                                <div className="stat-value text-blue-400 text-lg">+{action.water}</div>
-                                            </div>
-                                            <div>
-                                                <div className="stat-title flex items-center gap-1">
-                                                    <i className="fas fa-drumstick-bite"></i> Food
-                                                </div>
-                                                <div className="stat-value text-yellow-400 text-lg">+{action.food}</div>
+                                                <div className="stat-value text-red-400 text-lg">{action.health}</div>
                                             </div>
                                         </div>
                                         <div className="mt-4">

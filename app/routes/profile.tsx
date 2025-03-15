@@ -1,14 +1,14 @@
 import { APP_NAME } from "~/lib/constants";
 import type { Route } from "./+types/profile";
-import { fetchMe, updateMe } from "~/api/auth";
-import { useLoaderData } from "react-router";
-import { mmssToSeconds, secondsToMMSS } from "~/lib/conversions";
-import { useEffect, useState } from "react";
+import { mmssToSeconds, secondsToMMSS, kilometersToMiles, milesToKilometers } from "~/lib/conversions";
+import { useState } from "react";
 import { useToast } from "~/contexts/ToastContext";
 import { useAuth } from "~/contexts/AuthContext";
 import FileUpload from "~/components/FileUpload";
 import { S3 } from "~/lib/s3";
 import Integrations from "~/components/integrations/Integrations";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { updateMe } from "~/api/auth";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: `Profile - ${APP_NAME}` },
@@ -17,24 +17,25 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Profile() {
-    const { user } = useAuth()
+    const { setUser, user } = useAuth()
+    const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
-        display_name: user?.display_name,
-        weekly_distance_in_kilometers: user?.weekly_distance_in_kilometers,
-        threshold_pace_seconds: secondsToMMSS(user?.threshold_pace_seconds ?? 0)
+        display_name: user?.display_name ?? "",
+        weekly_distance_in_kilometers: user?.weekly_distance_in_kilometers ?? 0,
+        threshold_pace_seconds: user?.threshold_pace_seconds ?? "0:00"
     });
     const { showToast } = useToast();
-    const { updateMeRequest } = useAuth();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setIsLoading(true);
-            await updateMeRequest({
+            const updatedUser = await updateMe({
                 display_name: formData.display_name ?? "",
-                weekly_distance_in_kilometers: formData.weekly_distance_in_kilometers ?? 0,
-                threshold_pace_seconds: mmssToSeconds(formData.threshold_pace_seconds ?? "0:00")
+                weekly_distance_in_kilometers: milesToKilometers(formData.weekly_distance_in_kilometers ?? 0),
+                threshold_pace_seconds: mmssToSeconds(formData.threshold_pace_seconds.toString() ?? "0:00")
             });
+            setUser(updatedUser)
             showToast("Profile updated successfully", "success");
         } catch (error) {
             console.error(error);
@@ -45,7 +46,9 @@ export default function Profile() {
 
     async function onFileUpload(key: string) {
         try {
-            await updateMeRequest({ avatar_file_key: key })
+            await updateMe({ avatar_file_key: key })
+            setUser({ ...user, avatar_file_key: key })
+            queryClient.invalidateQueries({ queryKey: ['user'] })
             showToast('Profile picture uploaded successfully', 'success')
         } catch (e: any) {
             showToast(e.message, 'error')
@@ -53,11 +56,14 @@ export default function Profile() {
     }
 
     async function removeAvatar() {
-        await updateMeRequest({ avatar_file_key: '' })
+        await updateMe({ avatar_file_key: '' })
+        setUser({ ...user, avatar_file_key: '' })
+        queryClient.invalidateQueries({ queryKey: ['user'] })
         showToast('Profile picture removed successfully', 'success')
     }
 
     return <div>
+        {<div className="flex justify-center items-center h-full mt-24"><span className="loading loading-ring loading-2xl" /></div>}
         <div className="max-w-2xl mx-auto">
             <div className="flex flex-col gap-8">
                 <Integrations />

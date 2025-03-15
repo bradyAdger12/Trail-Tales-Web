@@ -15,7 +15,7 @@ export default function FileUpload({ path, fileName, onUpload, accept = 'image/*
             if (file) {
                 const extension = file.type.split('/')[1]
                 const fullPath = `${path}/${fileName}.${extension}`
-                await s3Client.uploadFile({ file, key: path })
+                await s3Client.uploadFile({ file, key: fullPath })
                 onUpload(fullPath)
             } else {
                 throw { message: 'Error uploading file' }

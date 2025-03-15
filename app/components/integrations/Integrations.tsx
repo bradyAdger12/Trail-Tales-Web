@@ -10,12 +10,6 @@ export default function Integrations() {
         { name: 'strava', asset_name: connectWithStrava }
     ];
 
-    // useEffect(() => {
-    //     if (user?.strava_refresh_token) {
-    //         refreshStravaToken({ refresh_token: user.strava_refresh_token });
-    //     }
-    // }, [user?.strava_refresh_token]);
-
     if (!user) return null;
 
     return (
@@ -25,12 +19,14 @@ export default function Integrations() {
                 <a
                     key={integration.name}
                     style={{ display: 'inline-block' }}
-                    href={!user?.strava_access_token 
+                    className='relative'
+                    href={!user?.strava_access_token
                         ? `http://www.strava.com/oauth/authorize?client_id=${stravaClientId}&response_type=code&redirect_uri=${window.location.origin}/integration/strava&approval_prompt=force&scope=read,activity:read,activity:read_all`
-                        : '/integration/strava'
+                        : undefined
                     }
                 >
                     <img src={integration.asset_name} style={{ width: '220px' }} alt={integration.name} />
+                    {user.strava_access_token && <span className='absolute -top-2 right-0 bg-green-500 text-white px-2 py-1 rounded-full text-xs z-10'>Connected</span>}
                 </a>
             ))}
         </div>
