@@ -8,6 +8,8 @@ import StravaImportActivies from '../strava/StravaImportActivies'
 import { ImportActivityDialog } from '../dialogs/ImportActivityDialog'
 import type { Activity } from '~/api/activity'
 import { useQueryClient } from '@tanstack/react-query'
+import type { Item } from '~/api/auth'
+import Items from '../items/Items'
 export default function Chapter({ chapter }: { chapter: Chapter }) {
     const { showToast } = useToast()
     const { openDialog, closeDialog } = useDialog()
@@ -32,10 +34,25 @@ export default function Chapter({ chapter }: { chapter: Chapter }) {
             showToast(e.message, 'error')
         }
     }
-    function handleImport(activity: Activity) {
+    function handleImport({ activity, items }: { activity: Activity, items: Item[] }) {
         chapter.activity_id = activity.id
         queryClient.invalidateQueries({ queryKey: ['chapter', chapter.id] })
+        queryClient.invalidateQueries({ queryKey: ['user'] })
         closeDialog()
+        openDialog(
+            <div className="modal-box max-w-[600px]">
+                <div className="flex justify-between items-center">
+                    <h1 className="text-2xl font-bold">Chapter completed</h1>
+                    <form method="dialog">
+                        <button className="btn btn-sm btn-circle">✕</button>
+                    </form>
+                </div>
+                <div className="mt-4">
+                    <p>Items found during your adventure</p>
+                    <Items items={items} />
+                </div>
+            </div>
+        )
     }
     return (
         <div>

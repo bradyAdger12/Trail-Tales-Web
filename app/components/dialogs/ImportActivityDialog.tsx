@@ -1,6 +1,7 @@
+import type { Item } from "~/api/auth"
 import StravaImportActivies from "../strava/StravaImportActivies"
 import type { Activity } from "~/api/activity"
-export const ImportActivityDialog = ({ onImport }: { onImport: (activity: Activity  ) => void }) => {
+export const ImportActivityDialog = ({ onImport }: { onImport: ({ activity, items }: { activity: Activity, items: Item[] }) => void }) => {
     return (
         <div className="modal-box max-h-[800px] overflow-y-auto max-w-[800px]">
             <div className="flex flex-col gap-5">

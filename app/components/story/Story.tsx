@@ -1,6 +1,23 @@
-import { Link } from "react-router";
-import { type Story } from "~/api/story";
+import { Link, useNavigate } from "react-router";
+import { type Story, deleteStory } from "~/api/story";
+import { useDialog } from "~/contexts/DialogContext";
+import { ConfirmDeletionDialog } from "../dialogs/ConfirmDeletion";
+import { useToast } from "~/contexts/ToastContext";
 export default function Story({ story }: { story: Story }) {
+    const { openDialog, closeDialog } = useDialog();
+    const navigate = useNavigate();
+    const { showToast } = useToast();
+    async function onDelete() {
+        try {
+            await deleteStory(story.id);
+        } catch (e) {
+            showToast('Failed to delete story', 'error');
+            console.error(e);
+        } finally {
+            navigate(0);
+        }
+
+    }
     return (
         <div>
             <div className="flex flex-col md:flex-row gap-8">
@@ -34,7 +51,7 @@ export default function Story({ story }: { story: Story }) {
                             </div>
 
                             <div className="stat">
-                                <button className="btn btn-error" onClick={() => {}}>Abandon Story</button>
+                                <button className="btn btn-error" onClick={() => openDialog(<ConfirmDeletionDialog name="Story" onDelete={onDelete} onCancel={() => { closeDialog() }} />)}>Abandon Story</button>
                                 <div className="stat-desc">Abandon your story and start over</div>
                             </div>
                         </div>

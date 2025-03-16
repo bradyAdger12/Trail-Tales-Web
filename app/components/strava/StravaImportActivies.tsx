@@ -5,8 +5,9 @@ import { fetchStravaActivities } from "~/api/strava"
 import { validActivities } from "~/lib/validation"
 import { metersToMiles, secondsToHHMMSS } from "~/lib/conversions"
 import { Link } from "react-router"
+import type { Item } from "~/api/auth"
 
-export default function StravaImportActivies({ onImport }: { onImport: (activity: Activity) => void }) {
+export default function StravaImportActivies({ onImport }: { onImport: ({ activity, items }: { activity: Activity, items: Item[] }) => void }) {
     const queryClient = useQueryClient()
     const [activityBeingImported, setActivityBeingImported] = useState<string | null>(null)
     const { data: stravaActivities, error: stravaActivitiesError, isLoading: isStravaActivitiesLoading } = useQuery({
@@ -31,7 +32,7 @@ export default function StravaImportActivies({ onImport }: { onImport: (activity
             queryClient.invalidateQueries({ queryKey: ['strava_activities'] })
             queryClient.invalidateQueries({ queryKey: ['imported_activities'] })
             setActivityBeingImported(null)
-            onImport(data as Activity)
+            onImport(data)
         },
         onError: () => {
             setActivityBeingImported(null)

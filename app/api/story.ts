@@ -17,6 +17,14 @@ export async function fetchStoryTemplates(): Promise<Story[]> {
     }
 }
 
+export async function deleteStory(storyId: string): Promise<void> {
+    try {
+        await authApi.delete(`/stories/${storyId}`);
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function fetchCurrentStory(): Promise<Story> {
     try {
         const response = await authApi.get('/stories/me');
