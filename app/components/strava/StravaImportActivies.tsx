@@ -5,7 +5,7 @@ import { fetchStravaActivities } from "~/api/strava"
 import { validActivities } from "~/lib/validation"
 import { metersToMiles, secondsToHHMMSS } from "~/lib/conversions"
 import { Link } from "react-router"
-import type { Item } from "~/api/auth"
+import type { Item } from "~/api/item"
 
 export default function StravaImportActivies({ onImport }: { onImport: ({ activity, items }: { activity: Activity, items: Item[] }) => void }) {
     const queryClient = useQueryClient()

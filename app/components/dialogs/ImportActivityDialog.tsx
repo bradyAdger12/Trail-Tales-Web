@@ -1,4 +1,4 @@
-import type { Item } from "~/api/auth"
+import type { Item } from "~/api/item"
 import StravaImportActivies from "../strava/StravaImportActivies"
 import type { Activity } from "~/api/activity"
 export const ImportActivityDialog = ({ onImport }: { onImport: ({ activity, items }: { activity: Activity, items: Item[] }) => void }) => {

@@ -8,7 +8,7 @@ import StravaImportActivies from '../strava/StravaImportActivies'
 import { ImportActivityDialog } from '../dialogs/ImportActivityDialog'
 import type { Activity } from '~/api/activity'
 import { useQueryClient } from '@tanstack/react-query'
-import type { Item } from '~/api/auth'
+import type { Item } from '~/api/item'
 import Items from '../items/Items'
 export default function Chapter({ chapter }: { chapter: Chapter }) {
     const { showToast } = useToast()

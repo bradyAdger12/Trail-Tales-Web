@@ -1,5 +1,6 @@
 import axios from "axios";
 import { api, authApi } from "~/lib/axios";
+import type { Item } from "./item";
 export interface User {
     id: string;
     health: number;
@@ -11,13 +12,6 @@ export interface User {
     weekly_distance_in_kilometers: number;
     threshold_pace_seconds: number;
     email: string;
-}
-export interface Item {
-    id: string;
-    name: string;
-    description: string;
-    value: number
-    benefit: 'health' | 'distance'
 }
 export interface SignUpRequest {
     display_name: string;

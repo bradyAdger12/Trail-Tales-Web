@@ -63,7 +63,6 @@ export default function Profile() {
     }
 
     return <div>
-        {<div className="flex justify-center items-center h-full mt-24"><span className="loading loading-ring loading-2xl" /></div>}
         <div className="max-w-2xl mx-auto">
             <div className="flex flex-col gap-8">
                 <Integrations />

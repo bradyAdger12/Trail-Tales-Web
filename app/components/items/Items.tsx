@@ -1,7 +1,12 @@
-import type { Item } from "~/api/auth";
+import type { Item } from "~/api/item";
 import { metersToMiles } from "~/lib/conversions";
-
-export default function Items({ items }: { items: Item[] }) {
+import { useDialog } from "~/contexts/DialogContext";
+import { ConsumeItemDialog } from "../dialogs/ConsumeItemDialog";
+export default function Items({ items, canUse }: { items: Item[], canUse?: boolean }) {
+    const { openDialog } = useDialog()
+    function useItem(item: Item) {
+        openDialog(<ConsumeItemDialog item={item} onConsume={() => { }} onCancel={() => { }} />)
+    }
     return (
         <>
             {items?.map((item) => (
@@ -9,7 +14,7 @@ export default function Items({ items }: { items: Item[] }) {
                     <button
                         key={item.id}
                         className="flex items-center gap-1 bg-gray-700 hover:bg-gray-600 p-2 rounded-md transition-colors cursor-pointer text-xs"
-                        onClick={() => console.log(`Using item: ${item.name}`)}
+                        onClick={() => useItem(item)}
                     >
                         <div className={`w-6 h-6 rounded-full flex items-center justify-center bg-gray-800 ${item.benefit === 'health' ? 'text-red-400' : 'text-blue-400'}`}>
                             <i className={`fas ${item.benefit === 'health' ? 'fa-heart' : 'fa-running'}`}></i>
