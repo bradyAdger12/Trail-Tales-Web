@@ -44,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(response.user);
             setCookie('user', response.user);
         } catch (error) {
+            console.log(error);
             throw error;
         }
     }

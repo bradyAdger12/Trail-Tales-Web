@@ -7,8 +7,16 @@
   name: "dark";
   default: true;
   --color-primary: #DDD6BD;
-  --color-background: #1E1E2F;
   --color-secondary: #325977;
+}
+
+body {
+  font-family: 'Bangers', cursive;
+  letter-spacing: 0.07em;
+}
+
+p, span, input {
+  font-family: 'Montserrat', sans-serif;
 }
 
 h1 {

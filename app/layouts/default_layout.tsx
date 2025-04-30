@@ -17,9 +17,9 @@ export default function DefaultLayout({ className }: { className?: string }) {
                             <div>
                                 <Link to="/" className="flex items-center gap-x-3 cursor-pointer">
                                     <img src="/app/assets/images/logo.png" alt="logo" className="w-12 rounded-full" />
-                                    <p className="text-2xl font-bold">
+                                    <h4 className="text-2xl font-bold">
                                         {APP_NAME}
-                                    </p>
+                                    </h4>
                                 </Link>
                             </div>
                             <div>
@@ -36,8 +36,8 @@ export default function DefaultLayout({ className }: { className?: string }) {
                 </nav>
             </header>
             <div className="container mx-auto my-12 px-6 md:px-0 min-h-screen">
-                <div className="absolute inset-0 bg-[url('/app/assets/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none"></div>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 opacity-20 blur-3xl pointer-events-none"></div>
+                {/* <div className="absolute inset-0 bg-[url('/app/assets/images/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))] pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-cyan-500/30 opacity-20 blur-3xl pointer-events-none"></div> */}
                 <Outlet />
             </div>
             <Footer />

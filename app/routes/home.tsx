@@ -14,51 +14,44 @@ export function meta({ }: Route.MetaArgs) {
 export default function Home() {
   return (
     <UnprotectedRoute>
-      <div className="h-screen">
-        <div className="relative pt-24 pb-20 sm:pt-32 sm:pb-28">
-          <section className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
-              <div className="inline-flex items-center gap-x-2 bg-gray-800/60 backdrop-blur-sm border border-gray-700/50 rounded-full px-4 py-1.5 mb-6">
-                <div className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </div>
-                <span className="text-sm font-medium text-gray-200">Now in Public Beta</span>
-              </div>
+      <div className="flex flex-col items-center justify-center">
+        <div className="max-w-md md:max-w-2xl text-center">
+          <h1 className="mb-5 text-5xl font-bold text-primary">Trail Tales</h1>
+          <p className="mb-8 text-xl">Your plane has crashed on a remote island. With limited supplies and no rescue in sight, you must survive for 15 days.</p>
 
-              <h1 className="text-4xl sm:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 leading-tight mb-6">
-                Turn Your Exercise Into
-                <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text">Epic Adventures</span>
-              </h1>
+          <div className="mb-8 bg-base-100 bg-opacity-80 p-6 rounded-lg shadow-lg">
+            <h3 className="mb-4 text-2xl">How It Works</h3>
+            <ul className="text-left space-y-3">
+              <li className="flex items-start">
+                <i className="fas fa-walking mr-3 mt-1 text-primary"></i>
+                <span>Complete daily walking or running challenges to gather resources</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-campground mr-3 mt-1 text-primary"></i>
+                <span>Build shelter, find food, and craft tools to survive</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-book-open mr-3 mt-1 text-primary"></i>
+                <span>Uncover the island's mysterious story with each passing day</span>
+              </li>
+              <li className="flex items-start">
+                <i className="fas fa-users mr-3 mt-1 text-primary"></i>
+                <span>Compete with friends or join forces to increase your chances</span>
+              </li>
+            </ul>
+          </div>
 
-              <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mb-8">
-                Every step you take shapes your story. Complete runs or walks to explore new worlds,
-                make daring choices, and uncover hidden secrets in your personalized adventure.
-              </p>
+          <p className="mb-6 italic">"Every step you take in the real world brings you closer to survival in ours."</p>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                <Link to="/signup" className="btn btn-primary shadow-none text-black px-8 py-3 text-sm md:text-lg font-medium transition-all duration-300 hover:-translate-y-[3px]">
-                  Start your adventure
-                </Link>
-                <Link to="#" className="btn bg-secondary/10 border-none shadow-none px-8 py-3 text-lg text-sm md:text-lg font-light transition-all duration-300 hover:-translate-y-[3px]">
-                  How does it work?
-                </Link>
-              </div>
+          <div className="flex flex-col md:flex-row justify-center gap-4">
+            <Link to="/signup" className="btn btn-primary">Start Your Adventure</Link>
+            <Link to="/login" className="btn btn-outline">Continue Surviving</Link>
+          </div>
 
-              {/* <div className="mt-12 flex items-center gap-8 text-gray-400">
-                <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  <span>4.9/5 rating</span>
-                </div>
-                <div>•</div>
-                <div>10k+ active users</div>
-                <div>•</div>
-                <div>100% free</div>
-              </div> */}
-            </div>
-          </section>
+          <div className="mt-10 text-sm opacity-80">
+            <p>Real exercise. Real adventure. Real survival.</p>
+            <p>Can you make it through all 15 days?</p>
+          </div>
         </div>
       </div>
     </UnprotectedRoute>

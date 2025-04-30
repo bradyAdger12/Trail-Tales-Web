@@ -35,6 +35,7 @@ export default function Login() {
       })
       navigate("/me");
     } catch (error: any) {
+      console.log(error);
       setError(error.message);
     } finally {
       setSigninLoading(false);

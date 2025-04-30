@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router";
-import { type Story, deleteStory } from "~/api/story";
+import { type Story, deleteStory } from "~/api/game";
 import { useDialog } from "~/contexts/DialogContext";
 import { ConfirmDeletionDialog } from "../dialogs/ConfirmDeletion";
 import { useToast } from "~/contexts/ToastContext";
