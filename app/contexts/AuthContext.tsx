@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useLayoutEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { api, authApi, type ErrorMessage } from "~/lib/axios";
-import { authLogin, fetchMe, getRefreshToken, type LoginRequest, type User } from "~/api/auth";
+import { authLogin, fetchMe, getRefreshToken, googleAuth, type LoginRequest, type User } from "~/api/auth";
 import { useQuery } from "@tanstack/react-query";
 
 interface AuthContextType {
@@ -11,6 +11,7 @@ interface AuthContextType {
     token: string | null;
     refreshToken: string | null;
     user: Partial<User> | null;
+    handleGoogleLogin: (googleAuthToken: string) => Promise<void>;
     setUser: React.Dispatch<React.SetStateAction<Partial<User> | null>>
     isAuthenticated: boolean;
 }
@@ -26,7 +27,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         queryKey: ['user'], queryFn: () => fetchMe().then((response) => {
             setUser(response)
             return response
-        })
+        }),
+        enabled: isAuthenticated
     })
 
     function logout() {
@@ -34,6 +36,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setCookie('refreshToken', null);
         setCookie('user', null);
         setUser(null);
+    }
+    
+    async function handleGoogleLogin(googleAuthToken: string) {
+        try {
+            const response = await googleAuth(googleAuthToken);
+            setCookie('token', response.token);
+            setCookie('refreshToken', response.refreshToken);
+            setUser(response.user);
+            setCookie('user', response.user);
+        } catch (error) {
+            throw error;
+        }
     }
 
     async function login(request: LoginRequest) {
@@ -44,7 +58,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(response.user);
             setCookie('user', response.user);
         } catch (error) {
-            console.log(error);
             throw error;
         }
     }
@@ -78,9 +91,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 const response = await getRefreshToken(refreshToken)
                 setCookie('token', response.token);
                 setCookie('refreshToken', response.refreshToken);
-                const token = cookies.token;
-                if (token) {
-                    originalRequest.headers.Authorization = `Bearer ${token}`;
+                if (response.token) {
+                    originalRequest.headers.Authorization = `Bearer ${response.token}`;
                     return axios(originalRequest);
                 }
             } catch (refreshError) {
@@ -123,7 +135,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         );
     })
-    return <AuthContext.Provider value={{ login, isAuthenticated, token: cookies.token, refreshToken: cookies.refreshToken, user, setUser, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ login, isAuthenticated, token: cookies.token, refreshToken: cookies.refreshToken, user, setUser, logout, handleGoogleLogin }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth() {

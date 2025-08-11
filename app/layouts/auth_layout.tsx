@@ -17,9 +17,9 @@ export default function DefaultLayout({ className }: { className?: string }) {
                             <div>
                                 <Link to="/" className="flex items-center gap-x-3 cursor-pointer">
                                     <img src="/app/assets/images/logo.png" alt="logo" className="w-12 rounded-full" />
-                                    <p className="text-2xl font-bold">
+                                    <h4 className="text-2xl font-bold">
                                         {APP_NAME}
-                                    </p>
+                                    </h4>
                                 </Link>
                             </div>
                             <div>
@@ -29,10 +29,9 @@ export default function DefaultLayout({ className }: { className?: string }) {
                                         <ul className="flex gap-x-4">
                                             <li><NavLink to="/me" className={({ isActive }) => isActive ? 'text-primary' : ''}>My Adventures</NavLink></li>
                                             <li><NavLink to="/profile" className={({ isActive }) => isActive ? 'text-primary' : ''}>Profile</NavLink></li>
-                                            <li><span onClick={() => {
+                                            <li><NavLink to="/" onClick={() => {
                                                 logout();
-                                                navigate("/");
-                                            }}>Logout</span></li>
+                                            }}>Logout</NavLink></li>
 
                                         </ul>
                                     }

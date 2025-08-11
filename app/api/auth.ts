@@ -50,6 +50,15 @@ export interface RefreshTokenResponse {
     refreshToken: string;
 }
 
+export async function googleAuth(token: string): Promise<LoginResponse> {
+    try {
+        const response = await api.post('/google/auth', { token });
+        return response.data as LoginResponse
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function signUp(request: SignUpRequest): Promise<void> {
     try {
         await api.post('/register', request);

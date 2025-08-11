@@ -18,6 +18,9 @@ export default [
         ]),
         ...prefix("integration", [
             route("/strava", "routes/integration/strava.tsx")
+        ]),
+        ...prefix("game/:gameId/survival_day", [
+            route("/:survivalDayId", "routes/survival_day.tsx")
         ])
     ])
 

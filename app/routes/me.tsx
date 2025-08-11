@@ -1,8 +1,11 @@
 import type { Route } from "./+types/me";
 import ProtectedRoute from "~/components/ProtectedRoute";
 import { useQuery } from "@tanstack/react-query";
-import { startGame } from "~/api/game";
-
+import { fetchGame } from "~/api/game";
+import { ErrorAlert } from "~/components/alerts/Alerts";
+import GameConfiguration from "~/components/game_configuration/GameConfiguration";
+import { GameConfigProvider } from "~/contexts/GameConfigContext";
+import GameMenu from "~/components/game/GameMenu";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: "My Account - Epic Adventures" },
@@ -11,14 +14,19 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Me() {
-    const { data: game } = useQuery({ queryKey: ['game'], queryFn: startGame })
+    const { data: game, error, isLoading } = useQuery({ queryKey: ['game'], queryFn: fetchGame })
+    if (error) {
+        return <ErrorAlert message={error.message} />
+    } else if (isLoading) {
+        return <div>Fetching game...</div>
+    }
     return (
         <ProtectedRoute>
-            <div className="flex flex-wrap md:flex-nowrap gap-10">
-                {game?.id}
-                {/* <Character />
-                {currentStory ? <Story story={currentStory} /> : <Stories storyTemplates={storyTemplates || []} />} */}
-            </div>
+            <GameConfigProvider>
+                <div>
+                    {!game?.id ? <GameConfiguration /> : <GameMenu game={game} />}
+                </div>
+            </GameConfigProvider>
         </ProtectedRoute>
     );
 }
