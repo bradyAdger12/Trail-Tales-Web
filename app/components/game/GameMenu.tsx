@@ -8,7 +8,7 @@ export default function GameMenu({ game }: { game: Game }) {
     return (
         <div className="flex flex-col gap-8">
             <div className="w-lg">
-                <CharacterStats game={game} />
+                <CharacterStats character={game.character} />
             </div>
             <div>
                 <h4 className="mb-3">

@@ -15,6 +15,7 @@ import { AuthProvider } from "./contexts/AuthContext";
 import { DialogProvider } from "./contexts/DialogContext";
 import { CookiesProvider } from 'react-cookie';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { GameProvider } from "./contexts/GameContext";
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -47,7 +48,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <AuthProvider>
               <DialogProvider>
                 <ToastProvider>
+                  <GameProvider>
                   {children}
+                  </GameProvider>
                 </ToastProvider>
               </DialogProvider>
             </AuthProvider>

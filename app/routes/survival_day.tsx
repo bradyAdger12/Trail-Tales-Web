@@ -1,15 +1,49 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate, useParams, useSearchParams } from "react-router"
+import { fetchSurvivalDay } from "~/api/survival_day"
+import ReactMarkdown from "react-markdown"
+import SurvivalDayOption from "~/components/survival-day/SurvivalDayOption"
+import { useGame } from "~/contexts/GameContext"
+import { fetchGame } from "~/api/game"
+import { useEffect } from "react"
+import ProtectedRoute from "~/components/ProtectedRoute"
+import CharacterStats from "~/components/game/CharacterStats"
 
-export default function SurivalDayPage () {
+export default function SurivalDayPage() {
     const { survivalDayId } = useParams();
     const { data: survivalDay } = useQuery({
         queryKey: ['survival_day_id', survivalDayId],
-        queryFn: () => { return }
+        enabled: !!survivalDayId,
+        queryFn: () => fetchSurvivalDay(survivalDayId!)
     })
+    const { setGame } = useGame()
+    const { data: game, error, isLoading } = useQuery({ queryKey: ['game'], queryFn: fetchGame })
+    useEffect(() => {
+        if (game) {
+            setGame(game)
+        }
+    }, [game])
     return (
-        <div>
-            {/* {survival_day} */}
-        </div>
+        <ProtectedRoute>
+            { !game?.id && !isLoading ? <div>No game found</div> :
+            <div className="flex flex-col gap-8">
+                {game?.character && <div className="flex justify-start"><CharacterStats character={game?.character} /></div>}
+                <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
+                <div>
+                    <ReactMarkdown>{survivalDay?.description}</ReactMarkdown>
+                </div>
+                <div className="flex flex-col gap-4">
+                    {survivalDay?.options
+                        .sort((a, b) => {
+                            const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2 };
+                            return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
+                        })
+                        .map((option) => (
+                            <SurvivalDayOption key={option.difficulty} option={option} />
+                        ))}
+                    </div>
+                </div>
+            }
+        </ProtectedRoute>
     )
 }

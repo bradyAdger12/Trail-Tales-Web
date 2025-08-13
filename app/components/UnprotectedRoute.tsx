@@ -12,6 +12,7 @@ export default function UnprotectedRoute({ children }: UnprotectedRouteProps) {
     const [show, setShow] = useState(false);
     useEffect(() => {
         if (isAuthenticated) {
+            // console.log("isAuthenticated", isAuthenticated)
             navigate("/me");
         } else {
             setShow(true);

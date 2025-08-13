@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { fetchActivitiesBySourceIds, importActivity, type Activity } from "~/api/activity"
 import { fetchStravaActivities } from "~/api/strava"
 import { validActivities } from "~/lib/validation"
@@ -16,7 +16,7 @@ export default function StravaImportActivies({ onImport }: { onImport: ({ activi
         queryFn: fetchStravaActivities
     })
 
-    const { data: importedActivities, error: importedActivitiesError, isLoading: isImportedActivitiesLoading } = useQuery({
+    const { data: importedActivities = [], error: importedActivitiesError, isLoading: isImportedActivitiesLoading } = useQuery({
         retry: false,
         queryKey: ['imported_activities'],
         queryFn: () => fetchActivitiesBySourceIds({ sourceIds: stravaActivities?.map((activity: any) => activity.id) || [] }),

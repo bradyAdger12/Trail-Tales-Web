@@ -12,6 +12,7 @@ export default [
 
     layout("./layouts/auth_layout.tsx", [
         route("/me", "routes/me.tsx"),
+        route("/strava", "routes/strava.tsx"),
         route("/profile", "routes/profile.tsx"),
         ...prefix("chapter", [
             route("/:chapterId", "routes/chapter.tsx")

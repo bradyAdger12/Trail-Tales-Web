@@ -22,8 +22,6 @@ export default function Profile() {
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         display_name: user?.display_name ?? "",
-        weekly_distance_in_kilometers: user?.weekly_distance_in_kilometers ?? 0,
-        threshold_pace_seconds: user?.threshold_pace_seconds ?? "0:00"
     });
     const { showToast } = useToast();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,8 +30,6 @@ export default function Profile() {
             setIsLoading(true);
             const updatedUser = await updateMe({
                 display_name: formData.display_name ?? "",
-                weekly_distance_in_kilometers: milesToKilometers(formData.weekly_distance_in_kilometers ?? 0),
-                threshold_pace_seconds: mmssToSeconds(formData.threshold_pace_seconds.toString() ?? "0:00")
             });
             setUser(updatedUser)
             showToast("Profile updated successfully", "success");
@@ -89,41 +85,6 @@ export default function Profile() {
                                 onChange={(e) => {
                                     setFormData((prev) => ({ ...prev, display_name: e.target.value }));
                                 }}
-                                className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="weekly_mileage" className="block text-sm font-medium mb-2">
-                                Weekly Mileage
-                            </label>
-                            <input
-                                type="number"
-                                id="weekly_mileage"
-                                name="weekly_distance_in_kilometers"
-                                value={formData.weekly_distance_in_kilometers}
-                                onChange={(e) => {
-                                    setFormData((prev) => ({ ...prev, weekly_distance_in_kilometers: parseInt(e.target.value) }));
-                                }}
-                                min="0"
-                                step="1"
-                                className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary"
-                            />
-                        </div>
-
-                        <div>
-                            <label htmlFor="threshold_pace" className="block text-sm font-medium mb-2">
-                                Threshold Pace (seconds)
-                            </label>
-                            <input
-                                type="text"
-                                id="threshold_pace"
-                                name="threshold_pace_seconds"
-                                value={formData.threshold_pace_seconds}
-                                onChange={(e) => {
-                                    setFormData((prev) => ({ ...prev, threshold_pace_seconds: e.target.value }));
-                                }}
-                                min="0"
                                 className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary"
                             />
                         </div>

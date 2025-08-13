@@ -4,8 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGame } from "~/api/game";
 import { ErrorAlert } from "~/components/alerts/Alerts";
 import GameConfiguration from "~/components/game_configuration/GameConfiguration";
-import { GameConfigProvider } from "~/contexts/GameConfigContext";
+import { GameProvider, useGame } from "~/contexts/GameContext";
 import GameMenu from "~/components/game/GameMenu";
+import { useEffect } from "react";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: "My Account - Epic Adventures" },
@@ -14,7 +15,13 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Me() {
+    const { setGame } = useGame()
     const { data: game, error, isLoading } = useQuery({ queryKey: ['game'], queryFn: fetchGame })
+    useEffect(() => {
+        if (game) {
+            setGame(game)
+        }
+    }, [game])
     if (error) {
         return <ErrorAlert message={error.message} />
     } else if (isLoading) {
@@ -22,11 +29,9 @@ export default function Me() {
     }
     return (
         <ProtectedRoute>
-            <GameConfigProvider>
-                <div>
-                    {!game?.id ? <GameConfiguration /> : <GameMenu game={game} />}
-                </div>
-            </GameConfigProvider>
+            <div>
+                {!game?.id ? <GameConfiguration /> : <GameMenu game={game} />}
+            </div>
         </ProtectedRoute>
     );
 }
