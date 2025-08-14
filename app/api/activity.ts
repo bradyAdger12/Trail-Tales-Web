@@ -17,7 +17,6 @@ export interface Activity {
 export async function fetchActivitiesBySourceIds({ sourceIds }: { sourceIds: string[] }): Promise<Activity[]> {
     try {
         const response = await authApi.get(`/activities/imported?source_ids=${sourceIds.join(',')}`);
-        console.log(response)
         return response.data || [];
     } catch (error) {
         throw error;

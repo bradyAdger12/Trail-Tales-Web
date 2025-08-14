@@ -8,6 +8,7 @@ import { fetchGame } from "~/api/game"
 import { useEffect } from "react"
 import ProtectedRoute from "~/components/ProtectedRoute"
 import CharacterStats from "~/components/game/CharacterStats"
+import ActivityMap from "~/components/map/ActivityMap"
 
 export default function SurivalDayPage() {
     const { survivalDayId } = useParams();
@@ -25,23 +26,24 @@ export default function SurivalDayPage() {
     }, [game])
     return (
         <ProtectedRoute>
-            { !game?.id && !isLoading ? <div>No game found</div> :
-            <div className="flex flex-col gap-8">
-                {game?.character && <div className="flex justify-start"><CharacterStats character={game?.character} /></div>}
-                <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
-                <div>
-                    <ReactMarkdown>{survivalDay?.description}</ReactMarkdown>
-                </div>
-                <div className="flex flex-col gap-4">
-                    {survivalDay?.options
-                        .sort((a, b) => {
-                            const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2 };
-                            return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
-                        })
-                        .map((option) => (
-                            <SurvivalDayOption key={option.difficulty} option={option} />
-                        ))}
+            {!game?.id && !isLoading ? <div>No game found</div> :
+                <div className="flex flex-col gap-8">
+                    {game?.character && <div className="flex justify-start"><CharacterStats character={game?.character} /></div>}
+                    <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
+                    <div>
+                        <ReactMarkdown>{survivalDay?.description}</ReactMarkdown>
                     </div>
+                    <div className="flex flex-col gap-4">
+                        {survivalDay?.options
+                            .sort((a, b) => {
+                                const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2 };
+                                return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
+                            })
+                            .map((option) => (
+                                <SurvivalDayOption key={option.difficulty} option={option} />
+                            ))}
+                    </div>
+                    <ActivityMap polyline={survivalDay?.options.find((item) => item.activity_id)?.activity?.polyline || ''} />
                 </div>
             }
         </ProtectedRoute>

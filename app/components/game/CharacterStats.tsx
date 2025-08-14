@@ -9,7 +9,6 @@ export const HEALTH_COLOR = '#FF4C4C'
 
 export default function CharacterStats({ character }: { character: Character }) {
     const { user } = useAuth()
-    console.log(character)
     function statLevel(color: string, stat: number) {
         return (<div className="relative rounded-full w-[90%] overflow-hidden h-[20px]">
             <div className="absolute left-0 h-full flex items-center text-white justify-center" style={{ backgroundColor: color, width: `${stat}%` }}>
