@@ -7,7 +7,7 @@ import { useGame } from "~/contexts/GameContext"
 import { fetchGame } from "~/api/game"
 import { useEffect } from "react"
 import ProtectedRoute from "~/components/ProtectedRoute"
-import CharacterStats from "~/components/game/CharacterStats"
+import CharacterStats from "~/components/character/CharacterStats"
 import ActivityMap from "~/components/map/ActivityMap"
 
 export default function SurivalDayPage() {
@@ -18,6 +18,7 @@ export default function SurivalDayPage() {
         queryFn: () => fetchSurvivalDay(survivalDayId!)
     })
     const { setGame } = useGame()
+    const navigate = useNavigate()
     const { data: game, error, isLoading } = useQuery({ queryKey: ['game'], queryFn: fetchGame })
     useEffect(() => {
         if (game) {
@@ -28,7 +29,11 @@ export default function SurivalDayPage() {
         <ProtectedRoute>
             {!game?.id && !isLoading ? <div>No game found</div> :
                 <div className="flex flex-col gap-8">
-                    {game?.character && <div className="flex justify-start"><CharacterStats character={game?.character} /></div>}
+                    <button className="btn btn-primary max-w-xs" onClick={() => navigate(`/me`)}>
+                        <i className="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                    {game?.character && <div className="flex justify-start w-lg"><CharacterStats character={game?.character} /></div>}
                     <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
                     <div>
                         <ReactMarkdown>{survivalDay?.description}</ReactMarkdown>

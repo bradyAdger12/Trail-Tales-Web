@@ -1,6 +1,6 @@
 import type { Game } from "~/api/game"
 import { useAuth } from "~/contexts/AuthContext"
-import CharacterStats from "./CharacterStats"
+import CharacterStats from "../character/CharacterStats"
 import { Link } from "react-router"
 import BrushedX from "~/assets/images/brushed_x.png"
 

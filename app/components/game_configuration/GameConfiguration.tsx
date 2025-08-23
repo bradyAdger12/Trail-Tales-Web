@@ -1,8 +1,6 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useGame } from "~/contexts/GameContext";
 import { getGameDifficultyOptions, startGame, type GameDifficulty } from "~/api/game";
-import CharacterSelector from "../character/CharacterSelector";
-import { useDialog } from "~/contexts/DialogContext";
 import { useNavigate } from "react-router";
 import { milesToKilometers } from "~/lib/conversions";
 import CharacterStat from "../character/CharacterStat";

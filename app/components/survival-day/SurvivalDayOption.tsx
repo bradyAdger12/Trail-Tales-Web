@@ -23,8 +23,23 @@ export default function SurvivalDayOption({ option }: { option: SurvivalDayOptio
             </div>
             <div className="flex items-center justify-between text-sm text-gray-400">
                 <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-1">
-                        <span>{option.chance_to_find_items}% chance to find +10% <span style={{ color: FOOD_COLOR }}><i className="fa-solid fa-utensils"></i></span> or <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span></span>
+                    <div className="flex items-center gap-2">
+                        <p>
+                            Travel {kilometersToMiles(option.distance_in_kilometers).toFixed(2)} mi for a
+                        </p>
+                        <div className="flex items-center gap-1 bg-gray-800/50 px-2 py-1 rounded-md">
+                            <i className="fas fa-dice text-purple-400"></i>
+                            <span className="text-purple-300">{option.chance_to_find_items}%</span>
+                        </div>
+                        <span className="text-gray-300">chance to find</span>
+                        <div className="flex items-center gap-1 bg-green-800/30 px-2 py-1 rounded-md border border-green-600/30">
+                            <span className="text-green-300 font-medium">+{option.item_gain_percentage}%</span>
+                            <div className="flex items-center gap-1">
+                                <span style={{ color: FOOD_COLOR }}><i className="fa-solid fa-utensils"></i></span>
+                                <span className="text-gray-400">&</span>
+                                <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span>
+                            </div>
+                        </div>
                     </div>
                     {option.health_loss > 0 && <div className="flex items-center gap-1">
                         <span className="text-red-400">❤️</span>

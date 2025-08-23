@@ -14,9 +14,6 @@ export default [
         route("/me", "routes/me.tsx"),
         route("/strava", "routes/strava.tsx"),
         route("/profile", "routes/profile.tsx"),
-        ...prefix("chapter", [
-            route("/:chapterId", "routes/chapter.tsx")
-        ]),
         ...prefix("integration", [
             route("/strava", "routes/integration/strava.tsx")
         ]),

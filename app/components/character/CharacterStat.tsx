@@ -1,6 +1,6 @@
 export default function CharacterStat({ stat, color, icon }: { stat: number | undefined, color: string, icon: string }) {
     return (
-        <div className="flex items-center gap-2 mt-4">
+        <div className="flex items-center gap-2">
             <i className={`fas ${icon}`} style={{ color: color }}></i>
             <div className="w-full h-4 bg-gray-200 rounded-full overflow-hidden">
                 <div

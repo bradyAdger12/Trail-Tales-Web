@@ -6,6 +6,10 @@ export interface Game {
     days_to_survive: number,
     character: Character
     difficulty: GameDifficulty
+    daily_food_loss: number,
+    daily_water_loss: number,
+    min_distance_in_kilometers: number,
+    max_distance_in_kilometers: number
     survival_days: SurvivalDay[]
 }
 
