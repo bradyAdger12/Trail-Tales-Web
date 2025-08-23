@@ -12,6 +12,7 @@ export function kilometersToMiles(kilometers: number): number {
 }
 
 
+
 // function to convert seconds into mm:ss format
 export function secondsToMMSS(seconds: number): string {
   const minutes = Math.floor(seconds / 60);

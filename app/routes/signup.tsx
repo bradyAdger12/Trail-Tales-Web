@@ -1,11 +1,11 @@
-import DefaultLayout from "~/layouts/default_layout";
 import type { Route } from "./+types/signup";
 import { Link, useNavigate } from "react-router";
 import { useState, useEffect } from "react";
 import { signUp } from "~/api/auth";
 import { useToast } from "~/contexts/ToastContext";
-import { APP_NAME } from "~/lib/constants";
+import { APP_NAME, TIMEZONES } from "~/lib/constants";
 import UnprotectedRoute from "~/components/UnprotectedRoute";
+import { useAuth } from "~/contexts/AuthContext";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: `Sign Up - ${APP_NAME}` },
@@ -17,6 +17,7 @@ export default function SignUp() {
   const [formData, setFormData] = useState({
     displayName: "",
     email: "",
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     password: "",
     confirmPassword: ""
   });
@@ -29,6 +30,7 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
   const { showToast } = useToast();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -52,12 +54,17 @@ export default function SignUp() {
       await signUp({
         display_name: formData.displayName,
         email: formData.email,
+        password: formData.password,
+        timezone: formData.timezone
+      })
+      await login({
+        email: formData.email,
         password: formData.password
       })
       navigate("/")
       showToast("Account created successfully", "success");
     } catch (error) {
-      setError(error as string);
+      setError((error as Error).message);
     } finally {
       setSignupLoading(false);
     }
@@ -78,6 +85,10 @@ export default function SignUp() {
     }
     if (!formData.confirmPassword) {
       setError("Confirm password is required");
+      return false;
+    }
+    if (!formData.timezone) {
+      setError("Timezone is required");
       return false;
     }
     if (formData.password !== formData.confirmPassword) {
@@ -150,6 +161,26 @@ export default function SignUp() {
                     placeholder="you@example.com"
                     required
                   />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="timezone" className="block text-sm font-medium text-gray-300">
+                    Timezone
+                  </label>
+                  <select
+                    id="timezone"
+                    name="timezone"
+                    value={formData.timezone}
+                    onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
+                    className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
+                    required
+                  >
+                    {TIMEZONES.map((timezone) => (
+                      <option key={timezone.value} value={timezone.value}>
+                        {timezone.label}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="space-y-2">

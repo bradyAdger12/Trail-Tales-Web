@@ -1,6 +1,7 @@
 import { useGame } from "~/contexts/GameContext";
 import type { SurvivalDayOption } from "~/api/survival_day";
 import { kilometersToMiles } from "~/lib/conversions";
+import { FOOD_COLOR, WATER_COLOR } from "~/lib/colors";
 
 export default function SurvivalDayOption({ option }: { option: SurvivalDayOption }) {
     const { game } = useGame()
@@ -10,8 +11,8 @@ export default function SurvivalDayOption({ option }: { option: SurvivalDayOptio
                 <p className="text-gray-200 flex-1 mr-4">{option.description}</p>
                 <div className="flex items-center gap-3">
                     <span className={`px-3 py-1 text-sm rounded-full border ${option.difficulty === 'easy' ? 'bg-green-700 border-green-500 text-green-100' :
-                            option.difficulty === 'medium' ? 'bg-yellow-700 border-yellow-500 text-yellow-100' :
-                                'bg-red-700 border-red-500 text-red-100'
+                        option.difficulty === 'medium' ? 'bg-yellow-700 border-yellow-500 text-yellow-100' :
+                            'bg-red-700 border-red-500 text-red-100'
                         }`}>
                         {option.difficulty}
                     </span>
@@ -23,8 +24,7 @@ export default function SurvivalDayOption({ option }: { option: SurvivalDayOptio
             <div className="flex items-center justify-between text-sm text-gray-400">
                 <div className="flex items-center gap-4">
                     <div className="flex items-center gap-1">
-                        <span className="text-green-400">🍎</span>
-                        <span>{option.chance_to_find_items}% find food/water</span>
+                        <span>{option.chance_to_find_items}% chance to find +10% <span style={{ color: FOOD_COLOR }}><i className="fa-solid fa-utensils"></i></span> or <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span></span>
                     </div>
                     {option.health_loss > 0 && <div className="flex items-center gap-1">
                         <span className="text-red-400">❤️</span>

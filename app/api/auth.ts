@@ -17,6 +17,7 @@ export interface SignUpRequest {
     display_name: string;
     email: string;
     password: string;
+    timezone: string;
 }
 
 export interface LoginRequest {
@@ -62,10 +63,6 @@ export async function googleAuth(token: string): Promise<LoginResponse> {
 export async function signUp(request: SignUpRequest): Promise<void> {
     try {
         await api.post('/register', request);
-        await authLogin({
-            email: request.email,
-            password: request.password
-        })
     } catch (error) {
         throw error;
     }

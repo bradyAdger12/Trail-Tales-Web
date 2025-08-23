@@ -5,15 +5,28 @@ export interface Game {
     id: string;
     days_to_survive: number,
     character: Character
+    difficulty: GameDifficulty
     survival_days: SurvivalDay[]
 }
 
+export type GameDifficulty = 'easy' | 'medium' | 'hard'
+
 export interface StartGameRequest {
-    weekly_distance_in_kilometers: number
-    threshold_pace_minutes: number
-    threshold_pace_seconds: number
-    character: CharacterTemplate
+    difficulty: GameDifficulty
 }
+
+export type GameDifficultyOption = {
+    [key in GameDifficulty]: {
+        food: number,
+        water: number,
+        health: number,
+        dailyFoodLoss: number,
+        dailyWaterLoss: number,
+        minDistanceInKilometers: number,
+        maxDistanceInKilometers: number,
+        description: string,
+    };
+};
 
 /**
  * Fetch a game
@@ -28,6 +41,14 @@ export async function fetchGame(): Promise<Game> {
     }
 }
 
+export async function getGameDifficultyOptions(): Promise<GameDifficultyOption> {
+    try {
+        const response = await authApi.get('/games/difficulty');
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
 
 /**
  * Start a new game if not exists
