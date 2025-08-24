@@ -63,7 +63,10 @@ export default function Profile() {
     return <div>
         <div className="max-w-2xl mx-auto">
             <div className="flex flex-col gap-8">
-                <Integrations />
+                <div>
+                    <h3 className='mb-4'>Integrations</h3>
+                    <Integrations />
+                </div>
                 <div>
                     <h3 className="mb-8">Edit Profile</h3>
                     <form className="space-y-6" onSubmit={handleSubmit}>

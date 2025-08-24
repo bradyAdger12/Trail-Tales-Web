@@ -11,6 +11,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.758.0",
     "@mapbox/polyline": "^1.2.1",
+    "@react-oauth/google": "^0.12.2",
     "@react-router/node": "^7.3.0",
     "@react-router/serve": "^7.3.0",
     "@tanstack/react-query": "^5.68.0",

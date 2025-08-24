@@ -6,6 +6,7 @@ import { useToast } from "~/contexts/ToastContext";
 import { APP_NAME, TIMEZONES } from "~/lib/constants";
 import UnprotectedRoute from "~/components/UnprotectedRoute";
 import { useAuth } from "~/contexts/AuthContext";
+import { GoogleLogin } from "@react-oauth/google";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: `Sign Up - ${APP_NAME}` },
@@ -30,7 +31,7 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [signupLoading, setSignupLoading] = useState(false);
   const { showToast } = useToast();
-  const { login } = useAuth();
+  const { login, handleGoogleLogin } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -275,6 +276,26 @@ export default function SignUp() {
                   Create Account {signupLoading && <span className="loading loading-spinner loading-xs"></span>}
                 </button>
               </form>
+              <div className="mt-6">
+                <GoogleLogin
+                  onSuccess={async (response) => {
+                    if (response.credential) {
+                      try {
+                        await handleGoogleLogin(response.credential);
+                        navigate("/");
+                        showToast("Google login successful", "success");
+                      } catch (error) {
+                        showToast("Google login error", "error");
+                      }
+                    }
+                  }}
+                  onError={() => {
+                    showToast("Google login error", "error");
+                  }}
+                />
+              </div>
+
+
 
               <p className="mt-6 text-center text-gray-400">
                 Already have an account?{" "}

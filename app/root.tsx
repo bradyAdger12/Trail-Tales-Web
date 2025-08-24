@@ -16,6 +16,7 @@ import { DialogProvider } from "./contexts/DialogContext";
 import { CookiesProvider } from 'react-cookie';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { GameProvider } from "./contexts/GameContext";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -43,19 +44,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        <CookiesProvider defaultSetOptions={{ path: '/' }}>
-          <QueryClientProvider client={queryClient}>
-            <AuthProvider>
-              <DialogProvider>
-                <ToastProvider>
-                  <GameProvider>
-                  {children}
-                  </GameProvider>
-                </ToastProvider>
-              </DialogProvider>
-            </AuthProvider>
-          </QueryClientProvider>
-        </CookiesProvider>
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+          <CookiesProvider defaultSetOptions={{ path: '/' }}>
+            <QueryClientProvider client={queryClient}>
+              <AuthProvider>
+                <DialogProvider>
+                  <ToastProvider>
+                    <GameProvider>
+                      {children}
+                    </GameProvider>
+                  </ToastProvider>
+                </DialogProvider>
+              </AuthProvider>
+            </QueryClientProvider>
+          </CookiesProvider>
+        </GoogleOAuthProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

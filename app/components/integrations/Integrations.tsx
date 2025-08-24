@@ -14,7 +14,6 @@ export default function Integrations() {
 
     return (
         <div>
-            <h3 className='mb-4'>Integrations</h3>
             {integrations.map(integration => (
                 <a
                     key={integration.name}

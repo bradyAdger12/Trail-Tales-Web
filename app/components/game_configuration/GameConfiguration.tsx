@@ -6,13 +6,17 @@ import { kilometersToMiles, milesToKilometers } from "~/lib/conversions";
 import CharacterStat from "../character/CharacterStat";
 import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 import { useState } from "react";
+import Integrations from "../integrations/Integrations";
+import { useAuth } from "~/contexts/AuthContext";
 
 export default function GameConfiguration() {
     const { setGame } = useGame()
+    const { user } = useAuth()
     const [selectedDifficulty, setSelectedDifficulty] = useState<GameDifficulty | null>(null)
     const [wait, setWait] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const navigate = useNavigate()
+    const usStartGameDisabled = !selectedDifficulty || wait || !user?.strava_access_token
     const { data: gameDifficultyOptions } = useQuery({
         queryKey: ["game_difficulty"],
         queryFn: () => getGameDifficultyOptions()
@@ -40,6 +44,13 @@ export default function GameConfiguration() {
     return (
         <div className="flex flex-col items-center">
             <div className="flex flex-col gap-6 w-1/2">
+                <h3>
+                    Difficulty
+                    <p className="text-sm text-gray-500">
+                        Choose a difficulty to start the game
+                    </p>
+                </h3>
+
                 {gameDifficultyOptions && Object.keys(gameDifficultyOptions).map((difficulty) => (
                     <div
                         key={difficulty}
@@ -84,7 +95,15 @@ export default function GameConfiguration() {
                         </div>
                     </div>
                 ))}
-                <button className="btn btn-primary w-full" onClick={() => start.mutate()} disabled={wait}>Start Game {wait && <i className="fas fa-spinner fa-spin"></i>}</button>
+                <hr />
+                <h3>
+                    Integrations
+                    <p className="text-sm text-gray-500">
+                        Connect your accounts to upload your data to the game
+                    </p>
+                </h3>
+                <Integrations />
+                <button className="btn btn-primary w-full" onClick={() => start.mutate()} disabled={usStartGameDisabled}>Start Game {wait && <i className="fas fa-spinner fa-spin"></i>}</button>
                 {error && <p className="text-red-500">{error}</p>}
             </div>
         </div>

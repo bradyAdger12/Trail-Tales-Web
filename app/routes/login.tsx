@@ -7,6 +7,8 @@ import { APP_NAME } from "~/lib/constants";
 import { useDialog } from "~/contexts/DialogContext";
 import { ForgotPasswordDialog } from "~/components/dialogs/ForgotPasswordDialog";
 import UnprotectedRoute from "~/components/UnprotectedRoute";
+import { GoogleLogin } from "@react-oauth/google";
+import { useToast } from "~/contexts/ToastContext";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: `Login - ${APP_NAME}` },
@@ -19,12 +21,13 @@ export default function Login() {
     email: "",
     password: "",
   });
-  const { login } = useAuth();
+  const { login, handleGoogleLogin } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [signinLoading, setSigninLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const { openDialog } = useDialog();
+  const { showToast } = useToast();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -129,6 +132,25 @@ export default function Login() {
                   Sign in {signinLoading && <span className="loading loading-spinner loading-xs"></span>}
                 </button>
               </form>
+
+              <div className="mt-6">
+                <GoogleLogin
+                  onSuccess={async (response) => {
+                    if (response.credential) {
+                      try {
+                        await handleGoogleLogin(response.credential);
+                        navigate("/");
+                        showToast("Google login successful", "success");
+                      } catch (error) {
+                        showToast("Google login error", "error");
+                      }
+                    }
+                  }}
+                  onError={() => {
+                    showToast("Google login error", "error");
+                  }}
+                />
+              </div>
 
               <p className="mt-6 text-center text-gray-400">
                 Don't have an account?{" "}

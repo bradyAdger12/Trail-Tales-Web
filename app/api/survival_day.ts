@@ -1,8 +1,10 @@
 import { authApi } from "~/lib/axios";
 import type { Activity } from "./activity";
+
+export type SurvivalDayDifficulty = 'easy' | 'medium' | 'hard' | 'rest'
 export interface SurvivalDayOption {
     description: string,
-    difficulty: 'easy' | 'medium' | 'hard'
+    difficulty: SurvivalDayDifficulty
     distance_in_kilometers: number,
     chance_to_find_items: number,
     item_gain_percentage: number,
@@ -15,7 +17,7 @@ export interface SurvivalDay {
     activity?: Activity
     description: string,
     created_at: string,
-    completed_difficulty?: 'easy' | 'medium' | 'hard',
+    completed_difficulty?: SurvivalDayDifficulty,
     day: number
     options: SurvivalDayOption[]
 }
