@@ -34,7 +34,12 @@ export default function SurivalDayPage() {
                         Back
                     </button>
                     {game?.character && <div className="flex justify-start w-lg"><CharacterStats character={game?.character} /></div>}
-                    <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
+                    <div>
+                        <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
+                        <p className="text-sm text-gray-400 mt-1">
+                            {new Date(survivalDay?.created_at || '').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </p>
+                    </div>
                     <div>
                         <ReactMarkdown>{survivalDay?.description}</ReactMarkdown>
                     </div>
@@ -45,10 +50,10 @@ export default function SurivalDayPage() {
                                 return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
                             })
                             .map((option) => (
-                                <SurvivalDayOption key={option.difficulty} option={option} />
+                                <SurvivalDayOption key={option.difficulty} option={option} completedDifficulty={survivalDay.completed_difficulty} />
                             ))}
                     </div>
-                    <ActivityMap polyline={survivalDay?.options.find((item) => item.activity_id)?.activity?.polyline || ''} />
+                    {survivalDay?.activity && <ActivityMap polyline={survivalDay.activity.polyline} />}
                 </div>
             }
         </ProtectedRoute>

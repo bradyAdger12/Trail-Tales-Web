@@ -6,14 +6,16 @@ export interface SurvivalDayOption {
     distance_in_kilometers: number,
     chance_to_find_items: number,
     item_gain_percentage: number,
-    activity_id: string,
-    activity: Activity
     health_loss: number
 }
 export interface SurvivalDay {
     id: string,
     game_id: string,
+    activity_id?: string,
+    activity?: Activity
     description: string,
+    created_at: string,
+    completed_difficulty?: 'easy' | 'medium' | 'hard',
     day: number
     options: SurvivalDayOption[]
 }

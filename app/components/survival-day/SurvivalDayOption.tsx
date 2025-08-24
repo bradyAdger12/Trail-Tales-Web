@@ -3,10 +3,10 @@ import type { SurvivalDayOption } from "~/api/survival_day";
 import { kilometersToMiles } from "~/lib/conversions";
 import { FOOD_COLOR, WATER_COLOR } from "~/lib/colors";
 
-export default function SurvivalDayOption({ option }: { option: SurvivalDayOption }) {
+export default function SurvivalDayOption({ option, completedDifficulty }: { option: SurvivalDayOption, completedDifficulty?: 'easy' | 'medium' | 'hard' }) {
     const { game } = useGame()
     return (
-        <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${option.activity_id ? 'bg-green-900/20' : ''}`}>
+        <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${completedDifficulty === option.difficulty ? 'bg-green-900/20' : ''}`}>
             <div className="flex items-center justify-between mb-3">
                 <p className="text-gray-200 flex-1 mr-4">{option.description}</p>
                 <div className="flex items-center gap-3">

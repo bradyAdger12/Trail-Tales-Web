@@ -1,4 +1,4 @@
-import { APP_NAME } from "~/lib/constants";
+import { APP_NAME, TIMEZONES } from "~/lib/constants";
 import type { Route } from "./+types/profile";
 import { mmssToSeconds, secondsToMMSS, kilometersToMiles, milesToKilometers } from "~/lib/conversions";
 import { useState } from "react";
@@ -21,7 +21,8 @@ export default function Profile() {
     const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
-        display_name: user?.display_name ?? "",
+        display_name: user?.display_name || "",
+        timezone: user?.timezone || "",
     });
     const { showToast } = useToast();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -29,7 +30,8 @@ export default function Profile() {
         try {
             setIsLoading(true);
             const updatedUser = await updateMe({
-                display_name: formData.display_name ?? "",
+                display_name: formData.display_name || "",
+                timezone: formData.timezone || "",
             });
             setUser(updatedUser)
             showToast("Profile updated successfully", "success");
@@ -73,6 +75,21 @@ export default function Profile() {
                                     <span className="fas fa-trash"></span>
                                 </button>
                             </div>}
+
+                        <div>
+                            <label htmlFor="email" className="block text-sm font-medium mb-2">
+                                Email
+                            </label>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value={user?.email}
+                                readOnly
+                                disabled
+                                className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary cursor-not-allowed"
+                            />
+                        </div>
                         <div>
                             <label htmlFor="display_name" className="block text-sm font-medium mb-2">
                                 Display Name
@@ -87,6 +104,25 @@ export default function Profile() {
                                 }}
                                 className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary"
                             />
+                        </div>
+                        <div>
+                            <label htmlFor="timezone" className="block text-sm font-medium mb-2">
+                                Timezone
+                            </label>
+                            <select
+                                id="timezone"
+                                name="timezone"
+                                value={formData.timezone}
+                                onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
+                                className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
+                                required
+                            >
+                                {TIMEZONES.map((timezone) => (
+                                    <option key={timezone.value} value={timezone.value}>
+                                        {timezone.label}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
 
                         <button

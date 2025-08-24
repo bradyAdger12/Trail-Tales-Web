@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { useGame } from "~/contexts/GameContext";
 import { getGameDifficultyOptions, startGame, type GameDifficulty } from "~/api/game";
 import { useNavigate } from "react-router";
-import { milesToKilometers } from "~/lib/conversions";
+import { kilometersToMiles, milesToKilometers } from "~/lib/conversions";
 import CharacterStat from "../character/CharacterStat";
 import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 import { useState } from "react";
@@ -54,9 +54,9 @@ export default function GameConfiguration() {
                             {gameDifficultyOptions[difficulty as GameDifficulty].description}
                         </p>
                         <div className="space-y-2">
+                            <CharacterStat stat={gameDifficultyOptions[difficulty as GameDifficulty].health} color={HEALTH_COLOR} icon="fa-solid fa-heart" />
                             <CharacterStat stat={gameDifficultyOptions[difficulty as GameDifficulty].food} color={FOOD_COLOR} icon="fa-solid fa-utensils" />
                             <CharacterStat stat={gameDifficultyOptions[difficulty as GameDifficulty].water} color={WATER_COLOR} icon="fa-solid fa-water" />
-                            <CharacterStat stat={gameDifficultyOptions[difficulty as GameDifficulty].health} color={HEALTH_COLOR} icon="fa-solid fa-heart" />
                         </div>
 
                         {/* Daily Loss */}
@@ -77,8 +77,8 @@ export default function GameConfiguration() {
                             <div>
                                 <h4 className="text-sm font-medium mb-2">Adventure Distance</h4>
                                 <div className="flex items-center gap-2 text-xs">
-                                    <span>Min: {milesToKilometers(gameDifficultyOptions[difficulty as GameDifficulty].minDistanceInKilometers).toFixed(2)} mi</span>
-                                    <span>Max: {milesToKilometers(gameDifficultyOptions[difficulty as GameDifficulty].maxDistanceInKilometers).toFixed(2)} mi</span>
+                                    <span>Min: {kilometersToMiles(gameDifficultyOptions[difficulty as GameDifficulty].minDistanceInKilometers).toFixed(2)} mi</span>
+                                    <span>Max: {kilometersToMiles(gameDifficultyOptions[difficulty as GameDifficulty].maxDistanceInKilometers).toFixed(2)} mi</span>
                                 </div>
                             </div>
                         </div>
