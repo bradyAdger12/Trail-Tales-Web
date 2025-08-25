@@ -3,7 +3,6 @@ import { Link, Outlet, useNavigate } from "react-router";
 import Footer from "~/components/Footer";
 import { useAuth } from "~/contexts/AuthContext";
 import { APP_NAME } from "~/lib/constants";
-import logo from "~/assets/images/logo.png"
 
 export default function DefaultLayout({ className }: { className?: string }) {
     const { isAuthenticated, logout } = useAuth();
@@ -17,7 +16,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                         <div className="flex justify-between items-center">
                             <div>
                                 <Link to="/" className="flex items-center gap-x-3 cursor-pointer">
-                                    <img src={logo} alt="logo" className="w-12 rounded-full" />
+                                    <img src="https://trail-tales-ba-3013.s3.us-west-2.amazonaws.com/web_assets/logo.png" alt="logo" className="w-12 rounded-full" />
                                     <h4 className="text-2xl font-bold">
                                         {APP_NAME}
                                     </h4>
