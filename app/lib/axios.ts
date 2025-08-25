@@ -10,6 +10,8 @@ export interface ErrorMessage {
 const baseURL = import.meta.env.VITE_SERVER_BASE_URL;
 const timeout = 15000;
 
+console.log(baseURL)
+
 export const api = axios.create({
     baseURL,
     timeout
