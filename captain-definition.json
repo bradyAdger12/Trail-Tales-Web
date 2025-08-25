@@ -1,0 +1,5 @@
+{
+  "schemaVersion": 2,
+  "captainVersion": "4",
+  "dockerfilePath": "./Dockerfile"
+}
