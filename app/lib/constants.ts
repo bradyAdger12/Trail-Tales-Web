@@ -1,4 +1,4 @@
-export const APP_NAME = "Trail Tale"
+export const APP_NAME = "Trail Tales"
 export const TIMEZONES = [
     { value: "America/New_York", label: "Eastern Time (America/New_York)" },
     { value: "America/Chicago", label: "Central Time (America/Chicago)" },

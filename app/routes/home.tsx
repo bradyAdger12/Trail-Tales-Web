@@ -16,7 +16,7 @@ export default function Home() {
     <UnprotectedRoute>
       <div className="flex flex-col items-center justify-center">
         <div className="max-w-md md:max-w-2xl text-center">
-          <h1 className="mb-5 text-5xl font-bold text-primary">Trail Tales</h1>
+          <h1 className="mb-5 text-5xl font-bold text-primary">{APP_NAME}</h1>
           <p className="mb-8 text-xl">Your plane has crashed on a remote island. With limited supplies and no rescue in sight, you must survive for 15 days.</p>
 
           <div className="mb-8 bg-base-100 bg-opacity-80 p-6 rounded-lg shadow-lg">

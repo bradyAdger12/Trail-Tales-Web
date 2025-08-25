@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="container mx-auto">
             <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="flex items-center gap-x-3 mb-4 md:mb-0">
-                    <img src="/app/assets/images/logo.png" alt="logo" className="w-8 rounded-full" />
+                    <img src="https://trail-tales-ba-3013.s3.us-west-2.amazonaws.com/web_assets/logo.png" alt="logo" className="w-8 rounded-full" />
                     <p className="text-lg font-semibold">{APP_NAME}</p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-sm text-gray-400">
