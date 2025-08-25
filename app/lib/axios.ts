@@ -1,6 +1,4 @@
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
-import { getRefreshToken } from "~/api/auth";
 
 export interface ErrorMessage {
     status: number;
@@ -10,7 +8,7 @@ export interface ErrorMessage {
 const baseURL = import.meta.env.VITE_SERVER_BASE_URL;
 const timeout = 15000;
 
-console.log(baseURL)
+console.log('baseURL', baseURL)
 
 export const api = axios.create({
     baseURL,
