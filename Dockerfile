@@ -4,6 +4,9 @@ FROM node:20-alpine
 # Set working directory
 WORKDIR /app
 
+ARG VITE_SERVER_BASE_URL
+ENV VITE_SERVER_BASE_URL=${VITE_SERVER_BASE_URL}
+
 # Copy package files
 COPY package*.json ./
 
