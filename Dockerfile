@@ -13,6 +13,9 @@ RUN yarn install
 # Copy source code
 COPY . .
 
+# Remove .env file if it exists
+RUN rm -f .env
+
 # Build the application
 RUN yarn build
 
