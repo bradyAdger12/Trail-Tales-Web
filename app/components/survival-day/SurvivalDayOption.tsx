@@ -13,8 +13,8 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
     }
     return (
         <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${completedDifficulty === option.difficulty ? 'bg-green-900/20' : ''}`}>
-            <div className="flex items-center justify-between mb-3">
-                <p className="text-gray-200 flex-1 mr-4">{option.description}</p>
+            <div className="flex flex-wrap items-center gap-y-4 justify-between mb-3">
+                <p className="text-gray-200 mr-4">{option.description}</p>
                 <div className="flex items-center gap-3">
                     <span className={`px-3 py-1 text-sm rounded-full border ${getDifficultyColor(option.difficulty)}`}>
                         {option.difficulty}
@@ -27,7 +27,7 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
             {option.difficulty != 'rest' &&
                 <div className="flex items-center justify-between text-sm text-gray-400">
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <p>
                                 Travel {kilometersToMiles(option.distance_in_kilometers).toFixed(2)} mi for a
                             </p>
@@ -35,7 +35,7 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                                 <i className="fas fa-dice text-purple-400"></i>
                                 <span className="text-purple-300">{option.chance_to_find_items}%</span>
                             </div>
-                            <span className="text-gray-300">chance to find</span>
+                            <span className="text-gray-400">chance to find</span>
                             <div className="flex items-center gap-1 bg-green-800/30 px-2 py-1 rounded-md border border-green-600/30">
                                 <span className="text-green-300 font-medium">+{option.item_gain_percentage}%</span>
                                 <div className="flex items-center gap-1">

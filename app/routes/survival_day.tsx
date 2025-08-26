@@ -40,7 +40,7 @@ export default function SurivalDayPage() {
                         <i className="fas fa-arrow-left"></i>
                         Back
                     </button>
-                    {game?.character && <div className="flex justify-start w-lg"><CharacterStats character={game?.character} /></div>}
+                    {game?.character && <div className="flex justify-start w-full md:w-lg"><CharacterStats character={game?.character} /></div>}
                     <div>
                         <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
                         <p className="text-sm text-gray-400 mt-1">
