@@ -1,7 +1,7 @@
 import { useGame } from "~/contexts/GameContext";
 import type { SurvivalDayDifficulty, SurvivalDayOption } from "~/api/survival_day";
 import { kilometersToMiles } from "~/lib/conversions";
-import { FOOD_COLOR, WATER_COLOR } from "~/lib/colors";
+import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 
 export default function SurvivalDayOption({ option, completedDifficulty }: { option: SurvivalDayOption, completedDifficulty?: SurvivalDayDifficulty }) {
     const { game } = useGame()
@@ -26,16 +26,13 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
             </div>
             {option.difficulty != 'rest' &&
                 <div className="flex items-center justify-between text-sm text-gray-400">
-                    <div className="flex items-center gap-4">
+                    <div className="flex-col items-center gap-y-4">
                         <div className="flex flex-wrap items-center gap-2">
-                            <p>
-                                Travel {kilometersToMiles(option.distance_in_kilometers).toFixed(2)} mi for a
-                            </p>
-                            <div className="flex items-center gap-1 bg-gray-800/50 px-2 py-1 rounded-md">
+                            <div className="flex items-center gap-1 bg-purple-800/30 px-2 py-1 rounded-md">
                                 <i className="fas fa-dice text-purple-400"></i>
                                 <span className="text-purple-300">{option.chance_to_find_items}%</span>
                             </div>
-                            <span className="text-gray-400">chance to find</span>
+                            <span className="text-gray-400">chance of</span>
                             <div className="flex items-center gap-1 bg-green-800/30 px-2 py-1 rounded-md border border-green-600/30">
                                 <span className="text-green-300 font-medium">+{option.item_gain_percentage}%</span>
                                 <div className="flex items-center gap-1">
@@ -44,11 +41,13 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                                     <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span>
                                 </div>
                             </div>
+                            <div className="flex items-center gap-1 bg-red-800/30 px-2 py-1 rounded-md border border-red-600/30">
+                                <span className="text-red-300 font-medium">-{option.health_loss_percentage}%</span>
+                                <div className="flex items-center gap-1">
+                                    <span style={{ color: HEALTH_COLOR }}><i className="fa-solid fa-heart"></i></span>
+                                </div>
+                            </div>
                         </div>
-                        {option.health_loss > 0 && <div className="flex items-center gap-1">
-                            <span className="text-red-400">❤️</span>
-                            <span>-{option.health_loss} health</span>
-                        </div>}
                     </div>
                 </div>
             }

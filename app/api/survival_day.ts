@@ -6,6 +6,7 @@ export interface SurvivalDayOption {
     description: string,
     difficulty: SurvivalDayDifficulty
     distance_in_kilometers: number,
+    health_loss_percentage: number,
     chance_to_find_items: number,
     item_gain_percentage: number,
     health_loss: number
