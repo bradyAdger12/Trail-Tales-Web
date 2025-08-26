@@ -60,7 +60,7 @@ export default function SurivalDayPage() {
                                 <SurvivalDayOption key={option.difficulty} option={option} completedDifficulty={survivalDay.completed_difficulty} />
                             ))}
                     </div>
-                    {survivalDay?.activity && <ActivityMap polyline={survivalDay.activity.polyline} />}
+                    {survivalDay?.activity_id && survivalDay.activity?.polyline && <ActivityMap polyline={survivalDay.activity.polyline} />}
                 </div>
             }
         </ProtectedRoute>
