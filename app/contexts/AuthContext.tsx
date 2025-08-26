@@ -57,7 +57,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         try {
             queryClient.clear();
             const response = await authLogin(request);
-            console.log('response', response)
             setCookie('token', response.token);
             setCookie('refreshToken', response.refreshToken);
             setUser(response.user);
