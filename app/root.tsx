@@ -24,6 +24,7 @@ export const links: Route.LinksFunction = () => [
     href: "https://fonts.gstatic.com",
     crossOrigin: "anonymous",
   },
+  { rel: "icon", href: "/favicon.ico" },
   {
     rel: "stylesheet",
     href: "https://fonts.googleapis.com/css2?family=Bangers&display=swa",

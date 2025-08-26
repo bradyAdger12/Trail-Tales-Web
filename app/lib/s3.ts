@@ -20,7 +20,7 @@ export class S3 {
     }
 
     static getUrl(path: string) {
-        const baseUrl = import.meta.env.VITE_AWS_BUCKET_BASE_URL
+        const baseUrl = `https://${import.meta.env.VITE_AWS_BUCKET_NAME}.s3.${import.meta.env.VITE_AWS_REGION}.amazonaws.com/`
         return baseUrl + path
     }
 
