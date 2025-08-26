@@ -43,7 +43,7 @@ export default function GameConfiguration() {
     })
     return (
         <div className="flex flex-col items-center">
-            <div className="flex flex-col gap-6 w-1/2">
+            <div className="flex flex-col gap-6 w-full md:w-1/2">
                 <h3>
                     Difficulty
                     <p className="text-sm text-gray-500">
@@ -58,7 +58,7 @@ export default function GameConfiguration() {
                         className={`p-4 border border-3 rounded-lg cursor-pointer ${selectedDifficulty === difficulty ? 'border-blue-500' : 'border-gray-300 hover:border-blue-300'}`}
                     >
                         {/* Difficulty */}
-                        <h3 className="text-lg font-semibold capitalize mb-2">
+                        <h3 className="text-sm md:stext-lg font-semibold capitalize mb-2">
                             {difficulty}
                         </h3>
                         <p className="text-sm mb-4">
@@ -73,7 +73,7 @@ export default function GameConfiguration() {
                         {/* Daily Loss */}
                         <div className="flex mt-4 gap-6">
                             <div>
-                                <h4 className="text-sm font-medium mb-2">Daily Loss</h4>
+                                <h4 className="text-xs md:text-sm font-medium mb-2">Daily Loss</h4>
                                 <div className="space-y-1">
                                     <div className="flex items-center gap-2 text-xs">
                                         <i className="fas fa-utensils" style={{ color: FOOD_COLOR }}></i>
@@ -86,7 +86,7 @@ export default function GameConfiguration() {
                                 </div>
                             </div>
                             <div>
-                                <h4 className="text-sm font-medium mb-2">Adventure Distance</h4>
+                                <h4 className="text-xs md:text-sm font-medium mb-2">Adventure Distance</h4>
                                 <div className="flex items-center gap-2 text-xs">
                                     <span>Min: {kilometersToMiles(gameDifficultyOptions[difficulty as GameDifficulty].minDistanceInKilometers).toFixed(2)} mi</span>
                                     <span>Max: {kilometersToMiles(gameDifficultyOptions[difficulty as GameDifficulty].maxDistanceInKilometers).toFixed(2)} mi</span>

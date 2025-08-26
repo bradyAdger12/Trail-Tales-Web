@@ -23,9 +23,11 @@ export interface SurvivalDay {
 }
 export async function fetchSurvivalDay(id: string): Promise<SurvivalDay> {
     try {
+        console.log('fetching survival day', id)
         const response = await authApi.get('/survival-days/' + id);
         return response.data;
     } catch (error) {
+        console.error(error)
         throw error;
     }
 }

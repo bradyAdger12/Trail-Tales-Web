@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useNavigate, useParams, useSearchParams } from "react-router"
+import { useNavigate, useParams, useSearchParams, type LoaderFunctionArgs } from "react-router"
 import { fetchSurvivalDay } from "~/api/survival_day"
 import ReactMarkdown from "react-markdown"
 import SurvivalDayOption from "~/components/survival-day/SurvivalDayOption"
@@ -9,6 +9,13 @@ import { useEffect } from "react"
 import ProtectedRoute from "~/components/ProtectedRoute"
 import CharacterStats from "~/components/character/CharacterStats"
 import ActivityMap from "~/components/map/ActivityMap"
+import { APP_NAME } from "~/lib/constants"
+export function meta() {
+    return [
+        { title: `Day - ${APP_NAME}` },
+        { name: "description", content: "View your survival day" },
+    ];
+}
 
 export default function SurivalDayPage() {
     const { survivalDayId } = useParams();
@@ -46,7 +53,7 @@ export default function SurivalDayPage() {
                     <div className="flex flex-col gap-4">
                         {survivalDay?.options
                             .sort((a, b) => {
-                                const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2 };
+                                const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2, 'rest': 3 };
                                 return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
                             })
                             .map((option) => (

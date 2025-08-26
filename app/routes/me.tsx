@@ -7,9 +7,10 @@ import GameConfiguration from "~/components/game_configuration/GameConfiguration
 import { GameProvider, useGame } from "~/contexts/GameContext";
 import GameMenu from "~/components/game/GameMenu";
 import { useEffect } from "react";
+import { APP_NAME } from "~/lib/constants";
 export function meta({ }: Route.MetaArgs) {
     return [
-        { title: "My Account - Epic Adventures" },
+        { title: `My Adventures - ${APP_NAME}` },
         { name: "description", content: "Manage your account settings and preferences" },
     ];
 }
@@ -22,6 +23,7 @@ export default function Me() {
             setGame(game)
         }
     }, [game])
+
     if (error) {
         return <ErrorAlert message={error.message} />
     } else if (isLoading) {

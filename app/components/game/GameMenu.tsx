@@ -8,9 +8,9 @@ import Countdown from "../Countdown"
 export default function GameMenu({ game }: { game: Game }) {
 
     return (
-        <div className="flex justify-between">
+        <div className="flex flex-col-reverse md:flex-row gap-8 justify-between">
             <div className="flex flex-col gap-8">
-                <div className="w-lg">
+                <div className="w-full md:w-lg">
                     <CharacterStats character={game.character} />
                 </div>
                 <div>
@@ -19,7 +19,7 @@ export default function GameMenu({ game }: { game: Game }) {
                     </h4>
                     <div className="flex-1 flex flex-wrap md:flex-nowrap gap-4">
                         {game.survival_days.map((item, i) => (
-                            <div className="relative w-20 h-20">
+                            <div key={item.id} className="relative w-20 h-20">
                                 {i < game.survival_days.length - 1 && <img src={BrushedX} alt="brushed x" className="absolute top-0 right-0 w-full h-full opacity-50" />}
                                 <Link to={`/game/${item.game_id}/survival_day/${item.id}`}>
                                     <div key={item.id} className={`w-full h-full relative rounded-lg bg-black/20 flex flex-col items-center justify-center`}>

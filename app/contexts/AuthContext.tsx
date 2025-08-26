@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useLayoutEffect, useState } from 
 import { useCookies } from "react-cookie";
 import { api, authApi, type ErrorMessage } from "~/lib/axios";
 import { authLogin, fetchMe, getRefreshToken, googleAuth, type LoginRequest, type User } from "~/api/auth";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 interface AuthContextType {
     login: (request: LoginRequest) => Promise<void>;
@@ -19,10 +19,10 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-    const [cookies, setCookie] = useCookies(['token', 'refreshToken', 'user']);
+    const [cookies, setCookie, removeCookie] = useCookies(['token', 'refreshToken', 'user']);
     const [user, setUser] = useState<Partial<User> | null>(cookies.user);
     const isAuthenticated = !!cookies.token;
-
+    const queryClient = useQueryClient();
     const { data: userData } = useQuery({
         queryKey: ['user'], queryFn: () => fetchMe().then((response) => {
             setUser(response)
@@ -32,14 +32,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     })
 
     function logout() {
-        setCookie('token', null);
-        setCookie('refreshToken', null);
-        setCookie('user', null);
+        // Invalidate all React Query cache on logout
+        queryClient.clear();
+        removeCookie('token');
+        removeCookie('refreshToken');
+        removeCookie('user');
         setUser(null);
     }
     
     async function handleGoogleLogin(googleAuthToken: string) {
         try {
+            queryClient.clear();
             const response = await googleAuth(googleAuthToken);
             setCookie('token', response.token);
             setCookie('refreshToken', response.refreshToken);
@@ -52,7 +55,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     async function login(request: LoginRequest) {
         try {
+            queryClient.clear();
             const response = await authLogin(request);
+            console.log('response', response)
             setCookie('token', response.token);
             setCookie('refreshToken', response.refreshToken);
             setUser(response.user);
@@ -77,7 +82,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             formattedError.message = "Network error. Please try again later.";
         }
         // Handle 401 Unauthorized errors by attempting to refresh the token
-        if (error.response && error.response.status === 401) {
+        if (error.response && error.response.status === 401 && !originalRequest.url.includes('/login') && !originalRequest.url.includes('/signup')) {
             try {
                 if (originalRequest.url.includes('/refresh') || originalRequest._retry) {
                     return Promise.reject(formattedError);
@@ -96,8 +101,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     return axios(originalRequest);
                 }
             } catch (refreshError) {
-                setCookie('token', null);
-                setCookie('refreshToken', null);
+                removeCookie('token');
+                removeCookie('refreshToken');
 
                 // If we're in a browser environment, redirect to login
                 if (typeof window !== 'undefined') {
@@ -109,10 +114,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
         return Promise.reject(formattedError);
     }
-
-    useEffect(() => {
-        setCookie('user', user)
-    }, [user])
 
     useLayoutEffect(() => {
         authApi.interceptors.response.use(

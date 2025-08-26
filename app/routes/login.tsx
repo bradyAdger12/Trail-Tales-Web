@@ -36,9 +36,7 @@ export default function Login() {
         email: formData.email,
         password: formData.password
       })
-      navigate("/me");
     } catch (error: any) {
-      console.log(error);
       setError(error.message);
     } finally {
       setSigninLoading(false);
@@ -139,7 +137,6 @@ export default function Login() {
                     if (response.credential) {
                       try {
                         await handleGoogleLogin(response.credential);
-                        navigate("/");
                         showToast("Google login successful", "success");
                       } catch (error) {
                         showToast("Google login error", "error");
