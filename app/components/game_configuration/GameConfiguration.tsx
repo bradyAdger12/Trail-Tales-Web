@@ -42,9 +42,18 @@ export default function GameConfiguration() {
         }
     })
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-6">
+
+            <h3 className="text-center">
+                Integrations
+                <p className="text-sm text-gray-500">
+                    Connect your accounts to upload your data to the game
+                </p>
+            </h3>
+            <Integrations />
+            <hr />
             <div className="flex flex-col gap-6 w-full md:w-1/2">
-                <h3>
+                <h3 className="text-center">
                     Difficulty
                     <p className="text-sm text-gray-500">
                         Choose a difficulty to start the game
@@ -95,14 +104,6 @@ export default function GameConfiguration() {
                         </div>
                     </div>
                 ))}
-                <hr />
-                <h3>
-                    Integrations
-                    <p className="text-sm text-gray-500">
-                        Connect your accounts to upload your data to the game
-                    </p>
-                </h3>
-                <Integrations />
                 <button className="btn btn-primary w-full" onClick={() => start.mutate()} disabled={usStartGameDisabled}>Start Game {wait && <i className="fas fa-spinner fa-spin"></i>}</button>
                 {error && <p className="text-red-500">{error}</p>}
             </div>

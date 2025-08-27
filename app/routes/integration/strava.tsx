@@ -29,7 +29,6 @@ export default function Strava() {
                 await updateMe({ strava_access_token: stravaAuthorization.access_token, strava_refresh_token: stravaAuthorization.refresh_token })
                 setUser({ ...user, strava_access_token: stravaAuthorization.access_token, strava_refresh_token: stravaAuthorization.refresh_token })
                 showToast('Strava integration successful', 'success')
-                navigate('/profile', { replace: true })
             }
             return stravaAuthorization
         },
@@ -43,8 +42,24 @@ export default function Strava() {
     }, [])
    
     const error = searchParams.get("error")
+    console.log(user?.strava_access_token)
     if (error) {
         return <div><ErrorAlert message={error} /></div>
+    } else if (user?.strava_access_token) {
+        return (
+        <div className="flex flex-col items-center justify-center p-8">
+            <div className="text-center">
+                <i className="fas fa-check-circle text-green-500 text-6xl mb-4"></i>
+                <h1 className="text-2xl font-bold mb-2">Strava Integration Successful!</h1>
+                <p className="text-gray-600 mb-4">
+                    Your Strava account has been successfully connected to {APP_NAME}.
+                </p>
+                <p className="text-sm text-gray-500">
+                    You can now close this window and return to the game.
+                </p>
+            </div>
+        </div>
+        )
     }
     
 }

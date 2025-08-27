@@ -19,6 +19,7 @@ export default function Integrations() {
                     key={integration.name}
                     style={{ display: 'inline-block' }}
                     className='relative'
+                    target='_blank'
                     href={!user?.strava_access_token
                         ? `http://www.strava.com/oauth/authorize?client_id=${stravaClientId}&response_type=code&redirect_uri=${window.location.origin}/integration/strava&approval_prompt=force&scope=read,activity:read,activity:read_all`
                         : `/strava`
