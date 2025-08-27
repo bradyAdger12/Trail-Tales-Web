@@ -15,6 +15,7 @@ export default function Footer() {
                     <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
                     <div>© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</div>
                 </div>
+                <img src="https://trail-tales-ba-3013.s3.us-west-2.amazonaws.com/web_assets/api_logo_pwrdBy_strava_horiz_white.png" alt="strava" className="w-[150px] mt-6 md:mt-0" />
             </div>
         </div>
     </footer>
