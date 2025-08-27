@@ -19,12 +19,23 @@ export default function GameMenu({ game }: { game: Game }) {
                     </h4>
                     <div className="flex-1 flex flex-wrap md:flex-nowrap gap-4">
                         {game.survival_days.map((item, i) => (
-                            <div key={item.id} className="relative w-20 h-20">
+                            <div key={item.id} className="relative w-22 h-22">
                                 {i < game.survival_days.length - 1 && <img src={BrushedX} alt="brushed x" className="absolute top-0 right-0 w-full h-full opacity-50" />}
+
                                 <Link to={`/game/${item.game_id}/survival_day/${item.id}`}>
                                     <div key={item.id} className={`w-full h-full relative rounded-lg bg-black/20 flex flex-col items-center justify-center`}>
                                         <p className="text-white font-bold text-md">{item.day}</p>
                                         <p className="text-xs text-gray-400">{new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                                        {item.activity_id && (
+                                            <div className="tooltip tooltip-top" data-tip="Explored">
+                                                <i className="fa-solid fa-person-walking text-2xl"></i>
+                                            </div>
+                                        )}
+                                        {!item.activity_id && i < game.survival_days.length - 1 && (
+                                            <div className="tooltip tooltip-top" data-tip="Rested">
+                                                <i className="fa-solid fa-campground text-xl"></i>
+                                            </div>
+                                        )}
                                     </div>
                                 </Link>
                             </div>
@@ -33,7 +44,7 @@ export default function GameMenu({ game }: { game: Game }) {
                 </div>
             </div>
             <div>
-               
+
                 <Countdown />
             </div>
         </div>
