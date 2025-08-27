@@ -24,30 +24,29 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                     </div>
                 </div>
             </div>
-            <div className="flex items-center justify-between text-sm text-gray-400">
-                <div className="flex-col items-center gap-y-4">
-                    <div className="flex items-center gap-2">
-                        {option.difficulty !== 'rest' && <div className="flex items-center gap-2">
-                            <div className="flex items-center gap-1 bg-purple-800/30 px-2 py-1 rounded-md">
-                                <i className="fas fa-dice text-purple-400"></i>
-                                <span className="text-purple-300">{option.chance_to_find_items}%</span>
-                            </div>
-                            <span className="text-gray-400">chance of</span>
-                            <div className="flex items-center gap-1 bg-green-800/30 px-2 py-1 rounded-md border border-green-600/30">
-                                <span className="text-green-300 font-medium">+{option.item_gain_percentage}%</span>
-                                <div className="flex items-center gap-1">
-                                    <span style={{ color: FOOD_COLOR }}><i className="fa-solid fa-utensils"></i></span>
-                                    <span className="text-gray-400">&</span>
-                                    <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span>
-                                </div>
-                            </div>
-                        </div>}
-                        <div className="flex items-center gap-1 bg-red-800/30 px-2 py-1 rounded-md border border-red-600/30">
-                            <span className="text-red-300 font-medium">{option.health_change_percentage > 0 ? '+' : ''}{option.health_change_percentage}%</span>
-                            <div className="flex items-center gap-1">
-                                <span style={{ color: HEALTH_COLOR }}><i className="fa-solid fa-heart"></i></span>
-                            </div>
+            <div className="w-full flex flex-col md:flex-row flex-wrap items-center gap-2 mt-6">
+                {option.difficulty !== 'rest' && <div className="flex flex-col md:flex-row items-center gap-2">
+                    <div className="flex items-center gap-1 bg-purple-800/30 px-2 py-1 rounded-md">
+                        <i className="fas fa-dice text-purple-400"></i>
+                        <span className="text-purple-300">{option.chance_to_find_items}%</span>
+                    </div>
+                    <span className="text-gray-400">chance of</span>
+                    <div className="flex items-center gap-1 bg-green-800/30 px-2 py-1 rounded-md border border-green-600/30">
+                        <span className="text-green-300 font-medium">+{option.item_gain_percentage}%</span>
+                        <div className="flex items-center gap-1">
+                            <span style={{ color: FOOD_COLOR }}><i className="fa-solid fa-utensils"></i></span>
+                            <span className="text-gray-400">&</span>
+                            <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span>
                         </div>
+                    </div>
+                    <span className="text-gray-400">and</span>
+                </div>
+                }
+                
+                <div className="flex items-center gap-1 bg-red-800/30 px-2 py-1 rounded-md border border-red-600/30">
+                    <span className="text-red-300 font-medium">{option.health_change_percentage}%</span>
+                    <div className="flex items-center gap-1">
+                        <span style={{ color: HEALTH_COLOR }}><i className="fa-solid fa-heart"></i></span>
                     </div>
                 </div>
             </div>
