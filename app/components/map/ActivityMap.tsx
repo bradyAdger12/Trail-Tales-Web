@@ -46,6 +46,7 @@ export default function ActivityMap({
 
             map.current.on('load', () => {
                 if (map.current) {
+                    addStartAndEndPoints(coordinates, map.current);
                     addPolyline(coordinates, map.current);
                     flyTo(coordinates);
                 }
@@ -70,6 +71,30 @@ export default function ActivityMap({
             });
         }
     }
+
+    function addStartAndEndPoints(coordinates: [number, number][], map: mapboxgl.Map) {
+        const startPoint = coordinates[0];
+        const endPoint = coordinates[coordinates.length - 1];
+        console.log(startPoint, endPoint)
+
+        // Create start marker (green)
+        new mapboxgl.Marker({
+            color: '#22c55e',
+            draggable: false
+        })
+            .setLngLat([startPoint[1], startPoint[0]])
+            .addTo(map);
+
+        // Create end marker (red)
+        new mapboxgl.Marker({
+            color: '#ef4444',
+            draggable: false
+        })
+            .setLngLat([endPoint[1], endPoint[0]])
+            .addTo(map);
+    }
+
+
 
     function addPolyline(coordinates: [number, number][], map: mapboxgl.Map) {
 
