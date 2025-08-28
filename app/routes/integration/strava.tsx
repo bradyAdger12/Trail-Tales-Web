@@ -42,7 +42,6 @@ export default function Strava() {
     }, [])
    
     const error = searchParams.get("error")
-    console.log(user?.strava_access_token)
     if (error) {
         return <div><ErrorAlert message={error} /></div>
     } else if (user?.strava_access_token) {

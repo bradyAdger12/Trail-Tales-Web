@@ -2,6 +2,7 @@ import { useGame } from "~/contexts/GameContext";
 import type { SurvivalDayDifficulty, SurvivalDayOption } from "~/api/survival_day";
 import { kilometersToMiles } from "~/lib/conversions";
 import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
+import { ResourceDisplay } from "../resource/ResourceDisplay";
 
 export default function SurvivalDayOption({ option, completedDifficulty }: { option: SurvivalDayOption, completedDifficulty?: SurvivalDayDifficulty }) {
     const { game } = useGame()
@@ -31,24 +32,11 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                         <span className="text-purple-300">{option.chance_to_find_items}%</span>
                     </div>
                     <span className="text-gray-400">chance of</span>
-                    <div className="flex items-center gap-1 bg-green-800/30 px-2 py-1 rounded-md border border-green-600/30">
-                        <span className="text-green-300 font-medium">+{option.item_gain_percentage}%</span>
-                        <div className="flex items-center gap-1">
-                            <span style={{ color: FOOD_COLOR }}><i className="fa-solid fa-utensils"></i></span>
-                            <span className="text-gray-400">&</span>
-                            <span style={{ color: WATER_COLOR }}><i className="fa-solid fa-water"></i></span>
-                        </div>
-                    </div>
-                    <span className="text-gray-400">and</span>
+                    <ResourceDisplay resource="food" value={option.item_gain_percentage} />
+                    <ResourceDisplay resource="water" value={option.item_gain_percentage} />
                 </div>
                 }
-                
-                <div className="flex items-center gap-1 bg-red-800/30 px-2 py-1 rounded-md border border-red-600/30">
-                    <span className="text-red-300 font-medium">{option.health_change_percentage}%</span>
-                    <div className="flex items-center gap-1">
-                        <span style={{ color: HEALTH_COLOR }}><i className="fa-solid fa-heart"></i></span>
-                    </div>
-                </div>
+                <ResourceDisplay resource="health" value={option.health_change_percentage} />
             </div>
         </div>
     )

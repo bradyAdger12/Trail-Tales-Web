@@ -19,6 +19,18 @@ export interface StartGameRequest {
     difficulty: GameDifficulty
 }
 
+export interface GameNotification {
+    id: string;
+    game_id: string;
+    description: string;
+    day: number;
+    seen: boolean;
+    resource: string;
+    resource_change_as_percent: number;
+    created_at: string;
+    updated_at: string;
+}
+
 export type GameDifficultyOption = {
     [key in GameDifficulty]: {
         food: number,
@@ -49,6 +61,23 @@ export async function getGameDifficultyOptions(): Promise<GameDifficultyOption> 
     try {
         const response = await authApi.get('/games/difficulty');
         return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getGameNotifications(game_id: string): Promise<GameNotification[]> {
+    try {
+        const response = await authApi.get(`/games/${game_id}/notifications`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function setSeenNotifications(game_id: string): Promise<void> {
+    try {
+        await authApi.put(`/games/${game_id}/notifications/seen`);
     } catch (error) {
         throw error;
     }
