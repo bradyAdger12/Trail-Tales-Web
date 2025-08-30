@@ -11,9 +11,13 @@ export default function GameStats() {
         queryFn: () => getGameStats(game.id)
     })
     return (
-        <div className="flex flex gap-4">
-            <StatDisplay title="Total Distance" value={metersToMiles(data?.distance_in_meters || 0).toFixed(2) || '0'} description="Miles" />
-            <StatDisplay title="Total Time" value={secondsToHHMMSS(data?.elapsed_time_in_seconds || 0) || '0'} />
-        </div>
+        <>
+            {isLoading ? <div className="skeleton h-32 w-full"></div> :
+                <div className="flex flex gap-4">
+                    <StatDisplay title="Total Distance" value={metersToMiles(data?.distance_in_meters || 0).toFixed(2) || '0'} description="Miles" />
+                    <StatDisplay title="Total Time" value={secondsToHHMMSS(data?.elapsed_time_in_seconds || 0) || '0'} description="Duration" />
+                </div>
+            }
+        </>
     )
 }
