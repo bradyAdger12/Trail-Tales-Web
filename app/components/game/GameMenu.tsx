@@ -4,6 +4,7 @@ import CharacterStats from "../character/CharacterStats"
 import { Link } from "react-router"
 import BrushedX from "~/assets/images/brushed_x.png"
 import Countdown from "../Countdown"
+import GameStats from "../stats/GameStats"
 
 export default function GameMenu({ game }: { game: Game }) {
 
@@ -13,6 +14,7 @@ export default function GameMenu({ game }: { game: Game }) {
                 <div className="w-full md:w-lg">
                     <CharacterStats character={game.character} />
                 </div>
+                <GameStats />
                 <div>
                     <h4 className="mb-3">
                         Days

@@ -1,6 +1,7 @@
 import { authApi } from "~/lib/axios";
 import type { SurvivalDay } from "./survival_day";
 import type { Character, CharacterTemplate } from "./character";
+import type { Activity } from "./activity";
 export interface Game {
     id: string;
     days_to_survive: number,
@@ -69,6 +70,15 @@ export async function getGameDifficultyOptions(): Promise<GameDifficultyOption> 
 export async function getGameNotifications(game_id: string): Promise<GameNotification[]> {
     try {
         const response = await authApi.get(`/games/${game_id}/notifications`);
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function getGameStats(game_id: string): Promise<Pick<Activity, 'elapsed_time_in_seconds' | 'distance_in_meters'>> {
+    try {
+        const response = await authApi.get(`/games/${game_id}/stats`);
         return response.data;
     } catch (error) {
         throw error;
