@@ -4,6 +4,7 @@ import { useCookies } from "react-cookie";
 import { api, authApi, type ErrorMessage } from "~/lib/axios";
 import { authLogin, fetchMe, getRefreshToken, googleAuth, type LoginRequest, type User } from "~/api/auth";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { usePostHog } from "posthog-js/react";
 
 interface AuthContextType {
     login: (request: LoginRequest) => Promise<void>;
@@ -20,6 +21,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [cookies, setCookie, removeCookie] = useCookies(['token', 'refreshToken', 'user']);
+    const posthog = usePostHog();
     const [user, setUser] = useState<Partial<User> | null>(cookies.user);
     const isAuthenticated = !!cookies.token;
     const queryClient = useQueryClient();
@@ -30,6 +32,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }),
         enabled: isAuthenticated
     })
+
+    useEffect(() => {
+        if (userData) {
+            posthog.identify(userData.id, {
+                email: userData.email,
+                displayName: userData.display_name
+            });
+        }
+    }, [userData])
 
     function logout() {
         // Invalidate all React Query cache on logout
