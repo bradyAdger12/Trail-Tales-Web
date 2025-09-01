@@ -7,7 +7,7 @@
   name: "dark";
   default: true;
   --color-primary: #DDD6BD;
-  --color-secondary: #325977;
+  --color-secondary: #1F5F1F;
 }
 
 body {

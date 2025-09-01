@@ -17,119 +17,84 @@ export default function Home() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <div className="relative overflow-hidden">
-          <div className="relative z-10 container mx-auto px-4 py-20">
-            <div className="text-center max-w-4xl mx-auto">
-              <div className="mb-8">
-                <h1 className="text-6xl md:text-7xl font-bold mb-4">
-                  {APP_NAME}
-                </h1>
-                <div className="flex items-center justify-center gap-2 text-orange-400 text-lg">
-                  <i className="fas fa-clock"></i>
-                  <span>21 Days to Survive</span>
-                  <i className="fas fa-skull-crossbones"></i>
-                </div>
-              </div>
-              
-              <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-                Your survival depends on your movement. Walk, run, and push your limits 
-                to gather resources and stay alive in this real-time survival challenge.
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+            <div className="text-center">
+              {/* Main Heading */}
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                <span className="text-primary">
+                  Trail Tales
+                </span>
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+                Transform your daily exercise into epic survival adventures.
+                Every step you take in the real world becomes part of your journey.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                <Link to="/signup" className="btn btn-primary btn-lg px-8 py-4 text-lg">
-                  <i className="fas fa-play mr-2"></i>
-                  Start Surviving
+              {/* Feature Pills */}
+              <div className="flex flex-wrap justify-center gap-3 mb-12">
+                <span className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full text-slate-300 text-sm">
+                  🏃‍♂️ Real Exercise
+                </span>
+                <span className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full text-slate-300 text-sm">
+                  🗺️ Epic Adventures
+                </span>
+                <span className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full text-slate-300 text-sm">
+                  ⚔️ Survival Gameplay
+                </span>
+              </div>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Link
+                  to="/signup"
+                  className="px-8 py-4 bg-primary text-black font-semibold rounded-lg hover:bg-primary/80 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+                >
+                  Start Your Adventure
                 </Link>
-                <Link to="/login" className="btn btn-outline btn-lg px-8 py-4 text-lg">
-                  <i className="fas fa-sign-in-alt mr-2"></i>
-                  Continue Game
+                <Link
+                  to="/login"
+                  className="px-8 py-4 border-2 border-slate-600 text-slate-300 font-semibold rounded-lg hover:border-slate-500 hover:text-white transition-all duration-200"
+                >
+                  Continue Journey
                 </Link>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* Stats Section */}
-        <div className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="p-6 border border-slate-700/50 rounded-xl">
-                <div className="text-4xl font-bold text-orange-400 mb-2">21</div>
-                <div className="text-gray-300">Days to Survive</div>
-              </div>
-              <div className="p-6 border border-slate-700/50 rounded-xl">
-                <div className="text-4xl font-bold text-red-400 mb-2">100%</div>
-                <div className="text-gray-300">Real Movement Required</div>
-              </div>
-              <div className="p-6 border border-slate-700/50 rounded-xl">
-                <div className="text-4xl font-bold text-green-400 mb-2">∞</div>
-                <div className="text-gray-300">Adventures Awaiting</div>
-              </div>
-            </div>
-          </div>
-        </div>
+            {/* Hero Image/Illustration */}
+            <div className="mt-16 relative">
+              <div className="bg-slate-800/50 rounded-2xl p-8 backdrop-blur-sm border border-slate-600/30">
+                <div className="grid md:grid-cols-3 gap-8 text-center">
+                  <div className="space-y-4">
+                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto">
+                      <i className="fas fa-running text-2xl text-white"></i>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">Exercise Tracking</h3>
+                    <p className="text-slate-400">Your real-world steps and activities power your in-game progress</p>
+                  </div>
 
-        {/* How It Works */}
-        <div className="py-20 container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-white">
-              How to <span className="text-orange-400">Survive</span>
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div className="text-center p-6 rounded-xl border border-slate-700/50 hover:border-orange-400/50 transition-all duration-300">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-running text-2xl text-orange-400"></i>
+                  <div className="space-y-4">
+                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto">
+                      <i className="fas fa-map text-2xl text-white"></i>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">Dynamic Stories</h3>
+                    <p className="text-slate-400">Discover new locations and narratives as you explore the wilderness</p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto">
+                      <i className="fas fa-heart text-2xl text-white"></i>
+                    </div>
+                    <h3 className="text-xl font-semibold text-white">Survival Elements</h3>
+                    <p className="text-slate-400">Manage resources, make choices, and survive in challenging environments</p>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">Move Daily</h3>
-                <p className="text-gray-400">Walk or run to gather essential resources and energy for survival</p>
-              </div>
-
-              <div className="text-center p-6 rounded-xl border border-slate-700/50 hover:border-blue-400/50 transition-all duration-300">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-chart-line text-2xl text-blue-400"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">Track Progress</h3>
-                <p className="text-gray-400">Monitor your health, resources, and survival status in real-time</p>
-              </div>
-
-              <div className="text-center p-6 rounded-xl border border-slate-700/50 hover:border-green-400/50 transition-all duration-300">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <i className="fas fa-trophy text-2xl text-green-400"></i>
-                </div>
-                <h3 className="text-xl font-semibold mb-3 text-white">Win or Die</h3>
-                <p className="text-gray-400">Survive all 21 days to claim victory</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Call to Action */}
-        <div className="py-20">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Your Survival Starts <span className="text-orange-400">Now</span>
-              </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Every step counts. Every day matters. Do you have what it takes to survive 21 days?
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/signup" className="btn btn-primary btn-sm md:btn-lg shadow-lg hover:shadow-orange-500/25">
-                  <i className="fas fa-fire mr-2"></i>
-                  Begin Your Journey
-                </Link>
-              </div>
-
-              <div className="mt-12 text-sm text-gray-400 space-y-1">
-                <p className="font-semibold">Real movement. Real challenge. Real consequences.</p>
-                <p>Will you be among the survivors?</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </UnprotectedRoute>
+    </UnprotectedRoute >
   );
 }
