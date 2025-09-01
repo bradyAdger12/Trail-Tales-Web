@@ -1,4 +1,4 @@
-export default function StatDisplay({ title, value, description }: { title: string, value: string, description?: string }) {
+export default function StatDisplay({ title, value, description }: { title: string, value: string | number, description?: string }) {
     return (
         <div className="stats shadow">
             <div className="stat">

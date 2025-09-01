@@ -14,6 +14,13 @@ export interface Game {
     survival_days: SurvivalDay[]
 }
 
+export type GameStats = {
+    distance_in_meters: number;
+    elapsed_time_in_seconds: number;
+    days_rested: number;
+    days_not_rested: number;
+}
+
 export type GameDifficulty = 'easy' | 'medium' | 'hard'
 
 export interface StartGameRequest {
@@ -76,7 +83,7 @@ export async function getGameNotifications(game_id: string): Promise<GameNotific
     }
 }
 
-export async function getGameStats(game_id: string): Promise<Pick<Activity, 'elapsed_time_in_seconds' | 'distance_in_meters'>> {
+export async function getGameStats(game_id: string): Promise<GameStats> {
     try {
         const response = await authApi.get(`/games/${game_id}/stats`);
         return response.data;
