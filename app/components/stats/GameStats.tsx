@@ -17,7 +17,7 @@ export default function GameStats() {
                     <StatDisplay title="Total Distance" value={metersToMiles(data?.distance_in_meters || 0).toFixed(2) || '0'} description="Miles" />
                     <StatDisplay title="Total Time" value={secondsToHHMMSS(data?.elapsed_time_in_seconds || 0) || '0'} description="Duration" />
                     <StatDisplay title="Rested" value={data?.days_rested || 0} description="Days" />
-                    <StatDisplay title="Adventured" value={data?.days_not_rested || 0} description="Days" />
+                    <StatDisplay title="Explored" value={data?.days_not_rested || 0} description="Days" />
                 </div>
             }
         </>
