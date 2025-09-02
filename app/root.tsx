@@ -20,11 +20,12 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { PostHogProvider } from 'posthog-js/react';
 import { posthog } from "posthog-js";
 
-
+if (typeof window !== 'undefined') {
 posthog.init(import.meta.env.VITE_PUBLIC_POSTHOG_KEY as string, {
   api_host: import.meta.env.VITE_PUBLIC_POSTHOG_HOST as string,
-  person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
-});
+    person_profiles: 'identified_only', // or 'always' to create profiles for anonymous users as well
+  });
+}
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
