@@ -44,6 +44,8 @@ export default function StravaImportActivies({ onImport }: { onImport: ({ activi
     return (
         <>
             <ul className="flex flex-col gap-y-3">
+                {stravaActivitiesError && <div className="text-red-500">{stravaActivitiesError.message}</div>}
+                {stravaActivities?.length === 0 && <div className="text-gray-400">No Strava activities found. Please check your Strava account and try again.</div>}
                 {stravaActivities?.map((activity: any) => (
                     <li
                         key={activity.id}
