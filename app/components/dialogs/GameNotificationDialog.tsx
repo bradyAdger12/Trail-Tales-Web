@@ -3,8 +3,10 @@ import { ResourceDisplay } from "../resource/ResourceDisplay"
 import type { Resource } from "~/api/survival_day"
 import { useEffect, useState } from "react"
 import { setSeenNotifications } from "~/api/game"
+import { useDialog } from "~/contexts/DialogContext"
 
 export const GameNotificationDialog = ({ notifications, game_id }: { notifications: GameNotification[], game_id: string }) => {
+    const { closeDialog } = useDialog()
     useEffect(() => {
         setSeenNotifications(game_id)
     }, [])
@@ -23,7 +25,7 @@ export const GameNotificationDialog = ({ notifications, game_id }: { notificatio
                             </li>
                         ))}
                     </ul>
-                    <button className="btn btn-primary btn-sm btn-outline mt-4">OK</button>
+                    <button className="btn btn-primary btn-sm btn-outline mt-4" onClick={closeDialog}>OK</button>
                 </div>
             </div>
         </>
