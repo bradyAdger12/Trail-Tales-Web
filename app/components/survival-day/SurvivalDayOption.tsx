@@ -25,18 +25,23 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                     </div>
                 </div>
             </div>
-            <div className="w-full flex flex-col md:flex-row flex-wrap items-center gap-2 mt-6">
-                {option.difficulty !== 'rest' && <div className="flex flex-col md:flex-row items-center gap-2">
-                    <div className="flex items-center gap-1 bg-purple-800/30 px-2 py-1 rounded-md">
-                        <i className="fas fa-dice text-purple-400"></i>
-                        <span className="text-purple-300">{option.chance_to_find_items}%</span>
+            <div className="w-full mt-6">
+                {option.difficulty !== 'rest' && <div className="flex flex-wrap items-center gap-y-4 gap-x-2">
+                    <div className="flex gap-x-2 items-center">
+                        <div className="flex items-center gap-1 bg-purple-800/30 px-2 py-1 rounded-md">
+                            <i className="fas fa-dice text-purple-400"></i>
+                            <span className="text-purple-300">{option.chance_to_find_items}%</span>
+                        </div>
+                        <span className="text-gray-400">chance of</span>
                     </div>
-                    <span className="text-gray-400">chance of</span>
-                    <ResourceDisplay resource="food" value={option.item_gain_percentage} />
-                    <ResourceDisplay resource="water" value={option.item_gain_percentage} />
+                    <div className="flex items-center gap-2">
+                        <ResourceDisplay resource="food" value={option.item_gain_percentage} />
+                        <ResourceDisplay resource="water" value={option.item_gain_percentage} />
+                        <ResourceDisplay resource="health" value={option.health_change_percentage} />
+                    </div>
                 </div>
                 }
-                <ResourceDisplay resource="health" value={option.health_change_percentage} />
+                { option.difficulty === 'rest' && <div className="flex items-center gap-2"><ResourceDisplay resource="health" value={option.health_change_percentage} /></div> }
             </div>
         </div>
     )
