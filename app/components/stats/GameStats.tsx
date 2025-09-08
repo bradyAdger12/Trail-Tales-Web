@@ -13,7 +13,7 @@ export default function GameStats() {
     return (
         <>
             {isLoading ? <div className="skeleton h-32 w-full"></div> :
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="flex flex-col md:flex-row w-full gap-4">
                     <StatDisplay title="Total Distance" value={metersToMiles(data?.distance_in_meters || 0).toFixed(2) || '0'} description="Miles" />
                     <StatDisplay title="Total Time" value={secondsToHHMMSS(data?.elapsed_time_in_seconds || 0) || '0'} description="Duration" />
                     <StatDisplay title="Rested" value={data?.days_rested || 0} description="Days" />

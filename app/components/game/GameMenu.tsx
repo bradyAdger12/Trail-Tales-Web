@@ -10,7 +10,7 @@ export default function GameMenu({ game }: { game: Game }) {
 
     return (
         <div className="flex flex-col-reverse md:flex-row gap-8 justify-between">
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8 flex-1">
                 <div className="w-full md:w-lg">
                     <CharacterStats character={game.character} />
                 </div>
@@ -19,7 +19,7 @@ export default function GameMenu({ game }: { game: Game }) {
                     <h4 className="mb-3">
                         Days
                     </h4>
-                    <div className="flex-1 flex flex-wrap md:flex-nowrap gap-4">
+                    <div className="flex-1 flex flex-wrap gap-4 w-full">
                         {game.survival_days.map((item, i) => (
                             <div key={item.id} className="relative w-22 h-22">
                                 {i < game.survival_days.length - 1 && <img src={BrushedX} alt="brushed x" className="absolute top-0 right-0 w-full h-full opacity-50" />}
