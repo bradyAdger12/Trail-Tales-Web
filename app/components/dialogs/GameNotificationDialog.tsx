@@ -25,9 +25,12 @@ export const GameNotificationDialog = ({ notifications, game_id }: { notificatio
                             </li>
                         ))}
                     </ul>
-                    <button className="btn btn-primary btn-sm btn-outline mt-4" onClick={closeDialog}>OK</button>
+                    <button className="btn btn-primary btn-sm btn-outline mt-4" onClick={() => closeDialog()}>OK</button>
                 </div>
             </div>
+            <form method="dialog" className="modal-backdrop">
+                <button>close</button>
+            </form>
         </>
     )
 }
