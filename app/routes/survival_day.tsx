@@ -47,9 +47,6 @@ export default function SurivalDayPage() {
                             {new Date(survivalDay?.created_at || '').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                         </p>
                     </div>
-                    <div>
-                        <ReactMarkdown>{survivalDay?.description}</ReactMarkdown>
-                    </div>
                     <div className="flex flex-col gap-4">
                         {survivalDay?.options
                             .sort((a, b) => {

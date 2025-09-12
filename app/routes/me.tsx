@@ -8,6 +8,7 @@ import { GameProvider, useGame } from "~/contexts/GameContext";
 import GameMenu from "~/components/game/GameMenu";
 import { useEffect } from "react";
 import { APP_NAME } from "~/lib/constants";
+import { useAuth } from "~/contexts/AuthContext";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: `My Adventures - ${APP_NAME}` },
@@ -17,7 +18,8 @@ export function meta({ }: Route.MetaArgs) {
 
 export default function Me() {
     const { setGame } = useGame()
-    const { data: game, error, isLoading } = useQuery({ queryKey: ['game'], queryFn: fetchGame })
+    const { token } = useAuth()
+    const { data: game, error, isLoading } = useQuery({ queryKey: ['game', token], queryFn: fetchGame, enabled: !!token })
     useEffect(() => {
         if (game) {
             setGame(game)

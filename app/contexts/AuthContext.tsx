@@ -92,7 +92,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             formattedError.message = "Network error. Please try again later.";
         }
         // Handle 401 Unauthorized errors by attempting to refresh the token
-        if (error.response && error.response.status === 401 && !originalRequest.url.includes('/login') && !originalRequest.url.includes('/signup')) {
+        if (error.response && error.response.status === 401) {
             try {
                 if (originalRequest.url.includes('/refresh') || originalRequest._retry) {
                     return Promise.reject(formattedError);
@@ -111,8 +111,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     return axios(originalRequest);
                 }
             } catch (refreshError) {
-                removeCookie('token');
-                removeCookie('refreshToken');
+                setCookie('token', null);
+                setCookie('refreshToken', null);
 
                 // If we're in a browser environment, redirect to login
                 if (typeof window !== 'undefined') {

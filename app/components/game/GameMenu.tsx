@@ -7,7 +7,6 @@ import Countdown from "../Countdown"
 import GameStats from "../stats/GameStats"
 
 export default function GameMenu({ game }: { game: Game }) {
-
     return (
         <div className="flex flex-col-reverse md:flex-row gap-8 justify-between">
             <div className="flex flex-col gap-8 flex-1">

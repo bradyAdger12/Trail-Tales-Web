@@ -15,7 +15,7 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
     return (
         <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${completedDifficulty === option.difficulty ? 'bg-green-900/20' : ''}`}>
             <div className="flex flex-wrap items-center gap-y-4 justify-between mb-3">
-                <p className="text-gray-200 mr-4">{option.description}</p>
+                <p className="text-gray-200 text-xl mr-4">{option.description}</p>
                 <div className="flex items-center gap-3">
                     <span className={`px-3 py-1 text-sm rounded-full border ${getDifficultyColor(option.difficulty)}`}>
                         {option.difficulty}
@@ -26,22 +26,11 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                 </div>
             </div>
             <div className="w-full mt-6">
-                {option.difficulty !== 'rest' && <div className="flex flex-wrap items-center gap-y-4 gap-x-2">
-                    <div className="flex gap-x-2 items-center">
-                        <div className="flex items-center gap-1 bg-purple-800/30 px-2 py-1 rounded-md">
-                            <i className="fas fa-dice text-purple-400"></i>
-                            <span className="text-purple-300">{option.chance_to_find_items}%</span>
-                        </div>
-                        <span className="text-gray-400">chance of</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <ResourceDisplay resource="food" value={option.item_gain_percentage} />
-                        <ResourceDisplay resource="water" value={option.item_gain_percentage} />
-                        <ResourceDisplay resource="health" value={option.health_change_percentage} />
-                    </div>
+                <div className="flex flex-wrap items-center gap-2">
+                    { option.food_gain_percentage > 0 && <ResourceDisplay resource="food" value={option.food_gain_percentage} /> }
+                    { option.water_gain_percentage > 0 && <ResourceDisplay resource="water" value={option.water_gain_percentage} /> }
+                    { option.health_gain_percentage > 0 && <ResourceDisplay resource="health" value={option.health_gain_percentage} /> }
                 </div>
-                }
-                { option.difficulty === 'rest' && <div className="flex items-center gap-2"><ResourceDisplay resource="health" value={option.health_change_percentage} /></div> }
             </div>
         </div>
     )

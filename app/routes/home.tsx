@@ -20,11 +20,7 @@ export default function Home() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
             <div className="text-center">
               {/* Main Heading */}
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                <span className="text-primary">
-                  Trail Tales
-                </span>
-              </h1>
+              <img src="https://trail-tales-ba-3013.s3.us-west-2.amazonaws.com/web_assets/logo.png" alt="logo" className="rounded-full w-60 mx-auto mb-8" />
 
               {/* Subtitle */}
               <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
