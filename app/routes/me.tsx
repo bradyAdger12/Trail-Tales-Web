@@ -11,7 +11,7 @@ import { APP_NAME } from "~/lib/constants";
 import { useAuth } from "~/contexts/AuthContext";
 export function meta({ }: Route.MetaArgs) {
     return [
-        { title: `My Adventures - ${APP_NAME}` },
+        { title: `My Game - ${APP_NAME}` },
         { name: "description", content: "Manage your account settings and preferences" },
     ];
 }

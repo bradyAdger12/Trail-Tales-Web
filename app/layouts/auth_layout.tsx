@@ -36,7 +36,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                                     {!cookies.token && <li><Link to="/login">Login</Link></li>}
                                     {cookies.token &&
                                         <ul className="flex gap-x-4">
-                                            <li><NavLink to="/me" className={({ isActive }) => isActive ? 'text-primary' : ''}>My Adventures</NavLink></li>
+                                            <li><NavLink to="/me" className={({ isActive }) => isActive ? 'text-primary' : ''}>My Game</NavLink></li>
                                             <li><NavLink to="/profile" className={({ isActive }) => isActive ? 'text-primary' : ''}>Profile</NavLink></li>
                                             <li><NavLink to="/" onClick={() => {
                                                 logout();
@@ -85,7 +85,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                                                     className={({ isActive }) => `block py-2 px-4 hover:bg-gray-700 rounded transition-colors ${isActive ? 'text-primary' : ''}`}
                                                     onClick={() => setIsMobileMenuOpen(false)}
                                                 >
-                                                    My Adventures
+                                                    My Game
                                                 </NavLink>
                                             </li>
                                             <li>
