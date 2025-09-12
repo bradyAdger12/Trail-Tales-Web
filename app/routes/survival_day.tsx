@@ -7,7 +7,7 @@ import { useGame } from "~/contexts/GameContext"
 import { fetchGame } from "~/api/game"
 import { useEffect } from "react"
 import ProtectedRoute from "~/components/ProtectedRoute"
-import CharacterStats from "~/components/character/CharacterStats"
+import CharacterStats from "~/components/character/CharacterVitals"
 import ActivityMap from "~/components/map/ActivityMap"
 import { APP_NAME } from "~/lib/constants"
 export function meta() {

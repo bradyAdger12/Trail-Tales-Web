@@ -3,7 +3,7 @@ import { useGame } from "~/contexts/GameContext";
 import { getGameDifficultyOptions, startGame, type GameDifficulty } from "~/api/game";
 import { useNavigate } from "react-router";
 import { kilometersToMiles, milesToKilometers } from "~/lib/conversions";
-import CharacterStat from "../character/CharacterStat";
+import CharacterStat from "../character/CharacterVital";
 import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 import { useState } from "react";
 import Integrations from "../integrations/Integrations";
