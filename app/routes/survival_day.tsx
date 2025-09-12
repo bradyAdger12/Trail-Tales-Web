@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useNavigate, useParams, useSearchParams, type LoaderFunctionArgs } from "react-router"
+import { data, useNavigate, useParams, useSearchParams, type LoaderFunctionArgs } from "react-router"
 import { fetchSurvivalDay } from "~/api/survival_day"
 import ReactMarkdown from "react-markdown"
 import SurvivalDayOption from "~/components/survival-day/SurvivalDayOption"
@@ -10,6 +10,8 @@ import ProtectedRoute from "~/components/ProtectedRoute"
 import CharacterStats from "~/components/character/CharacterVitals"
 import ActivityMap from "~/components/map/ActivityMap"
 import { APP_NAME } from "~/lib/constants"
+import StatDisplay from "~/components/stats/StatDisplay"
+import { metersToMiles, secondsToHHMMSS } from "~/lib/conversions"
 export function meta() {
     return [
         { title: `Day - ${APP_NAME}` },
@@ -41,23 +43,33 @@ export default function SurivalDayPage() {
                         Back
                     </button>
                     {game?.character && <div className="flex justify-start w-full md:w-lg"><CharacterStats character={game?.character} /></div>}
-                    <div>
-                        <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
-                        <p className="text-sm text-gray-400 mt-1">
-                            {new Date(survivalDay?.created_at || '').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                        </p>
-                    </div>
-                    <div className="flex flex-col gap-4">
-                        {survivalDay?.options
-                            .sort((a, b) => {
-                                const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2, 'rest': 3 };
-                                return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
-                            })
-                            .map((option) => (
-                                <SurvivalDayOption key={option.difficulty} option={option} completedDifficulty={survivalDay.completed_difficulty} />
-                            ))}
-                    </div>
-                    {survivalDay?.activity_id && survivalDay.activity?.polyline && <ActivityMap polyline={survivalDay.activity.polyline} />}
+                    {!survivalDay ? <div>No survival day found</div> :
+                        <div className="flex flex-col gap-7">
+                            <div>
+                                <h1 className="text-2xl font-bold">Day {survivalDay?.day}</h1>
+                                <p className="text-sm text-gray-400 mt-1">
+                                    {new Date(survivalDay?.created_at || '').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-4">
+                                {survivalDay?.options
+                                    .sort((a, b) => {
+                                        const difficultyOrder = { 'easy': 0, 'medium': 1, 'hard': 2, 'rest': 3 };
+                                        return difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty];
+                                    })
+                                    .map((option) => (
+                                        <SurvivalDayOption key={option.difficulty} option={option} completedDifficulty={survivalDay.completed_difficulty} />
+                                    ))}
+                            </div>
+                            {survivalDay?.activity &&
+                                <div className="flex flex-col md:flex-row w-full gap-4">
+                                    <StatDisplay title="Total Distance" value={metersToMiles(survivalDay.activity.distance_in_meters || 0).toFixed(2) || '0'} description="Miles" />
+                                    <StatDisplay title="Total Time" value={secondsToHHMMSS(survivalDay.activity.elapsed_time_in_seconds || 0) || '0'} description="Duration" />
+                                </div>
+                            }
+                            {survivalDay?.activity_id && survivalDay.activity?.polyline && <ActivityMap polyline={survivalDay.activity.polyline} />}
+                        </div>
+                    }
                 </div>
             }
         </ProtectedRoute>
