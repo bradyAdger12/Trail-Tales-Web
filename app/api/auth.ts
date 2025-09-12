@@ -6,6 +6,7 @@ export interface User {
     health: number;
     display_name: string;
     items: Item[];
+    unit: string;
     timezone: string;
     avatar_file_key: string
     strava_access_token: string;

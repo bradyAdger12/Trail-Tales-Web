@@ -22,7 +22,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [cookies, setCookie, removeCookie] = useCookies(['token', 'refreshToken', 'user']);
     const posthog = usePostHog();
-    const [user, setUser] = useState<Partial<User> | null>(cookies.user);
+    const [user, setUser] = useState<Partial<User> | null>(null);
     const isAuthenticated = !!cookies.token;
     const queryClient = useQueryClient();
     const { data: userData } = useQuery({

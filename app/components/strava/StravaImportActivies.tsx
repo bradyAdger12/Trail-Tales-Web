@@ -3,11 +3,12 @@ import { useEffect, useState } from "react"
 import { fetchActivitiesBySourceIds, importActivity, type Activity } from "~/api/activity"
 import { fetchStravaActivities } from "~/api/strava"
 import { validActivities } from "~/lib/validation"
-import { metersToMiles, secondsToHHMMSS } from "~/lib/conversions"
-import { Link } from "react-router"
+import { distanceLabel, formatDistance, secondsToHHMMSS } from "~/lib/conversions"
 import type { Item } from "~/api/item"
+import { useAuth } from "~/contexts/AuthContext"
 
 export default function StravaImportActivies({ onImport }: { onImport: ({ activity, items }: { activity: Activity, items: Item[] }) => void }) {
+    const { user } = useAuth()
     const queryClient = useQueryClient()
     const [activityBeingImported, setActivityBeingImported] = useState<string | null>(null)
     const { data: stravaActivities, error: stravaActivitiesError, isLoading: isStravaActivitiesLoading } = useQuery({
@@ -79,7 +80,7 @@ export default function StravaImportActivies({ onImport }: { onImport: ({ activi
                                     Distance
                                 </p>
                                 <p className="text-gray-400 text-sm">
-                                    {metersToMiles(activity.distance).toFixed(2)} mi
+                                    {formatDistance(activity.distance, user?.unit)} {distanceLabel(user?.unit, 'short')}
                                 </p>
                             </div>
                             {!importedActivities?.find(item => item.source_id === activity.id.toString()) && (

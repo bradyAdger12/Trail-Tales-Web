@@ -1,11 +1,13 @@
 import { useGame } from "~/contexts/GameContext";
 import type { SurvivalDayDifficulty, SurvivalDayOption } from "~/api/survival_day";
-import { kilometersToMiles } from "~/lib/conversions";
+import { distanceLabel, formatDistance, kilometersToMiles } from "~/lib/conversions";
 import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 import { ResourceDisplay } from "../resource/ResourceDisplay";
+import { useAuth } from "~/contexts/AuthContext";
 
 export default function SurvivalDayOption({ option, completedDifficulty }: { option: SurvivalDayOption, completedDifficulty?: SurvivalDayDifficulty }) {
     const { game } = useGame()
+    const { user } = useAuth()
     function getDifficultyColor(difficulty: SurvivalDayDifficulty) {
         if (difficulty === 'easy') return 'bg-green-700 border-green-500 text-green-100'
         if (difficulty === 'medium') return 'bg-yellow-700 border-yellow-500 text-yellow-100'
@@ -21,7 +23,7 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                         {option.difficulty}
                     </span>
                     <div className="text-gray-300 font-medium">
-                        {kilometersToMiles(option.distance_in_kilometers).toFixed(2)} mi
+                        {formatDistance(option.distance_in_kilometers * 1000, user?.unit)} {distanceLabel(user?.unit, 'short')}
                     </div>
                 </div>
             </div>

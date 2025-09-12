@@ -1,7 +1,6 @@
 import { APP_NAME, TIMEZONES } from "~/lib/constants";
 import type { Route } from "./+types/profile";
-import { mmssToSeconds, secondsToMMSS, kilometersToMiles, milesToKilometers } from "~/lib/conversions";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useToast } from "~/contexts/ToastContext";
 import { useAuth } from "~/contexts/AuthContext";
 import FileUpload from "~/components/FileUpload";
@@ -21,17 +20,36 @@ export default function Profile() {
     const queryClient = useQueryClient()
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
-        display_name: user?.display_name || "",
-        timezone: user?.timezone || "",
+        display_name: "",
+        timezone: "",
+        unit: "imperial",
     });
+    const [originalFormData, setOriginalFormData] = useState({});
+    const unit_options = [
+        { label: 'Imperial', value: 'imperial' },
+        { label: 'Metric', value: 'metric' },
+    ]
     const { showToast } = useToast();
+
+    useEffect(() => {
+        setFormData({
+            display_name: user?.display_name || "",
+            timezone: user?.timezone || "",
+            unit: user?.unit || "imperial",
+        })
+        setOriginalFormData({
+            display_name: user?.display_name || "",
+            timezone: user?.timezone || "",
+            unit: user?.unit || "imperial",
+        })
+    }, [user])
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             setIsLoading(true);
             const updatedUser = await updateMe({
-                display_name: formData.display_name || "",
-                timezone: formData.timezone || "",
+                ...formData
             });
             setUser(updatedUser)
             showToast("Profile updated successfully", "success");
@@ -73,7 +91,7 @@ export default function Profile() {
                         {!user?.avatar_file_key ?
                             <FileUpload path={`avatars/${user?.id}`} fileName="avatar" onUpload={(key) => onFileUpload(key)} />
                             : <div className="w-24 h-24 relative">
-                                <img src={S3.getUrl(user?.avatar_file_key)} alt="Avatar" className="w-full h-full rounded-full object-cover" />
+                                <img key={user?.avatar_file_key} src={S3.getUrl(user?.avatar_file_key)} alt="Avatar" className="w-full h-full rounded-full object-cover" />
                                 <button className="bg-red-500 btn-circle btn-sm absolute top-0 right-0" onClick={() => removeAvatar()}>
                                     <span className="fas fa-trash"></span>
                                 </button>
@@ -127,10 +145,29 @@ export default function Profile() {
                                 ))}
                             </select>
                         </div>
-
+                        <div>
+                            <label htmlFor="unit" className="block text-sm font-medium mb-2">
+                                Unit
+                            </label>
+                            <select
+                                id="unit"
+                                name="unit"
+                                value={formData.unit}
+                                onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
+                                className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
+                                required
+                            >
+                                {unit_options.map((unit) => (
+                                    <option key={unit.value} value={unit.value}>
+                                        {unit.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
                         <button
                             type="submit"
                             className="btn btn-primary py-2 px-4 rounded-lg"
+                            disabled={isLoading || JSON.stringify(formData) === JSON.stringify(originalFormData)}
                         >
                             Save Changes {isLoading && <span className="loading loading-spinner loading-xs"></span>}
                         </button>

@@ -14,7 +14,7 @@ export default function CharacterVitals({ character }: { character: Character })
     return (
         <div className="w-full">
             <h4>
-                {user?.display_name} vitals
+                {user?.display_name} Vitals
             </h4>
             <div className="flex flex-col gap-y-6 mt-4">
                 <CharacterStat stat={character.health} color={HEALTH_COLOR} icon="fa-heart" />

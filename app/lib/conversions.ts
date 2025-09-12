@@ -1,4 +1,15 @@
-
+export function formatDistance(distance: number, unit?: string): string {
+  if (unit === "imperial") {
+    return metersToMiles(distance).toFixed(2)
+  }
+  return (distance / 1000).toFixed(2)
+}
+export function distanceLabel(unit?: string, format: 'long' | 'short' = 'long'): string {
+  if (unit === "imperial") {
+    return format === "long" ? "Miles" : "mi";
+  }
+  return format === "long" ? "Kilometers" : "km";
+}
 export function metersToMiles(meters: number): number {
   return meters / 1609.344;
 }
