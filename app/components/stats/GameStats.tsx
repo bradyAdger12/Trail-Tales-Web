@@ -9,8 +9,8 @@ export default function GameStats() {
     const { game } = useGame()
     const { user } = useAuth()
     const { data, isLoading } = useQuery({
-        queryKey: ['game-stats', game.id],
-        queryFn: () => getGameStats(game.id)
+        queryKey: ['game-stats', game?.id],
+        queryFn: () => getGameStats(game?.id || ''),
     })
     return (
         <>

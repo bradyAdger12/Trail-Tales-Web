@@ -34,6 +34,9 @@ export default function SurivalDayPage() {
     useEffect(() => {
         if (game) {
             setGame(game)
+            if (game.status === 'won' || game.status === 'lost') {
+                navigate(`/me`)
+            }
         }
     }, [game])
     return (
@@ -63,7 +66,7 @@ export default function SurivalDayPage() {
                                         <SurvivalDayOption key={option.difficulty} option={option} completedDifficulty={survivalDay.completed_difficulty} />
                                     ))}
                             </div>
-                            {survivalDay?.activity &&
+                            {survivalDay?.activity?.id &&
                                 <div className="flex flex-col md:flex-row w-full gap-4">
                                     <StatDisplay title="Total Distance" value={formatDistance(survivalDay.activity.distance_in_meters || 0, user?.unit)} description={distanceLabel(user?.unit, 'long')} />
                                     <StatDisplay title="Total Time" value={secondsToHHMMSS(survivalDay.activity.elapsed_time_in_seconds || 0) || '0'} description="Duration" />

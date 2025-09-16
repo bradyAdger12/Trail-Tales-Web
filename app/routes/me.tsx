@@ -4,11 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGame } from "~/api/game";
 import { ErrorAlert } from "~/components/alerts/Alerts";
 import GameConfiguration from "~/components/game_configuration/GameConfiguration";
-import { GameProvider, useGame } from "~/contexts/GameContext";
+import { useGame } from "~/contexts/GameContext";
 import GameMenu from "~/components/game/GameMenu";
 import { useEffect } from "react";
 import { APP_NAME } from "~/lib/constants";
 import { useAuth } from "~/contexts/AuthContext";
+import GameLost from "~/components/game/GameLost";
+import GameWon from "~/components/game/GameWon";
 export function meta({ }: Route.MetaArgs) {
     return [
         { title: `My Game - ${APP_NAME}` },
@@ -26,6 +28,16 @@ export default function Me() {
         }
     }, [game])
 
+    const renderGameState = () => {
+        if (game?.status === 'active') {
+            return <GameMenu game={game} />
+        } else if (game?.status === 'lost') {
+            return <GameLost />
+        } else if (game?.status === 'won') {
+            return <GameWon />
+        }
+    }
+
     if (error) {
         return <ErrorAlert message={error.message} />
     } else if (isLoading) {
@@ -34,7 +46,7 @@ export default function Me() {
     return (
         <ProtectedRoute>
             <div>
-                {!game?.id ? <GameConfiguration /> : <GameMenu game={game} />}
+                {!game?.id ? <GameConfiguration /> : renderGameState()}
             </div>
         </ProtectedRoute>
     );
