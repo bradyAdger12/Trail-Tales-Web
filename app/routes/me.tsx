@@ -19,14 +19,7 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Me() {
-    const { setGame } = useGame()
-    const { token } = useAuth()
-    const { data: game, error, isLoading } = useQuery({ queryKey: ['game', token], queryFn: fetchGame, enabled: !!token })
-    useEffect(() => {
-        if (game) {
-            setGame(game)
-        }
-    }, [game])
+    const { setGame, game } = useGame()
 
     const renderGameState = () => {
         if (game?.status === 'active') {
@@ -37,12 +30,7 @@ export default function Me() {
             return <GameWon />
         }
     }
-
-    if (error) {
-        return <ErrorAlert message={error.message} />
-    } else if (isLoading) {
-        return <div>Fetching game...</div>
-    }
+    
     return (
         <ProtectedRoute>
             <div>

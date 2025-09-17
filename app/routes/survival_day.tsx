@@ -23,17 +23,15 @@ export function meta() {
 export default function SurivalDayPage() {
     const { survivalDayId } = useParams();
     const { user } = useAuth()
-    const { data: survivalDay } = useQuery({
+    const { data: survivalDay, isLoading } = useQuery({
         queryKey: ['survival_day_id', survivalDayId],
         enabled: !!survivalDayId,
         queryFn: () => fetchSurvivalDay(survivalDayId!)
     })
-    const { setGame } = useGame()
+    const { game } = useGame()
     const navigate = useNavigate()
-    const { data: game, error, isLoading } = useQuery({ queryKey: ['game'], queryFn: fetchGame })
     useEffect(() => {
         if (game) {
-            setGame(game)
             if (game.status === 'won' || game.status === 'lost') {
                 navigate(`/me`)
             }
@@ -41,6 +39,7 @@ export default function SurivalDayPage() {
     }, [game])
     return (
         <ProtectedRoute>
+            {isLoading && <div>Loading...</div>}
             {!game?.id && !isLoading ? <div>No game found</div> :
                 <div className="flex flex-col gap-8">
                     <button className="btn btn-primary max-w-xs" onClick={() => navigate(`/me`)}>
