@@ -1,6 +1,6 @@
 import { useGame } from "~/contexts/GameContext";
 import type { SurvivalDayDifficulty, SurvivalDayOption } from "~/api/survival_day";
-import { distanceLabel, formatDistance, kilometersToMiles } from "~/lib/conversions";
+import { distanceLabel, formatDistance, kilometersToMiles, secondsToMMSS } from "~/lib/conversions";
 import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 import { ResourceDisplay } from "../resource/ResourceDisplay";
 import { useAuth } from "~/contexts/AuthContext";
@@ -23,7 +23,7 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
                         {option.difficulty}
                     </span>
                     <div className="text-gray-300 font-medium">
-                        {formatDistance(option.distance_in_kilometers * 1000, user?.unit)} {distanceLabel(user?.unit, 'short')}
+                        {option.duration_in_seconds / 60} min
                     </div>
                 </div>
             </div>

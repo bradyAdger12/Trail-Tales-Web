@@ -9,8 +9,8 @@ export interface Game {
     difficulty: GameDifficulty
     daily_food_loss: number,
     daily_water_loss: number,
-    min_distance_in_kilometers: number,
-    max_distance_in_kilometers: number,
+    min_duration_in_seconds: number,
+    max_duration_in_seconds: number,
     status: GameStatus
     survival_days: SurvivalDay[]
 }
@@ -49,8 +49,8 @@ export type GameDifficultyOption = {
         health: number,
         dailyFoodLoss: number,
         dailyWaterLoss: number,
-        minDistanceInKilometers: number,
-        maxDistanceInKilometers: number,
+        minDurationInSeconds: number,
+        maxDurationInSeconds: number,
         description: string,
     };
 };

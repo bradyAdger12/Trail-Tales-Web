@@ -75,7 +75,6 @@ export default function ActivityMap({
     function addStartAndEndPoints(coordinates: [number, number][], map: mapboxgl.Map) {
         const startPoint = coordinates[0];
         const endPoint = coordinates[coordinates.length - 1];
-        console.log(startPoint, endPoint)
 
         // Create start marker (green)
         new mapboxgl.Marker({
