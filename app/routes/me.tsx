@@ -19,8 +19,7 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 export default function Me() {
-    const { setGame, game } = useGame()
-
+    const { game, gameLoading } = useGame()
     const renderGameState = () => {
         if (game?.status === 'active') {
             return <GameMenu game={game} />
@@ -30,12 +29,15 @@ export default function Me() {
             return <GameWon />
         }
     }
-    
+
     return (
         <ProtectedRoute>
-            <div>
-                {!game?.id ? <GameConfiguration /> : renderGameState()}
-            </div>
+            {gameLoading ?
+                <div>Loading...</div> :
+                <div>
+                    {!game?.id ? <GameConfiguration /> : renderGameState()}
+                </div>
+            }
         </ProtectedRoute>
     );
 }

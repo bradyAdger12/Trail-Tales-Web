@@ -6,6 +6,7 @@ import { GameNotificationDialog } from "~/components/dialogs/GameNotificationDia
 
 type GameContextType = {
     game: Game | null
+    gameLoading: boolean
     setGame: React.Dispatch<React.SetStateAction<Game | null>>
 }
 
@@ -14,10 +15,13 @@ const GameContext = createContext<GameContextType | undefined>(undefined)
 export function GameProvider({ children }: { children: React.ReactNode }) {
     const [game, setGame] = useState<Game | null>(null)
     const { openDialog } = useDialog()
+    const [gameLoading, setGameLoading] = useState(true)
 
     useEffect(() => {
+        setGameLoading(true)
         fetchGame().then((response) => {
             setGame(response)
+            setGameLoading(false)
         })
     }, [])
 
@@ -30,7 +34,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
         })
     }, [game])
 
-    return <GameContext.Provider value={{ game, setGame }}>
+    return <GameContext.Provider value={{ game, setGame, gameLoading }}>
         {children}
     </GameContext.Provider>
 }
