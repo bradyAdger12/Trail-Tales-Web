@@ -6,7 +6,6 @@ export type Resource = 'food' | 'water' | 'health'
 export interface SurvivalDayOption {
     description: string,
     difficulty: SurvivalDayDifficulty
-    distance_in_kilometers: number,
     duration_in_seconds: number,
     food_gain_percentage: number,
     water_gain_percentage: number,

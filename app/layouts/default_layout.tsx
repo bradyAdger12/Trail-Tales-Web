@@ -29,6 +29,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                                         logout();
                                         navigate("/");
                                     }}>Logout</span></li>}
+                                    <li><Link to="/how-to-play">How to Play</Link></li>
                                 </ul>
                             </div>
                         </div>
