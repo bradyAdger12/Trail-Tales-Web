@@ -17,7 +17,7 @@ export default function Home() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <div className="relative overflow-hidden">
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <div className="text-center">
               {/* Main Heading */}
               <img src="https://trail-tales-ba-3013.s3.us-west-2.amazonaws.com/web_assets/logo.png" alt="logo" className="rounded-full w-60 mx-auto mb-8" />
@@ -30,13 +30,13 @@ export default function Home() {
 
               {/* Feature Pills */}
               <div className="flex flex-wrap justify-center gap-3 mb-12">
-                <span className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full text-sm">
+                <span className="px-4 py-2 border border-slate-700 rounded-full text-sm">
                   🏃‍♂️ Real Exercise
                 </span>
-                <span className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full  text-sm">
+                <span className="px-4 py-2 border border-slate-700 rounded-full  text-sm">
                   🗺️ Epic Adventures
                 </span>
-                <span className="px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-full text-sm">
+                <span className="px-4 py-2  border border-slate-700 rounded-full text-sm">
                   ⚔️ Survival Gameplay
                 </span>
               </div>
@@ -60,27 +60,27 @@ export default function Home() {
 
             {/* Hero Image/Illustration */}
             <div className="mt-16 relative">
-              <div className="bg-slate-800/50 rounded-2xl p-8 backdrop-blur-sm border border-slate-600/30">
+              <div className="rounded-2xl p-8 backdrop-blur-sm border border-slate-600/30">
                 <div className="grid md:grid-cols-3 gap-8 text-center">
                   <div className="space-y-4">
-                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto">
-                      <i className="fas fa-running text-2xl "></i>
+                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
+                      <i className="fas fa-running text-2xl text-primary-content"></i>
                     </div>
                     <h3 className="text-xl font-semibold">Exercise Tracking</h3>
                     <p>Your real-world steps and activities power your in-game progress</p>
                   </div>
 
                   <div className="space-y-4">
-                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto">
-                      <i className="fas fa-map text-2xl "></i>
+                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
+                      <i className="fas fa-map text-2xl text-primary-content"></i>
                     </div>
                     <h3 className="text-xl font-semibold ">Dynamic Stories</h3>
                     <p>Discover new locations and narratives as you explore the wilderness</p>
                   </div>
 
                   <div className="space-y-4">
-                    <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto">
-                      <i className="fas fa-heart text-2xl "></i>
+                    <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
+                      <i className="fas fa-heart text-2xl text-primary-content"></i>
                     </div>
                     <h3 className="text-xl font-semibold ">Survival Elements</h3>
                     <p>Manage resources, make choices, and survive in challenging environments</p>

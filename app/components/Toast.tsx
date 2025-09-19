@@ -15,10 +15,10 @@ export function Toast({ message, type, onClose }: ToastProps) {
     return () => clearTimeout(timer);
   }, [onClose]);
 
-  const baseClasses = "fixed bottom-4 left-1/2 -translate-x-1/2 p-4 rounded-lg shadow-lg transform transition-all duration-500 ease-in-out z-50 flex items-center gap-2";
+  const baseClasses = "fixed bottom-4 left-1/2 text-primary-content -translate-x-1/2 p-4 rounded-lg shadow-lg transform transition-all duration-500 ease-in-out z-50 flex items-center gap-2";
   const variantClasses = type === 'success' 
-    ? "bg-green-600" 
-    : "bg-red-600";
+    ? "bg-success" 
+    : "bg-error";
 
   return (
     <div className={`${baseClasses} ${variantClasses}`}>
@@ -34,7 +34,7 @@ export function Toast({ message, type, onClose }: ToastProps) {
       <span>{message}</span>
       <button 
         onClick={onClose}
-        className="ml-4 hover:text-gray-200 transition-colors"
+        className="ml-4 transition-colors"
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />

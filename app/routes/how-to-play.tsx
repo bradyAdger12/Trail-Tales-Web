@@ -3,7 +3,7 @@ import type { Route } from "./+types/home";
 import { Link } from "react-router";
 import { APP_NAME } from "~/lib/constants";
 import UnprotectedRoute from "~/components/UnprotectedRoute";
-import { HEALTH_COLOR, HUNGER_COLOR, THIRST_COLOR } from "~/components/character/CharacterVitals";
+import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors";
 import { ResourceDisplay } from "~/components/resource/ResourceDisplay";
 import SurvivalDayOption from "~/components/survival-day/SurvivalDayOption";
 
@@ -18,31 +18,35 @@ export default function HowToPlay() {
   return (
     <div className="max-w-4xl mx-auto flex flex-col gap-12">
 
+      <h1>
+        How to Play
+      </h1>
+
       {/* Objective */}
       <div className="flex flex-col gap-2">
-        <h3>
+        <h2>
           Objective
-        </h3>
-        <p className="text-sm text-gray-400">
+        </h2>
+        <p className="text-sm">
           Survive 21 days on a deserted island by logging your daily exercise. Reach the end of day 21 and you win the game!
         </p>
       </div>
 
       {/* Getting Started */}
       <div className="flex flex-col gap-2">
-        <h3>
+        <h2>
           Getting Started
-        </h3>
-        <p className="text-sm text-gray-400">
+        </h2>
+        <p className="text-sm">
           Create an account if you don't have one yet. You'll begin by linking your Strava account and selecting your difficulty level. The difficulty level will determine the amount of exercise you need to do each day, as well as your starting vitals.
         </p>
       </div>
 
       {/* Vitals */}
       <div className="flex flex-col gap-2">
-        <h3>
+        <h2>
           Vitals
-        </h3>
+        </h2>
         <div className="text-sm">
           There are 3 different vitals that you will need to manage:
           <ul className="list-disc list-inside mt-3">
@@ -53,19 +57,19 @@ export default function HowToPlay() {
           <h5 className="text-lg font-bold mt-3">
             Health <i className={`fas fa-heart`} style={{ color: HEALTH_COLOR }}></i>
           </h5>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm">
             Health is your overall health and will be affected by your actions. If your health reaches 0, you will die and the game will be over.
           </p>
           <h5 className="text-lg font-bold mt-3">
-            Thirst <i className={`fas fa-water`} style={{ color: THIRST_COLOR }}></i>
+            Thirst <i className={`fas fa-water`} style={{ color: WATER_COLOR }}></i>
           </h5>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm">
             Your thirst will be affected by your actions. If your thirst reaches 0, you will lose 10% of your health after every day.
           </p>
           <h5 className="text-lg font-bold mt-3">
-            Hunger <i className={`fas fa-utensils`} style={{ color: HUNGER_COLOR }}></i>
+            Hunger <i className={`fas fa-utensils`} style={{ color: FOOD_COLOR }}></i>
           </h5>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm">
             Hunger is your hunger and will be affected by your actions. If your hunger reaches 0, you will lose 10% of your health after every day.
           </p>
         </div>
@@ -73,11 +77,11 @@ export default function HowToPlay() {
 
       {/* Each Day */}
       <div className="flex flex-col gap-2">
-        <h3>
+        <h2>
           Each Day
-        </h3>
+        </h2>
         <div className="text-sm">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm">
             Each day you will choose from 4 different actions, all resulting in different effects on your vitals. Choose the easy way, and you will gain minimal resources. Choose the hard way and you will be rewarded
           </p>
           <ul className="list-disc list-inside mt-3">
@@ -86,7 +90,7 @@ export default function HowToPlay() {
             <li>Hard</li>
             <li>Rest</li>
           </ul>
-          <p className="text-sm mt-4 text-gray-400">
+          <p className="text-sm mt-4">
             Next to each action, you will see a description of the effect it will have on your vitals. You'll see icons such as these:
           </p>
           <div className="flex gap-2 mt-4">
@@ -95,7 +99,7 @@ export default function HowToPlay() {
             <ResourceDisplay resource="health" value={10} />
           </div>
           <div className="mt-4">
-            <p className="text-sm text-gray-400">
+            <p className="text-sm">
               Which action you choose is determined by how long your activity duration is. Easy actions will be shorter, while hard actions will be longer. Below is an example of what your available actions will look like.
             </p>
             <div className="mt-4 flex flex-col gap-2">
@@ -138,11 +142,11 @@ export default function HowToPlay() {
 
       {/* End of Each Day */}
       <div className="flex flex-col gap-2">
-        <h3>
+        <h2>
           End of Each Day
-        </h3>
+        </h2>
         <div className="text-sm">
-          <p className="text-sm text-gray-400">
+          <p className="text-sm">
             At the end of each day (12AM of your respective timezone) a couple of things will happen:
           </p>
           <ul className="list-disc list-inside mt-3">
@@ -153,6 +157,6 @@ export default function HowToPlay() {
       </div>
     </div>
 
-    
+
   );
 }

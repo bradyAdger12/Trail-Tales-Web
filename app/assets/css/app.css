@@ -6,16 +6,23 @@
 @plugin "daisyui/theme" {
   name: "light";
   default: true;
-  --color-primary: #1E3A8A;
+  --color-primary: #166534;
   --color-secondary: #9333EA;
   --color-accent: #F59E0B;
   --color-neutral: #111827;
   --base-100: #F0F8E8;
-  --base-primary-content: #fff;
+  --base-content: #374151;
+  --color-primary-content: #fff;
+  --color-error-content: #fff;
+  --color-success-content: #fff;
   --color-info: #3B82F6;
   --color-success: #10B981;
   --color-warning: #FACC15;
   --color-error: #EF4444;
+}
+ 
+:root {
+  color: var(--base-content);
 }
 
 input[type="text"], input[type="email"] {

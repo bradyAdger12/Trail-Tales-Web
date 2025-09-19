@@ -26,7 +26,7 @@ export default function Integrations() {
                     }
                 >
                     <img src={integration.asset_name} style={{ width: '220px' }} alt={integration.name} />
-                    {user.strava_access_token && <span className='absolute -top-2 right-0 bg-green-500 text-white px-2 py-1 rounded-full text-xs z-10'>Connected</span>}
+                    {user.strava_access_token && <span className='absolute -top-2 right-0 bg-success text-success-content px-2 py-1 rounded-full text-xs z-10'>Connected</span>}
                 </a>
             ))}
         </div>

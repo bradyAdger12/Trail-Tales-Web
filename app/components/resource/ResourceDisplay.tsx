@@ -1,5 +1,5 @@
 import type { Resource } from "~/api/survival_day"
-import { FOOD_COLOR, HEALTH_COLOR, WATER_COLOR } from "~/lib/colors"
+import { FOOD_COLOR, FOOD_COLOR_BG, HEALTH_COLOR, HEALTH_COLOR_BG, WATER_COLOR, WATER_COLOR_BG } from "~/lib/colors"
 
 export const ResourceDisplay = ({ resource, value }: { resource: Resource, value: number }) => {
     function getIcon(resource: Resource) {
@@ -16,16 +16,18 @@ export const ResourceDisplay = ({ resource, value }: { resource: Resource, value
     function getColor(resource: Resource) {
         switch (resource) {
             case 'food':
-                return 'bg-green-800/30 border-green-600/30 text-green-300'
+                return FOOD_COLOR_BG
             case 'water':
-                return 'bg-blue-800/30 border-blue-600/30 text-blue-300'
+                return WATER_COLOR_BG
             case 'health':
-                return 'bg-red-800/30 border-red-600/30 text-red-300'
+                return HEALTH_COLOR_BG
+            default:
+                return {}
         }
     }
 
     return (
-        <div className={`flex items-center gap-1 ${getColor(resource)} px-2 py-1 rounded-md border`}>
+        <div className={`flex items-center gap-1 px-2 py-1 rounded-md border`} style={getColor(resource)}>
             <span className="font-medium">{value > 0 ? '+' : ''}{value}%</span>
             <div className="flex items-center gap-1">
                 {getIcon(resource)}

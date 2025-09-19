@@ -33,7 +33,7 @@ export default function Countdown() {
 
     return (
         <div>
-            <p className="text-sm text-gray-400 mb-2">
+            <p className="text-sm mb-2">
                 Until next day
             </p>
             <div className="flex gap-5">

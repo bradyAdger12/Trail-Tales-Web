@@ -92,8 +92,8 @@ export default function Profile() {
                             <FileUpload path={`avatars/${user?.id}`} fileName="avatar" onUpload={(key) => onFileUpload(key)} />
                             : <div className="w-24 h-24 relative">
                                 <img key={user?.avatar_file_key} src={S3.getUrl(user?.avatar_file_key)} alt="Avatar" className="w-full h-full rounded-full object-cover" />
-                                <button className="bg-red-500 btn-circle btn-sm absolute top-0 right-0" onClick={() => removeAvatar()}>
-                                    <span className="fas fa-trash"></span>
+                                <button className="bg-error btn-circle btn-sm absolute top-0 right-0" onClick={() => removeAvatar()}>
+                                    <span className="fas fa-trash text-error-content"></span>
                                 </button>
                             </div>}
 
@@ -108,7 +108,6 @@ export default function Profile() {
                                 value={user?.email}
                                 readOnly
                                 disabled
-                                className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary cursor-not-allowed"
                             />
                         </div>
                         <div>
@@ -123,7 +122,6 @@ export default function Profile() {
                                 onChange={(e) => {
                                     setFormData((prev) => ({ ...prev, display_name: e.target.value }));
                                 }}
-                                className="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:ring-2 focus:ring-primary"
                             />
                         </div>
                         <div>
@@ -135,7 +133,6 @@ export default function Profile() {
                                 name="timezone"
                                 value={formData.timezone}
                                 onChange={(e) => setFormData({ ...formData, timezone: e.target.value })}
-                                className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
                                 required
                             >
                                 {TIMEZONES.map((timezone) => (
@@ -154,7 +151,6 @@ export default function Profile() {
                                 name="unit"
                                 value={formData.unit}
                                 onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
-                                className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
                                 required
                             >
                                 {unit_options.map((unit) => (
