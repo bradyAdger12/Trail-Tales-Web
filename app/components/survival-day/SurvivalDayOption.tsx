@@ -10,7 +10,7 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
         return REST_DIFFICULTY_COLOR
     }
     return (
-        <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${completedDifficulty === option.difficulty ? '' : ''}`}>
+        <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${completedDifficulty === option.difficulty ? 'bg-primary/10 border-2' : ''}`}>
             <div className="flex flex-wrap items-center gap-y-4 justify-between mb-3">
                 <p className=" text-xl font-bold mr-4">{option.description}</p>
                 <div className="flex items-center gap-3">
