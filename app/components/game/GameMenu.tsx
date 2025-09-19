@@ -24,7 +24,7 @@ export default function GameMenu({ game }: { game: Game }) {
                                 {i < game.survival_days.length - 1 && <img src={BrushedX} alt="brushed x" className="absolute top-0 right-0 w-full h-full opacity-50" />}
                                 <Link to={`/game/${item.game_id}/survival_day/${item.id}`}>
                                     <div key={item.id} className={`w-full h-full relative rounded-lg bg-black/20 flex flex-col items-center justify-center`}>
-                                        <p className="text-white font-bold text-md">{item.day}</p>
+                                        <p className="font-bold text-md">{item.day}</p>
                                         <p className="text-xs text-gray-400">{new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                                     </div>
                                 </Link>

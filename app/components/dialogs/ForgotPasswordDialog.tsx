@@ -52,7 +52,7 @@ export const ForgotPasswordDialog = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
+                        className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 placeholder-gray-400"
                         placeholder="you@example.com"
                         required
                     />

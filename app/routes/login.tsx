@@ -58,7 +58,7 @@ export default function Login() {
           <section className="container mx-auto px-4">
             <div className="max-w-md mx-auto">
               <div className="text-center mb-8">
-                <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 mb-2">
+                <h1 className="text-3xl font-bold mb-2">
                   Welcome Back
                 </h1>
                 <p className="text-gray-400">Continue your adventure</p>
@@ -66,7 +66,7 @@ export default function Login() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                  <label htmlFor="email" className="block text-sm font-medium">
                     Email
                   </label>
                   <input
@@ -75,7 +75,7 @@ export default function Login() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400"
+                    className="w-full px-4 py-2"
                     placeholder="you@example.com"
                     required
                   />
@@ -83,14 +83,14 @@ export default function Login() {
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+                    <label htmlFor="password" className="block text-sm font-medium">
                       Password
                     </label>
                     <span className="text-sm text-primary hover:text-primary/80 transition-colors cursor-pointer" onClick={() => openDialog(<ForgotPasswordDialog />)}>
                       Forgot password?
                     </span>
                   </div>
-                  <div className="w-full flex items-center bg-gray-800/60 border border-gray-700/50 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary/50 text-white placeholder-gray-400">
+                  <div className="w-full flex items-center">
                     <input
                       type={showPassword ? "text" : "password"}
                       id="password"
@@ -101,7 +101,7 @@ export default function Login() {
                       placeholder="••••••••"
                       required
                     />
-                    {<span className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'} text-gray-400/40 cursor-pointer mr-3`} onClick={() => setShowPassword(!showPassword)} />}
+                    {<span className={`fa ${showPassword ? 'fa-eye-slash' : 'fa-eye'} cursor-pointer mr-3`} onClick={() => setShowPassword(!showPassword)} />}
                   </div>
                 </div>
 
@@ -110,9 +110,9 @@ export default function Login() {
                     id="remember"
                     name="remember"
                     type="checkbox"
-                    className="h-4 w-4 rounded border-gray-700/50 bg-gray-800/60 text-primary focus:ring-primary/50"
+                    className="h-4 w-4 rounded text-primary focus:none"
                   />
-                  <label htmlFor="remember" className="ml-2 block text-sm text-gray-400">
+                  <label htmlFor="remember" className="ml-2 block text-sm">
                     Remember me
                   </label>
                 </div>
@@ -125,7 +125,7 @@ export default function Login() {
 
                 <button
                   type="submit"
-                  className="w-full btn btn-primary text-black px-8 py-3 text-lg font-semibold"
+                  className="w-full btn btn-primary text-primary-content px-8 py-3 text-lg font-semibold"
                 >
                   Sign in {signinLoading && <span className="loading loading-spinner loading-xs"></span>}
                 </button>

@@ -141,7 +141,7 @@ export default function HowToPlay() {
         <h3>
           End of Each Day
         </h3>
-        <p className="text-sm">
+        <div className="text-sm">
           <p className="text-sm text-gray-400">
             At the end of each day (12AM of your respective timezone) a couple of things will happen:
           </p>
@@ -149,7 +149,7 @@ export default function HowToPlay() {
             <li>Your food and water will decrease by 5%</li>
             <li>A random event will occur. This event could be good or bad and will affect your health, thirst, or hunger.</li>
           </ul>
-        </p>
+        </div>
       </div>
     </div>
 

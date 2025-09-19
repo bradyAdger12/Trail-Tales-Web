@@ -10,9 +10,9 @@ export default function Footer() {
                     <p className="text-lg font-semibold">{APP_NAME}</p>
                 </div>
                 <div className="flex flex-col md:flex-row gap-4 md:gap-8 text-sm text-gray-400">
-                    <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-                    <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-                    <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
+                    <Link to="/contact" className="transition-colors">Contact</Link>
+                    <Link to="#" className="transition-colors">Privacy Policy</Link>
+                    <Link to="#" className="transition-colors">Terms of Service</Link>
                     <div>© {new Date().getFullYear()} {APP_NAME}. All rights reserved.</div>
                 </div>
                 <img src="https://trail-tales-ba-3013.s3.us-west-2.amazonaws.com/web_assets/api_logo_pwrdBy_strava_horiz_white.png" alt="strava" className="w-[150px] mt-6 md:mt-0" />
