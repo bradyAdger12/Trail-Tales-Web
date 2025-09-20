@@ -17,7 +17,7 @@ export function meta({ }: Route.MetaArgs) {
 export default function HowToPlay() {
   return (
     <div className="max-w-4xl mx-auto flex flex-col gap-12">
-
+      
       <h1>
         How to Play
       </h1>
@@ -32,6 +32,8 @@ export default function HowToPlay() {
         </p>
       </div>
 
+      <hr />
+
       {/* Getting Started */}
       <div className="flex flex-col gap-2">
         <h2>
@@ -41,6 +43,8 @@ export default function HowToPlay() {
           Create an account if you don't have one yet. You'll begin by linking your Strava account and selecting your difficulty level. The difficulty level will determine the amount of exercise you need to do each day, as well as your starting vitals.
         </p>
       </div>
+
+      <hr />
 
       {/* Vitals */}
       <div className="flex flex-col gap-2">
@@ -74,6 +78,8 @@ export default function HowToPlay() {
           </p>
         </div>
       </div>
+
+      <hr />
 
       {/* Each Day */}
       <div className="flex flex-col gap-2">
@@ -139,6 +145,8 @@ export default function HowToPlay() {
           </div>
         </div>
       </div>
+
+      <hr />
 
       {/* End of Each Day */}
       <div className="flex flex-col gap-2">
