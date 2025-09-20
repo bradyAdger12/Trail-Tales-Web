@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import type { Game } from "~/api/game";
-import { fetchGame, getGameNotifications } from "~/api/game";
+import { fetchGame, fetchUnseenGameNotifications } from "~/api/game";
 import { useDialog } from "./DialogContext";
 import { GameNotificationDialog } from "~/components/dialogs/GameNotificationDialog";
 
@@ -27,7 +27,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
 
     useEffect(() => {
         if (!game?.id) return
-        getGameNotifications(game.id).then((response) => {
+        fetchUnseenGameNotifications(game.id).then((response) => {
             if (response.length > 0) {
                 openDialog(<GameNotificationDialog notifications={response} game_id={game.id} />)
             }

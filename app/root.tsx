@@ -59,14 +59,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <CookiesProvider defaultSetOptions={{ path: '/' }}>
             <QueryClientProvider client={queryClient}>
               <AuthProvider>
-
                 <DialogProvider>
                   <GameProvider>
                     <ToastProvider>
                       <PostHogProvider client={posthog}>
-
                         {children}
-
                       </PostHogProvider>
                     </ToastProvider>
                   </GameProvider>

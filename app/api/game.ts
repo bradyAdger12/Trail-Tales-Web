@@ -68,7 +68,7 @@ export async function fetchGame(): Promise<Game> {
     }
 }
 
-export async function getGameDifficultyOptions(): Promise<GameDifficultyOption> {
+export async function fetchGameDifficultyOptions(): Promise<GameDifficultyOption> {
     try {
         const response = await authApi.get('/games/difficulty');
         return response.data;
@@ -77,16 +77,30 @@ export async function getGameDifficultyOptions(): Promise<GameDifficultyOption> 
     }
 }
 
-export async function getGameNotifications(game_id: string): Promise<GameNotification[]> {
+export async function fetchUnseenGameNotifications(game_id: string): Promise<GameNotification[]> {
     try {
-        const response = await authApi.get(`/games/${game_id}/notifications`);
+        const response = await authApi.get(`/games/${game_id}/notifications/unseen`);
         return response.data;
     } catch (error) {
         throw error;
     }
 }
 
-export async function getGameStats(game_id: string): Promise<GameStats> {
+export async function fetchGameNotifications(game_id: string, limit: number, offset: number): Promise<{ pagination: { total: number }, data: GameNotification[] }> {
+    try {
+        const response = await authApi.get(`/games/${game_id}/notifications`, {
+            params: {
+                limit,
+                offset
+            }
+        });
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+}
+
+export async function fetchGameStats(game_id: string): Promise<GameStats> {
     try {
         const response = await authApi.get(`/games/${game_id}/stats`);
         return response.data;

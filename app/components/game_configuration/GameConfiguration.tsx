@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useGame } from "~/contexts/GameContext";
-import { getGameDifficultyOptions, startGame, type GameDifficulty } from "~/api/game";
+import { fetchGameDifficultyOptions, startGame, type GameDifficulty } from "~/api/game";
 import { useNavigate } from "react-router";
 import { kilometersToMiles, milesToKilometers, secondsToMMSS } from "~/lib/conversions";
 import CharacterStat from "../character/CharacterVital";
@@ -19,7 +19,7 @@ export default function GameConfiguration() {
     const usStartGameDisabled = !selectedDifficulty || wait || !user?.strava_access_token
     const { data: gameDifficultyOptions } = useQuery({
         queryKey: ["game_difficulty"],
-        queryFn: () => getGameDifficultyOptions()
+        queryFn: () => fetchGameDifficultyOptions()
     })
     const start = useMutation({
         mutationFn: () => {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useGame } from "~/contexts/GameContext";
-import { getGameStats } from "~/api/game";
+import { fetchGameStats } from "~/api/game";
 import StatDisplay from "./StatDisplay";
 import { distanceLabel, formatDistance, metersToMiles, secondsToHHMMSS } from "~/lib/conversions";
 import { useAuth } from "~/contexts/AuthContext";
@@ -10,7 +10,7 @@ export default function GameStats() {
     const { user } = useAuth()
     const { data, isLoading } = useQuery({
         queryKey: ['game-stats', game?.id],
-        queryFn: () => getGameStats(game?.id || ''),
+        queryFn: () => fetchGameStats(game?.id || ''),
     })
     return (
         <>
