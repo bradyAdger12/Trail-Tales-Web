@@ -34,7 +34,7 @@ export default function GameNotifications() {
                                 <div className="join mt-2">
                                     {response?.pagination.total &&
                                         <div className="flex flex-wrap justify-center gap-2">
-                                            {Array.from({ length: Math.floor(response?.pagination.total / limit) }).map((_, index) => (
+                                            {Array.from({ length: Math.floor((response?.pagination.total - 1) / limit) }).map((_, index) => (
                                                 <button className={`join-item btn btn-sm ${page === index + 1 ? 'bg-primary text-primary-content border-2 border-primary' : 'btn-outline'}`} key={index} onClick={() => setPage(index + 1)}>{index + 1}</button>
                                             ))}
                                         </div>
