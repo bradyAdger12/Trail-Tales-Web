@@ -91,9 +91,9 @@ export default function HowToPlay() {
             Each day you will choose from 4 different actions, all resulting in different effects on your vitals. Choose the easy way, and you will gain minimal resources. Choose the hard way and you will be rewarded
           </p>
           <ul className="list-disc list-inside mt-3">
-            <li>Easy</li>
-            <li>Medium</li>
-            <li>Hard</li>
+            <li>Short</li>
+            <li>Mid</li>
+            <li>Long</li>
             <li>Rest</li>
           </ul>
           <p className="text-sm mt-4">
@@ -106,7 +106,7 @@ export default function HowToPlay() {
           </div>
           <div className="mt-4">
             <p className="text-sm">
-              Which action you choose is determined by how long your activity duration is. Easy actions will be shorter, while hard actions will be longer. Below is an example of what your available actions will look like.
+              Which action you choose is determined by how long your activity duration is. Shorter actions yield smaller rewards, while longer actions yield larger rewards. Below is an example of what your available actions will look like.
             </p>
             <div className="mt-4 flex flex-col gap-2">
               <SurvivalDayOption option={{

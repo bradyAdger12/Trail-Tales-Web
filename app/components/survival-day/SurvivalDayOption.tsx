@@ -9,13 +9,19 @@ export default function SurvivalDayOption({ option, completedDifficulty }: { opt
         if (difficulty === 'hard') return HARD_DIFFICULTY_COLOR
         return REST_DIFFICULTY_COLOR
     }
+    function getDifficultyText(difficulty: SurvivalDayDifficulty) {
+        if (difficulty === 'easy') return 'short'
+        if (difficulty === 'medium') return 'mid'
+        if (difficulty === 'hard') return 'long'
+        return 'rest'
+    }
     return (
         <div className={`p-6 border border-gray-600 rounded-lg hover:border-gray-500 transition-colors ${completedDifficulty === option.difficulty ? 'bg-primary/10 border-2' : ''}`}>
             <div className="flex flex-wrap items-center gap-y-4 justify-between mb-3">
                 <p className=" text-xl font-bold mr-4">{option.description}</p>
                 <div className="flex items-center gap-3">
                     <span className={`px-3 py-1 text-sm rounded-full border ${getDifficultyColor(option.difficulty)}`}>
-                        {option.difficulty}
+                        {getDifficultyText(option.difficulty)}
                     </span>
                     <div className=" font-medium">
                         {option.duration_in_seconds / 60} min
