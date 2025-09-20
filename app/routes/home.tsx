@@ -74,8 +74,8 @@ export default function Home() {
                     <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto">
                       <i className="fas fa-map text-2xl text-primary-content"></i>
                     </div>
-                    <h3 className="text-xl font-semibold ">Dynamic Stories</h3>
-                    <p>Discover new locations and narratives as you explore the wilderness</p>
+                    <h3 className="text-xl font-semibold ">Strategic Exploration</h3>
+                    <p>Strategically explore the island to find resources and survive</p>
                   </div>
 
                   <div className="space-y-4">
