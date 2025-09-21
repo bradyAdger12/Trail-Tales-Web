@@ -12,7 +12,7 @@ export default function GameNotifications() {
     const { data: response, isLoading, refetch } = useQuery({
         queryKey: ['game-notifications'],
         queryFn: async () => {
-            return fetchGameNotifications(game?.id || '', limit, page * limit)
+            return fetchGameNotifications(game?.id || '', limit, (page - 1) * limit)
         },
     })
 
