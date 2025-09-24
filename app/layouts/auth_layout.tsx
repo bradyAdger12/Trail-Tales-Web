@@ -51,7 +51,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                             <div className="md:hidden">
                                 <button
                                     onClick={toggleMobileMenu}
-                                    className="p-2 rounded-md hover:bg-gray-700 transition-colors"
+                                    className="p-2 rounded-md hover:bg-gray-200 transition-colors"
                                     aria-label="Toggle mobile menu"
                                 >
                                     <div className="w-6 h-6 flex flex-col justify-center items-center">
@@ -71,7 +71,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                                         <li>
                                             <Link 
                                                 to="/login" 
-                                                className="block py-2 px-4 hover:bg-gray-700 rounded transition-colors"
+                                                className="block py-2 px-4 hover:bg-gray-200 rounded transition-colors"
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                             >
                                                 Login
@@ -83,7 +83,7 @@ export default function DefaultLayout({ className }: { className?: string }) {
                                             <li>
                                                 <NavLink 
                                                     to="/me" 
-                                                    className={({ isActive }) => `block py-2 px-4 hover:bg-gray-700 rounded transition-colors ${isActive ? 'text-primary' : ''}`}
+                                                    className={({ isActive }) => `block py-2 px-4 hover:bg-gray-200 rounded transition-colors ${isActive ? 'text-primary' : ''}`}
                                                     onClick={() => setIsMobileMenuOpen(false)}
                                                 >
                                                     My Game

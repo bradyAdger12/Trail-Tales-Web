@@ -3,9 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchGameNotifications } from "~/api/game";
 import GameNotificationsDisplay from "./GameNotificationsDisplay";
 import { useEffect, useState } from "react";
+import { useAuth } from "~/contexts/AuthContext";
 
 export default function GameNotifications() {
     const { game } = useGame()
+    const { token } = useAuth()
     const [hoursAgo, setHoursAgo] = useState(24)
     const [page, setPage] = useState(1)
     const limit = 10
@@ -14,6 +16,7 @@ export default function GameNotifications() {
         queryFn: async () => {
             return fetchGameNotifications(game?.id || '', limit, (page - 1) * limit)
         },
+        enabled: !!game?.id && !!token,
     })
 
     useEffect(() => {
