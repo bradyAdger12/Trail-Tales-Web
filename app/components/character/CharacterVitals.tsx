@@ -29,7 +29,7 @@ export default function CharacterVitals({ character }: { character: Character })
                     <div className="flex-1">
                         <CharacterStat stat={character.food} color={FOOD_COLOR} icon="fa-utensils" />
                     </div>
-                    <div className="min-w-16">
+                    <div className="min-w-19">
                         <StatLoss stat={character.food} loss={game?.daily_food_loss || 0} />
                     </div>
                 </div>
@@ -37,7 +37,7 @@ export default function CharacterVitals({ character }: { character: Character })
                     <div className="flex-1">
                         <CharacterStat stat={character.water} color={WATER_COLOR} icon="fa-water" />
                     </div>
-                    <div className="min-w-16">
+                    <div className="min-w-19">
                         <StatLoss stat={character.water} loss={game?.daily_water_loss || 0} />
                     </div>
                 </div>
