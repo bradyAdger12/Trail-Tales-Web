@@ -50,6 +50,9 @@ COPY . .
 # Remove .env file if it exists
 RUN rm -f .env
 
+# Install curl
+RUN apk add --no-cache curl
+
 # Build the application
 RUN yarn build
 

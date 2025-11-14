@@ -1,0 +1,18 @@
+version: '3.9'
+services:
+  web:
+    image: personal/trail_tales_web:latest
+    build:
+      context: .
+      args:
+        VITE_SERVER_BASE_URL: ${VITE_SERVER_BASE_URL}
+        VITE_AWS_SECRET_KEY: ${VITE_AWS_SECRET_KEY}
+        VITE_AWS_ACCESS_KEY: ${VITE_AWS_ACCESS_KEY}
+        VITE_AWS_REGION: ${VITE_AWS_REGION}
+        VITE_AWS_BUCKET_NAME: ${VITE_AWS_BUCKET_NAME}
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID}
+        VITE_PUBLIC_POSTHOG_KEY: ${VITE_PUBLIC_POSTHOG_KEY}
+        VITE_PUBLIC_POSTHOG_HOST: ${VITE_PUBLIC_POSTHOG_HOST}
+        VITE_STRAVA_CLIENT_ID: ${VITE_STRAVA_CLIENT_ID}
+    ports:
+      - "3000:3000"
